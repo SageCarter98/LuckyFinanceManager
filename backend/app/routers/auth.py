@@ -62,7 +62,10 @@ def signup(payload: UserCreate, db: Session = Depends(get_db)):
 @router.post("/login", response_model=TokenPair)
 def login(payload: UserLogin, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == payload.email.lower()).first()
-    if not user or not verify_password(payload.password, user.password_hash):
+    # Same "Invalid credentials" message for wrong password, unknown email, and a
+    # deactivated/deleted account -- distinguishing them would both leak whether an
+    # email is registered and confirm to an attacker that an account was deleted.
+    if not user or not user.is_active or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
     return _issue_token_pair(db, user)
@@ -124,3 +127,25 @@ def update_me(
     db.commit()
     db.refresh(current_user)
     return current_user
+
+
+@router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
+def delete_me(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Soft-delete only: sets deleted_at/is_active per the SRS's 30-day
+    retention rule (data model section 5). The actual purge after 30 days is
+    a background job that doesn't exist yet (needs the still-open
+    Celery/APScheduler decision) -- deliberately not built here."""
+    now = datetime.now(timezone.utc)
+    tenant = db.query(Tenant).filter(Tenant.id == current_user.tenant_id).first()
+    tenant.deleted_at = now
+    tenant.is_active = False
+    current_user.is_active = False
+    db.query(RefreshToken).filter(
+        RefreshToken.user_id == current_user.id,
+        RefreshToken.revoked_at.is_(None),
+    ).update({"revoked_at": now})
+    db.commit()
+    return None

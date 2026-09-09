@@ -21,6 +21,7 @@ class Tenant(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
     users: Mapped[list["User"]] = relationship(back_populates="tenant")
     accounts: Mapped[list["Account"]] = relationship(back_populates="tenant")

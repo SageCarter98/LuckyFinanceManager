@@ -8,18 +8,30 @@ function normalize(wire: TransactionWire): TransactionRead {
   return { ...wire, amount: parseDecimal(wire.amount) }
 }
 
-function buildQuery(filters: TransactionFilters): string {
+function buildQuery(filters: TransactionFilters, page: TransactionPage): string {
   const params = new URLSearchParams()
   if (filters.account_id) params.set('account_id', filters.account_id)
   if (filters.category_id) params.set('category_id', filters.category_id)
   if (filters.start_date) params.set('start_date', filters.start_date)
   if (filters.end_date) params.set('end_date', filters.end_date)
-  const query = params.toString()
-  return query ? `?${query}` : ''
+  params.set('limit', String(page.limit))
+  params.set('offset', String(page.offset))
+  return `?${params.toString()}`
 }
 
-export async function listTransactions(filters: TransactionFilters = {}, signal?: AbortSignal) {
-  const wire = await apiRequest<TransactionWire[]>(`/transactions${buildQuery(filters)}`, {}, signal)
+export interface TransactionPage {
+  limit: number
+  offset: number
+}
+
+export const DEFAULT_TRANSACTION_PAGE_SIZE = 50
+
+export async function listTransactions(
+  filters: TransactionFilters = {},
+  page: TransactionPage = { limit: DEFAULT_TRANSACTION_PAGE_SIZE, offset: 0 },
+  signal?: AbortSignal,
+) {
+  const wire = await apiRequest<TransactionWire[]>(`/transactions${buildQuery(filters, page)}`, {}, signal)
   return wire.map(normalize)
 }
 

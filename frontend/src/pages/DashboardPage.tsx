@@ -46,7 +46,7 @@ export function DashboardPage() {
       try {
         const [accountsRes, transactionsRes, billsRes, netWorthRes, incomeExpenseRes] = await Promise.all([
           listAccounts(controller.signal),
-          listTransactions({}, controller.signal),
+          listTransactions({}, { limit: 5, offset: 0 }, controller.signal),
           listRecurringBills(controller.signal),
           fetchNetWorth(controller.signal),
           fetchIncomeVsExpense({}, controller.signal),

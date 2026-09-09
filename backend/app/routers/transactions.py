@@ -64,6 +64,8 @@ def list_transactions(
     category_id: str | None = None,
     start_date: date | None = None,
     end_date: date | None = None,
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -76,7 +78,12 @@ def list_transactions(
         query = query.filter(Transaction.transaction_date >= start_date)
     if end_date:
         query = query.filter(Transaction.transaction_date <= end_date)
-    return query.order_by(Transaction.transaction_date.desc()).all()
+    return (
+        query.order_by(Transaction.transaction_date.desc(), Transaction.id.desc())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
 
 
 @router.post("", response_model=TransactionRead, status_code=status.HTTP_201_CREATED)

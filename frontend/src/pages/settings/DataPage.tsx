@@ -3,13 +3,33 @@ import { AppShell } from '../../components/AppShell'
 import { SettingsLayout } from '../../components/SettingsLayout'
 import { Banner } from '../../components/Banner'
 import { Icon } from '../../components/Icon'
+import { ConfirmDialog } from '../../components/ConfirmDialog'
 import { exportTenantData } from '../../lib/resources/portability'
+import { deleteMe } from '../../lib/resources/auth'
 import { getErrorMessage } from '../../lib/errors'
+import { useAuth } from '../../lib/auth'
 
 export function DataPage() {
+  const { user, logout } = useAuth()
   const [exporting, setExporting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [exportedAt, setExportedAt] = useState<string | null>(null)
+
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
+
+  async function handleDelete() {
+    setDeleting(true)
+    setDeleteError(null)
+    try {
+      await deleteMe()
+      logout()
+    } catch (err) {
+      setDeleteError(getErrorMessage(err, 'We could not delete your account.'))
+      setDeleting(false)
+    }
+  }
 
   async function handleExport() {
     setExporting(true)
@@ -64,14 +84,40 @@ export function DataPage() {
 
           <section className="flex flex-col gap-space-sm rounded-lg border border-expense-crimson/20 bg-surface-container-lowest p-space-lg">
             <h2 className="font-headline-sm text-headline-sm text-expense-crimson">Delete account</h2>
-            <Banner tone="warning" title="Self-service deletion isn't available yet">
-              The API doesn't yet expose an endpoint to delete a tenant's account and data. Once it
-              does, this page will show the recovery window and require typed confirmation before
-              anything is removed — nothing is deleted from here today.
+            <Banner tone="warning" title="This deactivates your account immediately">
+              Your account and data are deactivated right away and kept for 30 days before permanent
+              removal, per our retention policy — during that window, contact support if you want to
+              cancel the deletion. There is no active subscription to worry about (billing doesn't
+              exist yet on this platform). This cannot be undone from this screen.
             </Banner>
+            {deleteError && (
+              <p className="font-body-sm text-body-sm text-expense-crimson" role="alert">
+                {deleteError}
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={() => setConfirmingDelete(true)}
+              className="flex w-fit items-center gap-space-xs rounded-lg border border-expense-crimson px-space-md py-space-sm font-label-md text-label-md text-expense-crimson transition-colors hover:bg-expense-crimson-tint"
+            >
+              <Icon name="delete_forever" className="text-[18px]" />
+              Delete my account
+            </button>
           </section>
         </div>
       </SettingsLayout>
+
+      <ConfirmDialog
+        open={confirmingDelete}
+        title="Delete your account"
+        description={`This will deactivate the account for ${user?.email ?? 'this account'} and everything in it -- accounts, transactions, bills, goals and reports -- effective immediately. Data is retained for 30 days before permanent purge.`}
+        confirmLabel="Delete my account"
+        destructive
+        requirePhrase={user?.email ?? ''}
+        busy={deleting}
+        onConfirm={handleDelete}
+        onCancel={() => setConfirmingDelete(false)}
+      />
     </AppShell>
   )
 }

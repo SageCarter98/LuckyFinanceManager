@@ -30,3 +30,7 @@ export function me(signal?: AbortSignal) {
 export function updateMe(payload: UserUpdateInput, signal?: AbortSignal) {
   return apiRequest<UserRead>('/auth/me', { method: 'PUT', body: JSON.stringify(payload) }, signal)
 }
+
+export function deleteMe(signal?: AbortSignal) {
+  return apiRequest<void>('/auth/me', { method: 'DELETE' }, signal)
+}

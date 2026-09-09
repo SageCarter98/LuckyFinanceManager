@@ -128,6 +128,64 @@ def test_logout_revokes_refresh_token():
     assert repeat.status_code == 204
 
 
+def test_delete_me_soft_deletes_and_blocks_further_access():
+    email = f"delete-{uuid4().hex[:8]}@example.com"
+    headers = _signup_login(email, "Delete User")
+
+    delete = client.delete("/api/auth/me", headers=headers)
+    assert delete.status_code == 204
+
+    blocked_me = client.get("/api/auth/me", headers=headers)
+    assert blocked_me.status_code == 401
+
+    blocked_login = client.post("/api/auth/login", json={"email": email, "password": "StrongPass123!"})
+    assert blocked_login.status_code == 401
+
+
+def test_transaction_list_pagination():
+    email = f"paginate-{uuid4().hex[:8]}@example.com"
+    headers = _signup_login(email, "Paginate User")
+
+    account = client.post(
+        "/api/accounts",
+        headers=headers,
+        json={"name": "Checking", "account_type": "checking", "native_currency": "USD"},
+    )
+    account_id = account.json()["id"]
+
+    for i in range(5):
+        client.post(
+            "/api/transactions",
+            headers=headers,
+            json={
+                "account_id": account_id,
+                "category_id": None,
+                "transaction_type": "expense",
+                "amount": 1 + i,
+                "currency": "USD",
+                "transaction_date": f"2026-01-{i + 1:02d}",
+                "note": f"txn-{i}",
+            },
+        )
+
+    page1 = client.get("/api/transactions", headers=headers, params={"limit": 2, "offset": 0})
+    assert page1.status_code == 200, page1.text
+    assert len(page1.json()) == 2
+
+    page2 = client.get("/api/transactions", headers=headers, params={"limit": 2, "offset": 2})
+    assert len(page2.json()) == 2
+
+    page3 = client.get("/api/transactions", headers=headers, params={"limit": 2, "offset": 4})
+    assert len(page3.json()) == 1
+
+    # No overlap between pages.
+    ids_seen = {t["id"] for t in page1.json() + page2.json() + page3.json()}
+    assert len(ids_seen) == 5
+
+    over_limit = client.get("/api/transactions", headers=headers, params={"limit": 500})
+    assert over_limit.status_code == 422  # limit is capped at 200 by the endpoint
+
+
 def test_cross_tenant_account_visibility_and_transaction_creation():
     tenant_a_email = f"tenant-a-{uuid4().hex[:8]}@example.com"
     tenant_b_email = f"tenant-b-{uuid4().hex[:8]}@example.com"
@@ -212,6 +270,48 @@ def test_recurring_bill_generation_creates_transaction_and_notification():
     notifications = client.get("/api/notifications", headers=headers)
     assert notifications.status_code == 200, notifications.text
     assert any(item["kind"] == "bill_generated" for item in notifications.json())
+
+
+def test_recurring_bill_generation_respects_disabled_notification_preference():
+    email = f"billquiet-{uuid4().hex[:8]}@example.com"
+    headers = _signup_login(email, "Quiet Bill User")
+
+    prefs = client.put(
+        "/api/auth/me",
+        headers=headers,
+        json={"notification_preferences": {"bill_generated": False}},
+    )
+    assert prefs.status_code == 200, prefs.text
+
+    account = client.post(
+        "/api/accounts",
+        headers=headers,
+        json={"name": "Bills", "account_type": "checking", "native_currency": "USD"},
+    )
+    account_id = account.json()["id"]
+
+    bill = client.post(
+        "/api/recurring-bills",
+        headers=headers,
+        json={
+            "name": "Water",
+            "account_id": account_id,
+            "amount": 19.99,
+            "currency": "USD",
+            "frequency": "monthly",
+            "due_day": date.today().day,
+        },
+    )
+    assert bill.status_code == 201, bill.text
+
+    result = client.post("/api/recurring-bills/generate-due", headers=headers)
+    assert result.status_code == 200, result.text
+    # The transaction still generates -- only the notification is suppressed.
+    assert result.json()["generated"] >= 1
+
+    notifications = client.get("/api/notifications", headers=headers)
+    assert notifications.status_code == 200, notifications.text
+    assert not any(item["kind"] == "bill_generated" for item in notifications.json())
 
 
 def test_admin_can_lookup_tenant_by_email():

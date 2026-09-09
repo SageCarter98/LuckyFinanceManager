@@ -182,14 +182,15 @@ def generate_due_recurring_bills(
         db.add(transaction)
         db.flush()
 
-        notification = Notification(
-            tenant_id=current_user.tenant_id,
-            user_id=current_user.id,
-            kind="bill_generated",
-            title="Recurring bill generated",
-            message=f"{bill.name} was generated for {bill.amount} {bill.currency}.",
-        )
-        db.add(notification)
+        if current_user.notification_preferences.get("bill_generated", True):
+            notification = Notification(
+                tenant_id=current_user.tenant_id,
+                user_id=current_user.id,
+                kind="bill_generated",
+                title="Recurring bill generated",
+                message=f"{bill.name} was generated for {bill.amount} {bill.currency}.",
+            )
+            db.add(notification)
         created.append(transaction.id)
 
     db.commit()

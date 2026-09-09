@@ -10,6 +10,7 @@ import { Icon } from '../components/Icon'
 import { listAccounts } from '../lib/resources/accounts'
 import { listCategories } from '../lib/resources/categories'
 import {
+  DEFAULT_TRANSACTION_PAGE_SIZE,
   createTransaction,
   deleteTransaction,
   importTransactionsCsv,
@@ -54,6 +55,8 @@ export function TransactionsPage() {
   const [categories, setCategories] = useState<CategoryRead[]>([])
   const [transactions, setTransactions] = useState<TransactionRead[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [hasMore, setHasMore] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const [filters, setFilters] = useState<TransactionFilters>({})
@@ -82,10 +85,24 @@ export function TransactionsPage() {
   function loadTransactions(activeFilters: TransactionFilters) {
     setLoading(true)
     setError(null)
-    return listTransactions(activeFilters)
-      .then(setTransactions)
+    return listTransactions(activeFilters, { limit: DEFAULT_TRANSACTION_PAGE_SIZE, offset: 0 })
+      .then((page) => {
+        setTransactions(page)
+        setHasMore(page.length === DEFAULT_TRANSACTION_PAGE_SIZE)
+      })
       .catch((err) => setError(getErrorMessage(err)))
       .finally(() => setLoading(false))
+  }
+
+  function loadMoreTransactions() {
+    setLoadingMore(true)
+    listTransactions(filters, { limit: DEFAULT_TRANSACTION_PAGE_SIZE, offset: transactions.length })
+      .then((page) => {
+        setTransactions((current) => [...current, ...page])
+        setHasMore(page.length === DEFAULT_TRANSACTION_PAGE_SIZE)
+      })
+      .catch((err) => setError(getErrorMessage(err)))
+      .finally(() => setLoadingMore(false))
   }
 
   useEffect(() => {
@@ -362,6 +379,18 @@ export function TransactionsPage() {
               </tbody>
             </table>
           </div>
+          {hasMore && (
+            <div className="flex justify-center border-t border-slate-border p-space-sm">
+              <button
+                type="button"
+                onClick={loadMoreTransactions}
+                disabled={loadingMore}
+                className="rounded-lg px-space-md py-space-xs font-label-sm text-label-sm text-info-sky transition-colors hover:bg-surface-container disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loadingMore ? 'Loading…' : 'Load more'}
+              </button>
+            </div>
+          )}
         </div>
       )}
 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Icon } from './Icon'
+import { Banner } from './Banner'
 import { useAuth } from '../lib/auth'
 import { listNotifications } from '../lib/resources/notifications'
 
@@ -34,7 +35,7 @@ function initials(name: string): string {
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { user, logout } = useAuth()
+  const { user, logout, pendingVerificationToken, dismissPendingVerificationToken } = useAuth()
   const navigate = useNavigate()
   const [unreadCount, setUnreadCount] = useState<number | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -172,7 +173,22 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="min-h-screen w-full bg-surface px-gutter-desktop py-space-lg pt-[calc(4rem+var(--spacing-space-lg))]">
-          <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-space-lg">{children}</div>
+          <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-space-lg">
+            {pendingVerificationToken && !user?.email_verified && (
+              <Banner tone="warning" title="Development mode — verify your email" onDismiss={dismissPendingVerificationToken}>
+                No email provider is connected yet, so nothing was actually sent. Use this link to
+                complete verification:{' '}
+                <Link
+                  to={`/verify-email?token=${encodeURIComponent(pendingVerificationToken)}`}
+                  className="font-semibold underline"
+                >
+                  Verify email
+                </Link>
+                .
+              </Banner>
+            )}
+            {children}
+          </div>
         </main>
       </div>
     </div>

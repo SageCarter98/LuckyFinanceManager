@@ -46,6 +46,10 @@ class User(Base):
     timezone: Mapped[str] = mapped_column(String(64), default="UTC", nullable=False)
     preferred_currency: Mapped[str] = mapped_column(String(10), default="USD", nullable=False)
     notification_preferences: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    verification_token_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    verification_expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    reset_token_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    reset_expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 

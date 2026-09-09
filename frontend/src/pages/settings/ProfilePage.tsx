@@ -4,8 +4,9 @@ import { SettingsLayout } from '../../components/SettingsLayout'
 import { StatusChip } from '../../components/StatusChip'
 import { Banner } from '../../components/Banner'
 import { Field, inputClass } from '../../components/forms'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../lib/auth'
-import { updateMe } from '../../lib/resources/auth'
+import { updateMe, resendVerification } from '../../lib/resources/auth'
 import { getErrorMessage } from '../../lib/errors'
 
 export function ProfilePage() {
@@ -16,6 +17,24 @@ export function ProfilePage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [saved, setSaved] = useState(false)
+
+  const [resending, setResending] = useState(false)
+  const [resendToken, setResendToken] = useState<string | null>(null)
+  const [resendError, setResendError] = useState<string | null>(null)
+
+  async function handleResend() {
+    setResending(true)
+    setResendError(null)
+    setResendToken(null)
+    try {
+      const result = await resendVerification()
+      setResendToken(result.dev_token)
+    } catch (err) {
+      setResendError(getErrorMessage(err, 'Could not resend the verification email.'))
+    } finally {
+      setResending(false)
+    }
+  }
 
   const dirty =
     fullName !== (user?.full_name ?? '') ||
@@ -82,10 +101,20 @@ export function ProfilePage() {
               </Field>
               <div className="flex flex-col gap-space-3xs">
                 <dt className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Email verification</dt>
-                <dd>
+                <dd className="flex items-center gap-space-sm">
                   <StatusChip tone={user?.email_verified ? 'positive' : 'neutral'}>
                     {user?.email_verified ? 'Verified' : 'Not verified'}
                   </StatusChip>
+                  {!user?.email_verified && (
+                    <button
+                      type="button"
+                      onClick={handleResend}
+                      disabled={resending}
+                      className="font-label-sm text-label-sm text-info-sky hover:underline disabled:opacity-50"
+                    >
+                      {resending ? 'Sending…' : 'Resend'}
+                    </button>
+                  )}
                 </dd>
               </div>
               <div className="flex flex-col gap-space-3xs">
@@ -116,10 +145,24 @@ export function ProfilePage() {
             </div>
           </form>
 
+          {resendError && (
+            <Banner tone="error" title="Couldn't resend verification">
+              {resendError}
+            </Banner>
+          )}
+          {resendToken && (
+            <Banner tone="warning" title="Development mode — no email was sent">
+              No email provider is connected yet. Use this link directly:{' '}
+              <Link to={`/verify-email?token=${encodeURIComponent(resendToken)}`} className="font-semibold underline">
+                Verify email
+              </Link>
+              .
+            </Banner>
+          )}
+
           <Banner tone="info" title="Email changes aren't available yet">
-            Your email can't be changed here because the API has no re-verification flow yet — changing an
-            unconfirmed email would be a real security gap, not a missing convenience. This will be enabled
-            once email verification exists.
+            Your email address itself can't be changed here — changing it would need its own
+            re-verification step, which doesn't exist yet. This will be enabled once that flow is built.
           </Banner>
         </section>
       </SettingsLayout>

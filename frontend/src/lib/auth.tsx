@@ -13,12 +13,17 @@ interface AuthContextValue {
   logout(): void
   /** Update local state after a profile mutation, without a network round-trip. */
   setUser(user: UserRead): void
+  /** Set only by signup(), only outside production -- no email provider is
+   * wired in yet, so this is the only way to actually verify an email today. */
+  pendingVerificationToken: string | null
+  dismissPendingVerificationToken(): void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserRead | null>(null)
+  const [pendingVerificationToken, setPendingVerificationToken] = useState<string | null>(null)
 
   // If a request 401s and the silent refresh also fails (expired, revoked,
   // or already-rotated refresh token), authSession clears itself. Mirror
@@ -40,7 +45,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = useCallback(
     async (input: SignupInput) => {
-      await signupRequest(input)
+      const created = await signupRequest(input)
+      setPendingVerificationToken(created.dev_verification_token)
       await login({ email: input.email, password: input.password })
     },
     [login],
@@ -49,11 +55,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     void logoutRequest()
     setUser(null)
+    setPendingVerificationToken(null)
   }, [])
 
+  const dismissPendingVerificationToken = useCallback(() => setPendingVerificationToken(null), [])
+
   const value = useMemo<AuthContextValue>(
-    () => ({ user, status: user ? 'authenticated' : 'unauthenticated', login, signup, logout, setUser }),
-    [user, login, signup, logout],
+    () => ({
+      user,
+      status: user ? 'authenticated' : 'unauthenticated',
+      login,
+      signup,
+      logout,
+      setUser,
+      pendingVerificationToken,
+      dismissPendingVerificationToken,
+    }),
+    [user, login, signup, logout, pendingVerificationToken, dismissPendingVerificationToken],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

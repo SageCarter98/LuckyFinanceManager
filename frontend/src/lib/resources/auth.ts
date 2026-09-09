@@ -1,6 +1,11 @@
 import { apiRequest } from '../api'
 import type { TokenPair, UserRead, UserUpdateInput } from '../types'
 
+export interface DevOnlyTokenResponse {
+  status: string
+  dev_token: string | null
+}
+
 export interface SignupInput {
   email: string
   password: string
@@ -33,4 +38,28 @@ export function updateMe(payload: UserUpdateInput, signal?: AbortSignal) {
 
 export function deleteMe(signal?: AbortSignal) {
   return apiRequest<void>('/auth/me', { method: 'DELETE' }, signal)
+}
+
+export function verifyEmail(token: string, signal?: AbortSignal) {
+  return apiRequest<UserRead>('/auth/verify-email', { method: 'POST', body: JSON.stringify({ token }) }, signal)
+}
+
+export function resendVerification(signal?: AbortSignal) {
+  return apiRequest<DevOnlyTokenResponse>('/auth/resend-verification', { method: 'POST' }, signal)
+}
+
+export function forgotPassword(email: string, signal?: AbortSignal) {
+  return apiRequest<DevOnlyTokenResponse>(
+    '/auth/forgot-password',
+    { method: 'POST', body: JSON.stringify({ email }) },
+    signal,
+  )
+}
+
+export function resetPassword(token: string, newPassword: string, signal?: AbortSignal) {
+  return apiRequest<DevOnlyTokenResponse>(
+    '/auth/reset-password',
+    { method: 'POST', body: JSON.stringify({ token, new_password: newPassword }) },
+    signal,
+  )
 }

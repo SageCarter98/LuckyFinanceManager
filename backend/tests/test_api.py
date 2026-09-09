@@ -49,6 +49,80 @@ def test_signup_login_and_profile():
     assert payload["notification_preferences"] == {}
 
 
+def test_signup_issues_dev_verification_token_and_verify_email_flow():
+    email = f"verify-{uuid4().hex[:8]}@example.com"
+    signup = client.post(
+        "/api/auth/signup",
+        json={"email": email, "password": "StrongPass123!", "full_name": "Verify User"},
+    )
+    assert signup.status_code == 201, signup.text
+    dev_token = signup.json()["dev_verification_token"]
+    assert dev_token  # dev/test environment -- never populated in production
+    assert signup.json()["email_verified"] is False
+
+    bad = client.post("/api/auth/verify-email", json={"token": "not-a-real-token"})
+    assert bad.status_code == 400
+
+    ok = client.post("/api/auth/verify-email", json={"token": dev_token})
+    assert ok.status_code == 200, ok.text
+    assert ok.json()["email_verified"] is True
+
+    # Single-use: the same token cannot verify twice.
+    reused = client.post("/api/auth/verify-email", json={"token": dev_token})
+    assert reused.status_code == 400
+
+
+def test_resend_verification_issues_new_token_and_noops_once_verified():
+    email = f"resend-{uuid4().hex[:8]}@example.com"
+    headers = _signup_login(email, "Resend User")
+
+    resent = client.post("/api/auth/resend-verification", headers=headers)
+    assert resent.status_code == 200, resent.text
+    new_token = resent.json()["dev_token"]
+    assert new_token
+
+    verify = client.post("/api/auth/verify-email", json={"token": new_token})
+    assert verify.status_code == 200, verify.text
+
+    already = client.post("/api/auth/resend-verification", headers=headers)
+    assert already.status_code == 200, already.text
+    assert already.json()["status"] == "already_verified"
+    assert already.json()["dev_token"] is None
+
+
+def test_forgot_and_reset_password_flow_and_account_enumeration_safety():
+    email = f"reset-{uuid4().hex[:8]}@example.com"
+    client.post("/api/auth/signup", json={"email": email, "password": "OldPass123!", "full_name": "Reset User"})
+    login = client.post("/api/auth/login", json={"email": email, "password": "OldPass123!"})
+    old_refresh_token = login.json()["refresh_token"]
+
+    unknown = client.post("/api/auth/forgot-password", json={"email": "no-such-user@example.com"})
+    assert unknown.status_code == 200, unknown.text
+    assert unknown.json()["dev_token"] is None  # same shape as a real account -- no enumeration signal
+
+    known = client.post("/api/auth/forgot-password", json={"email": email})
+    assert known.status_code == 200, known.text
+    reset_token = known.json()["dev_token"]
+    assert reset_token
+
+    reset = client.post("/api/auth/reset-password", json={"token": reset_token, "new_password": "NewPass456!"})
+    assert reset.status_code == 200, reset.text
+
+    old_password_fails = client.post("/api/auth/login", json={"email": email, "password": "OldPass123!"})
+    assert old_password_fails.status_code == 401
+
+    new_password_works = client.post("/api/auth/login", json={"email": email, "password": "NewPass456!"})
+    assert new_password_works.status_code == 200
+
+    # The reset revoked every pre-existing refresh token.
+    old_session_dead = client.post("/api/auth/refresh", json={"refresh_token": old_refresh_token})
+    assert old_session_dead.status_code == 401
+
+    # Reset tokens are single-use.
+    reused = client.post("/api/auth/reset-password", json={"token": reset_token, "new_password": "AnotherPass789!"})
+    assert reused.status_code == 400
+
+
 def test_update_profile_partial_and_email_is_not_editable():
     email = f"profile-{uuid4().hex[:8]}@example.com"
     headers = _signup_login(email, "Original Name")

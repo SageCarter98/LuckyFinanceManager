@@ -1,4 +1,5 @@
 import hashlib
+import secrets
 import uuid
 from datetime import datetime, timedelta, timezone
 
@@ -41,6 +42,14 @@ def decode_token(token: str):
         return jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
     except JWTError as exc:
         raise ValueError("Invalid token") from exc
+
+
+def generate_opaque_token() -> str:
+    """For one-time, out-of-band flows (email verification, password reset)
+    that aren't bearer credentials on every request -- a plain random token
+    is simpler and sufficient, unlike access/refresh tokens which need JWT's
+    self-describing claims (type, expiry) to be checked without a DB hit."""
+    return secrets.token_urlsafe(32)
 
 
 def hash_token(token: str) -> str:

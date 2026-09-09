@@ -8,6 +8,9 @@ export interface UserRead {
   timezone: string
   preferred_currency: string
   notification_preferences: Record<string, boolean>
+  /** Only ever populated by /auth/signup, and only outside production -- no
+   * email provider is wired in yet. Always null everywhere else. */
+  dev_verification_token: string | null
 }
 
 export interface UserUpdateInput {

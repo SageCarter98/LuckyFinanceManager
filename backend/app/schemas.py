@@ -27,6 +27,29 @@ class RefreshRequest(BaseModel):
     refresh_token: str
 
 
+class VerifyEmailRequest(BaseModel):
+    token: str
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str = Field(..., min_length=8)
+
+
+class DevOnlyTokenResponse(BaseModel):
+    """Returned instead of actually sending an email -- no email provider is
+    chosen yet (open decision, see the unresolved-question log). `dev_token`
+    is populated ONLY when the server is not running in production
+    (Settings.is_production), so this can never leak a live token in prod."""
+
+    status: str = "ok"
+    dev_token: str | None = None
+
+
 class UserRead(BaseModel):
     id: str
     email: EmailStr
@@ -37,6 +60,10 @@ class UserRead(BaseModel):
     timezone: str = "UTC"
     preferred_currency: str = "USD"
     notification_preferences: dict[str, bool] = Field(default_factory=dict)
+    # Populated only by /auth/signup, only outside production (no email
+    # provider exists yet -- see DevOnlyTokenResponse). Always None from
+    # every other endpoint that returns UserRead.
+    dev_verification_token: str | None = None
 
     model_config = {"from_attributes": True}
 

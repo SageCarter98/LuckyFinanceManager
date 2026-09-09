@@ -81,9 +81,14 @@ export function LoginPage() {
               </div>
 
               <div className="flex flex-col gap-space-2xs">
-                <label htmlFor="password" className="font-label-md text-label-md text-on-surface">
-                  Password
-                </label>
+                <div className="flex items-center justify-between">
+                  <label htmlFor="password" className="font-label-md text-label-md text-on-surface">
+                    Password
+                  </label>
+                  <Link to="/forgot-password" className="font-body-sm text-body-sm text-info-sky hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
                 <div className="relative flex items-center">
                   <Icon name="lock" className="pointer-events-none absolute left-3 text-[18px] text-on-surface-variant" />
                   <input

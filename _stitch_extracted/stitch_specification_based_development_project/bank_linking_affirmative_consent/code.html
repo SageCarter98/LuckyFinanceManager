@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#93ccff", "background": "#f8f9ff", "slate-border": "#CBD5E1", "on-primary": "#ffffff", "on-secondary-container": "#00714d", "on-primary-container": "#7c839b", "on-secondary-fixed-variant": "#005236", "surface-variant": "#d3e4fe", "on-surface": "#0b1c30", "error-container": "#ffdad6", "surface-dim": "#cbdbf5", "slate-surface": "#F8FAFC", "growth-emerald-tint": "#ECFDF5", "warning-amber": "#F59E0B", "secondary": "#006c49", "on-primary-fixed": "#131b2e", "outline-variant": "#c6c6cd", "surface-container": "#e5eeff", "tertiary-fixed": "#cce5ff", "on-error-container": "#93000a", "primary": "#000000", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#188ace", "on-secondary-fixed": "#002113", "table-header-fill": "#E2E8F0", "info-sky-tint": "#F0F9FF", "primary-fixed-dim": "#bec6e0", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "primary-fixed": "#dae2fd", "surface-container-high": "#dce9ff", "error": "#ba1a1a", "slate-surface-subtle": "#F1F5F9", "secondary-fixed": "#6ffbbe", "secondary-container": "#6cf8bb", "warning-amber-tint": "#FFFBEB", "primary-container": "#131b2e", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30", "on-tertiary-fixed": "#001d31", "on-primary-fixed-variant": "#3f465c", "growth-emerald-deep": "#059669", "on-surface-variant": "#45464d", "tertiary-container": "#001d31", "surface-tint": "#565e74", "slate-navy-deep": "#1E293B", "surface-container-low": "#eff4ff", "outline": "#76777d", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "info-sky": "#0284C7", "secondary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#004b73", "inverse-primary": "#bec6e0", "expense-crimson": "#EF4444", "surface": "#f8f9ff", "expense-crimson-tint": "#FEF2F2", "on-tertiary": "#ffffff", "inverse-on-surface": "#eaf1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "table-cell-y": "0.625rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "margin-desktop": "3rem", "space-sm": "0.75rem", "margin-tablet": "2rem", "space-md": "1rem", "space-2xs": "0.25rem", "table-cell-x": "0.875rem", "space-2xl": "3rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "margin-mobile": "1rem", "gutter-mobile": "1rem" }, "fontFamily": { "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "currency-table": [ "Inter" ], "label-md": [ "Inter" ], "currency-stat": [ "Inter" ], "display": [ "Plus Jakarta Sans" ], "currency-display": [ "Inter" ], "label-sm": [ "Inter" ], "display-mobile": [ "Plus Jakarta Sans" ], "title": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "body-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "400" } ], "currency-table": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" } ], "label-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.005em", "fontWeight": "500" } ], "currency-stat": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "display": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "currency-display": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "title": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><img alt="FinPlatform Geometric Brand Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">FinPlatform</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-space-3xs">Finance Management</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="accounts" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span>Accounts</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span>Categories</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recurring-bills" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span>Recurring Bills</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="#"><span class="material-symbols-outlined text-[20px]">flag</span><span>Goals</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Reports</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="banking" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">savings</span><span>Banking</span></div><span class="material-symbols-outlined text-[16px] text-on-surface-variant" title="Gated Verification Required">lock</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary font-title rounded-xl" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">FRS v1.0 Audited</span></div><span class="h-2 w-2 rounded-full bg-secondary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-full cursor-pointer hover:bg-surface-container transition-colors" title="Preferred Active Display Currency (FE-3.1)"><span class="font-label-sm text-label-sm font-semibold text-on-surface">USD ($)</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div><a class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="staff-console" href="#"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span><span>Staff Console</span></a></div><div class="flex items-center gap-space-md"><button aria-label="Notifications (FE-10.1)" class="relative p-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-expense-crimson"></span></button><div class="relative group"><button aria-expanded="false" aria-haspopup="true" class="flex items-center gap-space-sm pl-space-xs pr-space-sm py-space-2xs rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvdVSBQ9I2Z6pOcVK9iXo3u0_t1ItkK96Oeo6d2OE4DBviKDfghiObVa6whsj2mT0DYyAj7AHBR-_tQSJ0RPhCzkfrvexaCWZL6rEgaeJyek-xG-uvwmdxxfFqi5R3YeLgSCfePfrE4LF8xEanIhbPIgZGGysf-fKoob0s6REr8WfIp1Qv18fKpn_RImKesIzHSzNr8Rfgjoo7vXm7NajKuspHEOqbHT0wS2RuHFm5bhJ3dPfYfo1"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Eleanor Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Individual Tier</span></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span></button><div class="absolute right-0 mt-space-2xs w-56 bg-surface-container-lowest rounded-xl shadow-[0_4px_6px_-1px_rgba(15,23,42,0.08),0_2px_4px_-2px_rgba(15,23,42,0.04)] p-space-xs hidden group-hover:block transition-all z-50"><div class="px-space-sm py-space-xs"><p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account</p></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">manage_accounts</span><span>Profile &amp; Preferences</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="security" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-rights" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>Data Rights</span></a><div class="my-space-2xs bg-surface-container-high h-[1px]"></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-expense-crimson hover:bg-expense-crimson-tint transition-colors" data-path="logout" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Logout</span></a></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Interactive State & Micro-controller Logic -->
+<script>
+    window.linkState = {
+      selectedId: 'chase',
+      selectedName: 'JPMorgan Chase & Co.',
+      selectedProtocol: 'Direct Open Banking API • Instant OAuth',
+      selectedGateway: 'Direct Institutional API (v4.2 Auth)',
+      selectedDomain: 'https://auth.chase.com',
+      selectedLogo: 'account_balance',
+      providerType: 'direct',
+      consents: { scope: false, readonly: false, intermediary: false }
+    };
+
+    function updateSelection(id, name, protocol, gateway, domain, iconName, type) {
+      window.linkState.selectedId = id;
+      window.linkState.selectedName = name;
+      window.linkState.selectedProtocol = protocol;
+      window.linkState.selectedGateway = gateway;
+      window.linkState.selectedDomain = domain;
+      window.linkState.selectedLogo = iconName;
+      window.linkState.providerType = type;
+
+      // Update UI cards
+      document.querySelectorAll('.bank-selection-card').forEach(card => {
+        const isTarget = card.getAttribute('data-id') === id;
+        if (isTarget) {
+          card.classList.add('bg-surface-container', 'shadow-md');
+          card.classList.remove('bg-surface-container-lowest', 'shadow-sm');
+          const indicator = card.querySelector('.selection-indicator');
+          if (indicator) {
+            indicator.classList.remove('hidden');
+          }
+        } else {
+          card.classList.remove('bg-surface-container', 'shadow-md');
+          card.classList.add('bg-surface-container-lowest', 'shadow-sm');
+          const indicator = card.querySelector('.selection-indicator');
+          if (indicator) {
+            indicator.classList.add('hidden');
+          }
+        }
+      });
+
+      // Update dynamic strings in consent and handoff panels
+      const targetNameEls = document.querySelectorAll('.target-bank-name');
+      targetNameEls.forEach(el => el.textContent = name);
+
+      const targetDomainEls = document.querySelectorAll('.target-bank-domain');
+      targetDomainEls.forEach(el => el.textContent = domain);
+
+      const targetGatewayEls = document.querySelectorAll('.target-bank-gateway');
+      targetGatewayEls.forEach(el => el.textContent = gateway);
+
+      // Intermediary checkbox logic
+      const fallbackBadge = document.getElementById('fallback-conditional-badge');
+      if (fallbackBadge) {
+        if (type === 'fallback') {
+          fallbackBadge.textContent = 'Required (Brokered via Plaid Network)';
+          fallbackBadge.className = 'text-label-sm font-label-sm px-space-xs py-space-3xs rounded-full bg-warning-amber-tint text-warning-amber';
+        } else {
+          fallbackBadge.textContent = 'Standard Acknowledgment';
+          fallbackBadge.className = 'text-label-sm font-label-sm px-space-xs py-space-3xs rounded-full bg-surface-container text-on-surface-variant';
+        }
+      }
+
+      validateConsentFlow();
+    }
+
+    function toggleConsent(key, inputEl) {
+      window.linkState.consents[key] = inputEl.checked;
+      validateConsentFlow();
+    }
+
+    function validateConsentFlow() {
+      const allConsented = window.linkState.consents.scope && 
+                           window.linkState.consents.readonly && 
+                           window.linkState.consents.intermediary;
+      const ctaBtn = document.getElementById('launch-handoff-btn');
+      const validationWarning = document.getElementById('consent-validation-warning');
+
+      if (allConsented) {
+        ctaBtn.removeAttribute('disabled');
+        ctaBtn.classList.remove('opacity-40', 'cursor-not-allowed', 'bg-outline-variant');
+        ctaBtn.classList.add('bg-primary', 'text-on-primary', 'hover:bg-slate-navy-deep');
+        if (validationWarning) validationWarning.classList.add('hidden');
+      } else {
+        ctaBtn.setAttribute('disabled', 'true');
+        ctaBtn.classList.add('opacity-40', 'cursor-not-allowed', 'bg-outline-variant');
+        ctaBtn.classList.remove('bg-primary', 'text-on-primary', 'hover:bg-slate-navy-deep');
+        if (validationWarning) validationWarning.classList.remove('hidden');
+      }
+    }
+
+    function filterInstitutions() {
+      const query = document.getElementById('institution-search-input').value.toLowerCase();
+      const cards = document.querySelectorAll('.bank-selection-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const text = card.getAttribute('data-search').toLowerCase();
+        if (text.includes(query)) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      const emptyMsg = document.getElementById('search-empty-state');
+      if (visibleCount === 0) {
+        emptyMsg.classList.remove('hidden');
+      } else {
+        emptyMsg.classList.add('hidden');
+      }
+    }
+
+    function triggerModalRedirect() {
+      const modal = document.getElementById('redirect-simulation-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('redirect-simulation-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+<!-- Section 0: Breadcrumb & Context Header -->
+<div class="mb-space-lg">
+<div class="flex items-center gap-space-xs text-on-surface-variant text-label-sm font-label-sm mb-space-2xs">
+<a class="hover:text-on-surface transition-colors flex items-center gap-space-3xs" data-path="banking" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Connected Banking</span>
+</a>
+<span>/</span>
+<span class="text-on-surface font-semibold">Connect New Institution</span>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+          Institution Selection &amp; Statutory Consent
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl mt-space-3xs">
+          Connect external depository accounts for automated read-only ledger reconciliation. Bank credentials are never captured, handled, or retained by FinPlatform.
+        </p>
+</div>
+<!-- Compliance Certification Badges -->
+<div class="inline-flex flex-wrap items-center gap-space-2xs bg-surface-container-lowest p-space-xs rounded-xl shadow-sm">
+<div class="flex items-center gap-space-3xs px-space-xs py-space-3xs bg-growth-emerald-tint rounded-lg">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[16px]">verified</span>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep font-semibold">ISO-27001</span>
+</div>
+<div class="flex items-center gap-space-3xs px-space-xs py-space-3xs bg-info-sky-tint rounded-lg">
+<span class="material-symbols-outlined text-info-sky text-[16px]">shield</span>
+<span class="font-label-sm text-label-sm text-info-sky font-semibold">SOC-2 Type II</span>
+</div>
+<div class="flex items-center gap-space-3xs px-space-xs py-space-3xs bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">lock_reset</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Zero Credential Retention</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 1: Security Neutrality & Anti-Phishing Callout (FE-14.3 & SRS NFR-9.7) -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-md shadow-sm mb-space-xl">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-growth-emerald-deep"></div>
+<div class="flex items-start gap-space-md pl-space-xs">
+<div class="h-10 w-10 shrink-0 rounded-xl bg-growth-emerald-tint text-growth-emerald-deep flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">portable_wifi_off</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">FinPlatform Security &amp; Neutrality Guarantee</span>
+<span class="bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm px-space-xs py-space-3xs rounded-full font-semibold uppercase tracking-wider">
+            SRS NFR-9.7
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-3xs">
+          We <strong class="text-on-surface font-semibold">never mimic bank login prompts</strong> or present proxy authentication fields. Credential entry occurs exclusively on the cryptographic, secure domain of your authorized banking institution. FinPlatform receives only ephemeral, cryptographically signed read-only OAuth grant tokens.
+        </p>
+</div>
+</div>
+</div>
+<!-- Grid Workspace Layout: Left (Step 1 Directory) | Right (Step 2 Consent & Step 3 Handoff) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- LEFT COLUMN: Step 1 Financial Institution Selection (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center h-7 w-7 rounded-full bg-primary text-on-primary font-headline-sm text-headline-sm">1</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Select Depository Institution</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Federated directory of verified open-banking financial providers</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-info-sky bg-info-sky-tint px-space-sm py-space-2xs rounded-full">
+            11,540+ Institutions Live
+          </span>
+</div>
+<!-- Search Bar with Live Filter -->
+<div class="relative my-space-sm">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-space-md py-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:shadow-md transition-all outline-none" id="institution-search-input" oninput="filterInstitutions()" placeholder="Search over 11,500 supported financial institutions..." type="text"/>
+<span class="absolute right-space-md top-1/2 -translate-y-1/2 text-on-surface-variant font-label-sm text-label-sm">
+            Press <kbd class="px-1.5 py-0.5 rounded bg-surface-container text-[11px] font-mono">ESC</kbd> to reset
+          </span>
+</div>
+<!-- Institutional Grid Directory -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-space-xs" id="institution-card-grid">
+<!-- 1. JPMorgan Chase -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container shadow-md transition-all flex flex-col justify-between h-36" data-id="chase" data-search="JPMorgan Chase Chase Bank Direct Open Banking API Instant OAuth" onclick="updateSelection('chase', 'JPMorgan Chase &amp; Co.', 'Direct Open Banking API • Instant OAuth', 'Direct Institutional API (v4.2 Auth)', 'https://auth.chase.com', 'account_balance', 'direct')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-slate-navy-deep text-on-primary flex items-center justify-center font-bold tracking-tight">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">JPMorgan Chase</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Chase Bank, N.A.</span>
+</div>
+</div>
+<span class="selection-indicator material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Direct API Partner
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">OAuth 2.0</span>
+</div>
+</div>
+<!-- 2. Deutsche Bank -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-36" data-id="deutsche" data-search="Deutsche Bank AG Berlin Group NextGenPSD2 API Europe Direct API" onclick="updateSelection('deutsche', 'Deutsche Bank AG', 'Berlin Group NextGenPSD2 API', 'NextGenPSD2 Berlin Group v1.3.6', 'https://api.db.com/login', 'corporate_fare', 'direct')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">corporate_fare</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">Deutsche Bank</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Berlin Group PSD2</span>
+</div>
+</div>
+<span class="selection-indicator hidden material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Direct API Partner
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">PSD2 compliant</span>
+</div>
+</div>
+<!-- 3. Barclays UK -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-36" data-id="barclays" data-search="Barclays UK Open Banking UK Standards Open Banking Implementation Entity OBIE Direct API" onclick="updateSelection('barclays', 'Barclays Bank UK PLC', 'Open Banking UK Standards', 'Open Banking OBIE v3.1 Direct', 'https://auth.barclays.co.uk', 'domain', 'direct')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">domain</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">Barclays UK</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">OBIE Standardized</span>
+</div>
+</div>
+<span class="selection-indicator hidden material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Direct API Partner
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">OpenBanking UK</span>
+</div>
+</div>
+<!-- 4. Bank of America -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-36" data-id="bofa" data-search="Bank of America BofA Direct API FDX Financial Data Exchange" onclick="updateSelection('bofa', 'Bank of America, N.A.', 'Direct API via FDX Protocol', 'FDX Secure Connect v5.0', 'https://secure.bankofamerica.com', 'savings', 'direct')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">savings</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">Bank of America</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">FDX Direct Portal</span>
+</div>
+</div>
+<span class="selection-indicator hidden material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Direct API Partner
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Instant Sync</span>
+</div>
+</div>
+<!-- 5. HSBC Global -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-36" data-id="hsbc" data-search="HSBC Global Direct API Plaid fallback" onclick="updateSelection('hsbc', 'HSBC Holdings plc', 'Direct Open API Connect', 'Direct Open Banking UK / US Hub', 'https://secure.hsbc.com', 'account_balance_wallet', 'direct')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">HSBC Global</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Multi-Currency Depository</span>
+</div>
+</div>
+<span class="selection-indicator hidden material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Direct API Partner
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Global Reach</span>
+</div>
+</div>
+<!-- 6. Wells Fargo -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-36" data-id="wellsfargo" data-search="Wells Fargo Gateway Direct Gateway API" onclick="updateSelection('wellsfargo', 'Wells Fargo Bank, N.A.', 'Direct API Gateway v3.1', 'Wells Fargo Gateway Direct API', 'https://connect.wellsfargo.com', 'assured_workload', 'direct')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">assured_workload</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">Wells Fargo</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Direct Gateway API</span>
+</div>
+</div>
+<span class="selection-indicator hidden material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Direct API Partner
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">OAuth 2.0</span>
+</div>
+</div>
+<!-- 7. BNP Paribas (Fallback Provider disclosure FE-14.5) -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-36" data-id="bnpparibas" data-search="BNP Paribas France Europe Fallback Provider Plaid MX aggregator" onclick="updateSelection('bnpparibas', 'BNP Paribas S.A.', 'Fallback Aggregator Gateway', 'Fallback Provider: Plaid Technologies, Inc.', 'https://secure.bnpparibas.net', 'currency_exchange', 'fallback')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">currency_exchange</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">BNP Paribas</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">France / EU Retail</span>
+</div>
+</div>
+<span class="selection-indicator hidden material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-warning-amber bg-warning-amber-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">hub</span> Fallback: Plaid / MX
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Aggregated</span>
+</div>
+</div>
+<!-- 8. UBS Switzerland -->
+<div class="bank-selection-card group cursor-pointer rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col justify-between h-36" data-id="ubs" data-search="UBS Switzerland Direct Open Banking bLink Platform SIX" onclick="updateSelection('ubs', 'UBS Switzerland AG', 'Direct Open Banking (bLink Protocol)', 'Direct bLink Switzerland Hub', 'https://login.ubs.com', 'account_balance', 'direct')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="h-10 w-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface leading-tight">UBS Switzerland</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">bLink SIX Open Banking</span>
+</div>
+</div>
+<span class="selection-indicator hidden material-symbols-outlined text-growth-emerald-deep text-[22px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Direct API Partner
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Swiss bLink</span>
+</div>
+</div>
+</div>
+<!-- Empty State Filter Warning -->
+<div class="hidden flex-col items-center justify-center py-space-xl text-center" id="search-empty-state">
+<span class="material-symbols-outlined text-outline text-[40px] mb-space-xs">search_off</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">No matching institutions found</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mt-space-3xs">
+            Try checking spelling or search for regional holding companies. Over 11,500 institutions are available through the Plaid / MX fallback directory.
+          </p>
+</div>
+<!-- Provider Transparency Notice (FE-14.5) -->
+<div class="mt-space-lg p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">verified</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+              FinPlatform prioritizes Direct Open Banking APIs. Where direct institutional APIs are unavailable, certified aggregators (Plaid Technologies, Inc.) broker encrypted read-only payloads.
+            </span>
+</div>
+<a class="font-label-sm text-label-sm text-info-sky whitespace-nowrap hover:underline font-semibold ml-space-sm" data-path="reports" href="#">
+            Gateway Registry →
+          </a>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Step 2 Affirmative Statutory Consent & Step 3 Hand-off Card (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Step 2: Unbundled Affirmative Statutory Consent Panel (FE-14.4, FE-14.6, SRS Section 8.4) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center h-7 w-7 rounded-full bg-slate-navy-deep text-on-primary font-headline-sm text-headline-sm">2</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Statutory Consent Declaration</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Unbundled, explicit regulatory permissions (FE-14.4)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-growth-emerald-deep text-[22px]">policy</span>
+</div>
+<!-- Consent Scope Container -->
+<div class="flex flex-col gap-space-md mt-space-xs">
+<!-- Affirmative Check 1 -->
+<label class="group relative flex items-start gap-space-sm p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="mt-1 h-5 w-5 rounded bg-surface-container-lowest text-growth-emerald-deep focus:ring-0 cursor-pointer accent-growth-emerald-deep shrink-0" id="consent-check-scope" onchange="toggleConsent('scope', this)" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface group-hover:text-primary transition-colors">
+                Read-Only Telemetry Linkage
+              </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">
+                I authorize FinPlatform to establish a read-only connection with <strong class="target-bank-name text-on-surface">JPMorgan Chase &amp; Co.</strong> to fetch account titles, verified balances, and historical cleared transactions.
+              </p>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-space-2xs uppercase tracking-wider">
+                Specification: FE-14.4 Data Scope
+              </span>
+</div>
+</label>
+<!-- Affirmative Check 2 -->
+<label class="group relative flex items-start gap-space-sm p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="mt-1 h-5 w-5 rounded bg-surface-container-lowest text-growth-emerald-deep focus:ring-0 cursor-pointer accent-growth-emerald-deep shrink-0" id="consent-check-readonly" onchange="toggleConsent('readonly', this)" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface group-hover:text-primary transition-colors">
+                Zero Fund-Movement Capability
+              </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">
+                I acknowledge that FinPlatform maintains <strong class="text-on-surface">ZERO capability</strong> to initiate debits, execute payments, or transfer balances. Granted tokens are locked in an isolated Hardware Security Module (HSM).
+              </p>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-space-2xs uppercase tracking-wider">
+                Specification: FE-14.11 Architecture
+              </span>
+</div>
+</label>
+<!-- Affirmative Check 3 -->
+<label class="group relative flex items-start gap-space-sm p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="mt-1 h-5 w-5 rounded bg-surface-container-lowest text-growth-emerald-deep focus:ring-0 cursor-pointer accent-growth-emerald-deep shrink-0" id="consent-check-intermediary" onchange="toggleConsent('intermediary', this)" type="checkbox"/>
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-title text-title text-on-surface group-hover:text-primary transition-colors">
+                  Fallback Aggregator Disclosure
+                </span>
+<span class="text-label-sm font-label-sm px-space-xs py-space-3xs rounded-full bg-surface-container text-on-surface-variant" id="fallback-conditional-badge">
+                  Standard Acknowledgment
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">
+                I acknowledge that connections to non-direct financial entities will be brokered via Plaid Technologies, Inc. under strict read-only parameters governed by SOC-2 Type II protocols.
+              </p>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-space-2xs uppercase tracking-wider">
+                Specification: FE-14.5 Gateway Intermediary
+              </span>
+</div>
+</label>
+</div>
+<!-- Statutory Duration Guarantee -->
+<div class="mt-space-md p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-info-sky shrink-0 mt-0.5">schedule</span>
+<span class="font-body-sm text-body-sm">
+            Pursuant to Open Banking standards, this affirmative authorization is valid for exactly <strong class="text-on-surface">90 days</strong>. You may audit, renew, or irrevocably revoke access at any time from your FinPlatform Settings.
+          </span>
+</div>
+</div>
+<!-- Step 3: External Handoff Preview Card (FE-14.2, FE-14.3) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center h-7 w-7 rounded-full bg-slate-navy-deep text-on-primary font-headline-sm text-headline-sm">3</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Encrypted Handoff Verification</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Direct institutional redirection protocol</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-info-sky text-[22px]">lock_clock</span>
+</div>
+<!-- Target Destination Ledger Pill -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between my-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="h-8 w-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold target-bank-name">JPMorgan Chase &amp; Co.</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-mono target-bank-domain text-[12px]">https://auth.chase.com</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-semibold">
+            TLS 1.3 Strict
+          </span>
+</div>
+<!-- Step-by-Step Flow Explanation (FE-14.2) -->
+<div class="space-y-space-sm my-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="flex items-center justify-center h-6 w-6 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm shrink-0 mt-0.5">
+              1
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              FinPlatform redirects your browser session directly to <span class="font-mono text-on-surface target-bank-domain font-medium">https://auth.chase.com</span> via secure OAuth PKCE handoff.
+            </p>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="flex items-center justify-center h-6 w-6 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm shrink-0 mt-0.5">
+              2
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              You authenticate securely with your bank credentials. <strong class="text-on-surface">FinPlatform never intercepts, sees, or stores your login password.</strong>
+</p>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="flex items-center justify-center h-6 w-6 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm shrink-0 mt-0.5">
+              3
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Your banking institution issues a sandboxed read-only cryptographic grant token back to FinPlatform.
+            </p>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="flex items-center justify-center h-6 w-6 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm shrink-0 mt-0.5">
+              4
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              You are seamlessly redirected back to FinPlatform with your account balances and transaction history synced.
+            </p>
+</div>
+</div>
+<!-- Validation Indicator -->
+<div class="mb-space-md p-space-xs rounded-lg bg-warning-amber-tint text-warning-amber flex items-center gap-space-xs font-label-sm text-label-sm" id="consent-validation-warning">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span>Please review and check all statutory consents above to activate encrypted handoff.</span>
+</div>
+<!-- Action CTAs -->
+<div class="flex flex-col sm:flex-row gap-space-sm">
+<button class="flex-1 opacity-40 cursor-not-allowed bg-outline-variant text-on-primary py-space-sm px-space-md rounded-xl font-title text-title flex items-center justify-center gap-space-xs transition-all shadow-sm" disabled="" id="launch-handoff-btn" onclick="triggerModalRedirect()" type="button">
+<span>Launch Encrypted Bank Handoff</span>
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</button>
+<a class="py-space-sm px-space-md rounded-xl bg-surface-container-low text-on-surface font-title text-title hover:bg-surface-container transition-colors text-center" data-path="banking" href="#">
+            Cancel
+          </a>
+</div>
+</div>
+</div>
+</div>
+<!-- Redirection Execution Modal (Visual Prototype of FE-14.2 & FE-14.3) -->
+<div class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-navy-deep/60 backdrop-blur-sm p-space-md" id="redirect-simulation-modal">
+<div class="bg-surface-container-lowest max-w-lg w-full rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200">
+<div class="p-space-lg flex flex-col items-center text-center">
+<!-- Secure Enclave Graphic -->
+<div class="relative mb-space-md flex items-center justify-center">
+<div class="h-20 w-20 rounded-full bg-growth-emerald-tint text-growth-emerald-deep flex items-center justify-center animate-pulse">
+<span class="material-symbols-outlined text-[40px]">enhanced_encryption</span>
+</div>
+<div class="absolute -top-1 -right-1 h-7 w-7 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-sm py-space-3xs rounded-full font-semibold mb-space-xs uppercase tracking-wider">
+          Mutual TLS Enclave Established
+        </span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">
+          Transferring to External Portal
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-md">
+          You are now leaving FinPlatform. Your authentication session will proceed on the authorized domain of:
+        </p>
+<!-- Destination verification banner -->
+<div class="w-full bg-surface-container-low p-space-sm rounded-xl my-space-md text-left flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[28px]">domain_verification</span>
+<div class="flex flex-col min-w-0">
+<span class="font-title text-title text-on-surface truncate target-bank-name">JPMorgan Chase &amp; Co.</span>
+<span class="font-mono text-body-sm text-on-surface-variant text-[12px] truncate target-bank-domain">https://auth.chase.com</span>
+</div>
+</div>
+<div class="space-y-space-2xs text-left w-full bg-surface-container-lowest p-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[16px]">check</span>
+<span>Client State: Cryptographically Bound (FE-14.7 PKCE)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[16px]">check</span>
+<span>Zero Passwords or OTPs Requested by FinPlatform</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[16px]">check</span>
+<span>Session Authorization Window: 15 minutes</span>
+</div>
+</div>
+<!-- Action buttons inside modal -->
+<div class="flex flex-col w-full gap-space-xs mt-space-lg">
+<a class="w-full py-space-sm px-space-md rounded-xl bg-growth-emerald-deep text-on-primary font-title text-title hover:bg-growth-emerald-deep/90 transition-colors shadow-md flex items-center justify-center gap-space-xs" data-path="banking" href="#">
+<span>Proceed to External Bank Portal</span>
+<span class="material-symbols-outlined text-[18px]">launch</span>
+</a>
+<button class="w-full py-space-xs text-on-surface-variant hover:text-on-surface font-title text-title transition-colors" onclick="closeModal()" type="button">
+            Return to FinPlatform
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

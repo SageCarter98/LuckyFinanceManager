@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+backend/tests/__pycache__/
+backend/tests/test_finance.db
+backend/.env
+
+# Node (frontend has its own .gitignore for node_modules/dist too)
+node_modules/
+dist/
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Claude Code session-local state (not project content)
+.claude/

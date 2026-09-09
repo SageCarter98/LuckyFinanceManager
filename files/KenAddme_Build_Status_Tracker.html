@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KenAddme IT Links — Project Build Status Tracker</title>
+<style>
+/* ---------------------------------------------------------------- tokens --
+   Cool slate paper with an approval-green seal colour. The palette is meant to
+   read like a controlled institutional record, not a dashboard product.       */
+:root{
+  --ground:#E9EDEC;      /* page background          */
+  --panel:#FFFFFF;       /* cards and ledger rows    */
+  --ink:#16262E;         /* primary text             */
+  --muted:#5D7078;       /* secondary text           */
+  --rule:#C6D2D0;        /* hairlines and borders    */
+  --tint:#DCE6E3;        /* quiet fills              */
+  --seal:#14634E;        /* complete / approved      */
+  --hold:#9A6410;        /* in progress / conditions */
+  --stop:#96302B;        /* blocked / terminate      */
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-size:15px;line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+a{color:var(--seal)}
+button,select,input,textarea{font-family:inherit;font-size:14px;color:var(--ink)}
+:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ------------------------------------------------------------- structure -- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px 80px}
+header.masthead{
+  border-bottom:2px solid var(--ink);
+  padding:26px 0 16px;margin-bottom:20px;
+}
+.masthead h1{
+  font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.15;
+  margin:0 0 6px;letter-spacing:-.01em;
+}
+.masthead p{margin:0;color:var(--muted);font-size:13.5px;max-width:70ch}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{
+  background:var(--panel);border:1px solid var(--rule);border-radius:2px;
+  padding:7px 13px;cursor:pointer;color:var(--ink);
+}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.primary:hover{background:#0d1a20}
+
+/* tabs across the top of the working area */
+nav.tabs{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:18px;border-bottom:1px solid var(--rule)}
+nav.tabs button{
+  background:none;border:0;border-bottom:3px solid transparent;
+  padding:10px 14px;cursor:pointer;color:var(--muted);
+}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--seal);font-weight:600}
+
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:18px;margin-bottom:16px}
+.panel h2{font-family:var(--serif);font-weight:400;font-size:21px;margin:0 0 4px}
+.panel h3{font-size:14px;margin:18px 0 8px;font-weight:600}
+.note{color:var(--muted);font-size:13px;margin:0 0 12px;max-width:78ch}
+
+/* -------------------------------------------------------------- the spine --
+   The gate list is the memorable element: a vertical rule the project moves
+   down, with a fill bar showing how much required evidence exists.            */
+.ledger{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start}
+@media (max-width:860px){.ledger{grid-template-columns:1fr}}
+
+.spine{border-left:2px solid var(--rule);padding-left:0}
+.gate-btn{
+  display:block;width:100%;text-align:left;background:none;border:0;
+  border-left:3px solid transparent;margin-left:-2px;
+  padding:11px 12px;cursor:pointer;
+}
+.gate-btn:hover{background:var(--tint)}
+.gate-btn[aria-current="true"]{border-left-color:var(--seal);background:var(--tint)}
+.gate-btn .gid{font-family:var(--serif);font-size:17px}
+.gate-btn .gname{display:block;color:var(--muted);font-size:12.5px;margin-top:1px}
+.bar{height:4px;background:var(--rule);margin-top:8px;position:relative;border-radius:2px;overflow:hidden}
+.bar span{position:absolute;inset:0 auto 0 0;background:var(--seal);width:0}
+.gate-btn .count{float:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ------------------------------------------------------------ item rows -- */
+.stage-head{border-bottom:1px solid var(--rule);padding-bottom:12px;margin-bottom:14px}
+.stage-head h2{margin-bottom:2px}
+.meta{font-size:13px;color:var(--muted);margin:2px 0}
+.exit{background:var(--tint);border-left:3px solid var(--seal);padding:10px 12px;font-size:13.5px;margin:12px 0 18px}
+
+.item{border:1px solid var(--rule);border-radius:2px;padding:12px;margin-bottom:10px}
+.item.done{border-left:3px solid var(--seal)}
+.item.prog{border-left:3px solid var(--hold)}
+.item.na{opacity:.62}
+.item .txt{display:flex;gap:10px;align-items:flex-start}
+.item .ref{font-family:var(--serif);font-size:13px;color:var(--muted);white-space:nowrap;padding-top:1px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.fields label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:3px}
+.fields input,.fields select,.fields textarea{
+  width:100%;padding:6px 8px;border:1px solid var(--rule);border-radius:2px;background:#fff;
+}
+.fields textarea{min-height:38px;resize:vertical}
+.wide{grid-column:1/-1}
+
+/* --------------------------------------------------------- gate decision -- */
+.decision{border:1px solid var(--ink);border-radius:2px;padding:14px;margin-top:20px}
+.decision h3{margin-top:0}
+.badge{display:inline-block;padding:2px 9px;border-radius:2px;font-size:12px;border:1px solid var(--rule)}
+.badge.ok{background:var(--seal);color:#fff;border-color:var(--seal)}
+.badge.warn{background:var(--hold);color:#fff;border-color:var(--hold)}
+.badge.bad{background:var(--stop);color:#fff;border-color:var(--stop)}
+
+/* ------------------------------------------------------------ data tables -- */
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid var(--rule);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--ink);color:#fff;font-weight:600;font-size:12px}
+tbody tr:nth-child(even){background:#F6F8F7}
+td input,td textarea{width:100%;min-width:130px;border:1px solid transparent;background:transparent;padding:4px}
+td input:focus,td textarea:focus{background:#fff;border-color:var(--rule)}
+.example td{color:var(--muted);font-style:italic;background:var(--tint)}
+
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.stat{border:1px solid var(--rule);padding:12px;background:var(--panel)}
+.stat b{display:block;font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.1}
+.stat span{font-size:12.5px;color:var(--muted)}
+
+.hidden{display:none}
+footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--rule);padding-top:14px;margin-top:26px}
+@media print{
+  .toolbar,nav.tabs,.spine{display:none}
+  body{background:#fff}
+  .panel{border:0;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <h1>Project build status tracker</h1>
+  <p id="subtitle"></p>
+  <div class="toolbar">
+    <button class="btn primary" id="btn-save">Save now</button>
+    <button class="btn" id="btn-export">Download a copy of the data</button>
+    <button class="btn" id="btn-import">Load saved data</button>
+    <button class="btn" id="btn-print">Print or save as PDF</button>
+    <button class="btn" id="btn-reset">Clear everything</button>
+    <input type="file" id="file-input" accept="application/json" class="hidden">
+  </div>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+<main id="view"></main>
+
+<footer>
+  <div id="sources"></div>
+  <div id="saved-note" style="margin-top:6px"></div>
+</footer>
+</div>
+
+<script>
+/* =========================================================================
+   Data. Transcribed from the two approved frameworks at build time.
+   ========================================================================= */
+const DATA = {
+  "meta": {
+    "title": "KenAddme IT Links - Project Build Status Tracker",
+    "subtitle": "Two aligned governance tracks: Project Management (Gates 1-7) and Software Development & Engineering (G0-G6)",
+    "sources": [
+      "KenAddme IT Links Project Management Framework v1.1 (Approved 2 September 2026, effective 31 October 2026)",
+      "KenAddme IT Links Software Development and Engineering Framework v1.2 (Approved 2 September 2026, effective 31 October 2026)"
+    ],
+    "owner": "Freston Kenny Adedeme (Framework Owner and Custodian)",
+    "statuses": [
+      "Not started",
+      "In progress",
+      "Submitted for review",
+      "Complete",
+      "Not applicable",
+      "Exception approved"
+    ],
+    "gate_decisions": [
+      "Not yet held",
+      "Approve",
+      "Approve with conditions",
+      "Hold",
+      "Redirect",
+      "Terminate"
+    ]
+  },
+
+  "project_fields": [
+    {"field": "Project / product name", "hint": "Name as it appears in the project register"},
+    {"field": "Project register ID", "hint": "Unique reference"},
+    {"field": "Project class (PM)", "hint": "Class A - Strategic/High Risk | Class B - Standard/Medium Risk | Class C - Small/Low Risk"},
+    {"field": "Software class (SDLC)", "hint": "Class 1 Experimental | Class 2 Standard | Class 3 High | Class 4 Critical"},
+    {"field": "Classification rationale", "hint": "Highest applicable condition controls the class"},
+    {"field": "Executive / Project Authority", "hint": "Chair or recorded delegate"},
+    {"field": "Project Sponsor", "hint": "Accountable business owner"},
+    {"field": "Project Manager / Delivery Lead", "hint": "Cannot approve own charter, baseline, change, release, acceptance or closure"},
+    {"field": "Product / Business Owner", "hint": ""},
+    {"field": "Technical Lead / Solution Architect", "hint": ""},
+    {"field": "Quality / Assurance Reviewer", "hint": "Independence depth follows the higher class"},
+    {"field": "Security / Privacy Reviewer", "hint": "Distinct control role for higher-risk work"},
+    {"field": "Service / Operations Owner", "hint": "Owns operational acceptance and benefits evidence"},
+    {"field": "Release Authority", "hint": "Executive Sponsor or delegate for Class 3-4; Technical Lead for Class 1-2"},
+    {"field": "Data Owner", "hint": ""},
+    {"field": "Cost baseline (GHS)", "hint": "Approved baseline excluding contingency"},
+    {"field": "Cost tolerance", "hint": "Class A +/-5%, Class B +/-10%, Class C +/-15%"},
+    {"field": "Schedule tolerance", "hint": "Class A +/-5%, Class B +/-10%, Class C +/-15%"},
+    {"field": "Baseline start date", "hint": ""},
+    {"field": "Baseline completion date", "hint": ""},
+    {"field": "Default Gate 7 due date", "hint": "Class A 6 months after Gate 6; Class B 6 months; Class C 90 days"},
+    {"field": "Personal data in scope?", "hint": "If yes, assess Data Protection Act 2012 (Act 843)"},
+    {"field": "Cybersecurity service in scope?", "hint": "If yes, assess Cybersecurity Act 2020 (Act 1038)"},
+    {"field": "Publicly funded?", "hint": "If yes, assess Public Procurement Act 2003 (Act 663) as amended by Act 914"},
+    {"field": "Tailoring decisions recorded", "hint": "Tailoring must not fall below the Appendix A floor"},
+    {"field": "Role separation position", "hint": "Section 3.3 met, or compensating assurance approved by the Project Authority"}
+  ],
+
+  "tracks": [
+    {
+      "id": "PM",
+      "name": "Project Management Track",
+      "short": "PM Gates 1-7",
+      "source": "Project Management Framework v1.1",
+      "stages": [
+        {
+          "gate": "Gate 1",
+          "gate_name": "Intake decision",
+          "stage": "Stage 1 - Strategic Intake and Opportunity Definition",
+          "decision": "Authorise feasibility work or decline",
+          "approver": "Sponsor for Class C, ratified in batch at the monthly Project Authority review; Project Authority for Class A and Class B",
+          "exit": "The need is real enough to investigate, an idea owner is identified, the work supports institutional or client value, and feasibility effort is justified.",
+          "items": [
+            "Project idea / intake record: problem or opportunity, proposed outcome, beneficiaries, owner, urgency and known constraints",
+            "Current situation described with evidence that a problem or opportunity exists",
+            "Affected users, clients, services and institutional goals identified",
+            "Expected outcome stated without assuming a solution too early",
+            "Initial screening for legal, ethical, security, privacy, safety, financial and reputational concerns",
+            "Urgency, rough scale and project-versus-operations judgement recorded",
+            "Comparison against active commitments and resource capacity",
+            "Initial classification proposed (Class A / B / C) with reasons",
+            "Portfolio recommendation: proceed to feasibility, defer, merge, return or decline",
+            "Gate 1 decision recorded with approver, date and conditions",
+            "Expedited Gate 1/2 path used? If yes, record urgency justification, authority, maximum spend, time limit and stop authority (Section 4.6)"
+          ]
+        },
+        {
+          "gate": "Gate 2",
+          "gate_name": "Project authorisation",
+          "stage": "Stage 2 - Initiation and Feasibility",
+          "decision": "Approve the project charter and sponsor",
+          "approver": "Sponsor for Class B/C; Project Authority for Class A",
+          "exit": "A sponsor accepts accountability; the business case is credible; scope and intended outcome are clear; major risks are understood; suitable resources are likely available; and feasibility evidence supports proceeding.",
+          "items": [
+            "Project charter completed against the Appendix B template",
+            "Proportionate business case prepared",
+            "Feasibility assessed: strategic, technical, operational, economic, schedule, legal/contractual, ethical/social and resource dimensions",
+            "Alternative approaches identified, including do nothing, buy, build, partner or change the process",
+            "High-level scope, exclusions, assumptions and acceptance concept prepared",
+            "Cost, duration, resource demand and expected benefits estimated as ranges where uncertainty is high",
+            "Principal risks, dependencies and constraints identified",
+            "Sponsor, project manager and key decision makers nominated",
+            "Software framework alignment recorded in the charter (software class, aligned G0-G6 checkpoints, Appendix I mapping)",
+            "Governance and tolerances recorded: decision rights, reporting, escalation, role separation, financial band, change authority",
+            "Benefits ownership, measures, default Gate 7 date and protected review effort recorded",
+            "Gate 2 decision recorded with approver, date and conditions"
+          ]
+        },
+        {
+          "gate": "Gate 3",
+          "gate_name": "Delivery readiness",
+          "stage": "Stage 3 - Detailed Planning and Baseline Approval",
+          "decision": "Approve baselines and authorise execution",
+          "approver": "Sponsor for Class B/C; Project Authority for Class A",
+          "exit": "The integrated plan is realistic; funds and people are committed; key requirements and acceptance criteria are testable; material risks have responses; controls and reporting are ready; and the sponsor formally authorises execution.",
+          "items": [
+            "Scope statement, deliverables, exclusions, requirements and acceptance criteria",
+            "Work breakdown structure with manageable work packages",
+            "Schedule with dependencies, milestones, estimates, critical constraints and contingency",
+            "Budget, procurement, staff effort, tools, infrastructure and reserves",
+            "Responsibility assignment and decision authority (Appendix H, one accountable per activity)",
+            "Quality plan, review points, test strategy and evidence required for acceptance",
+            "Risk register, response actions, issue process and escalation thresholds",
+            "Communication, stakeholder engagement and reporting calendar",
+            "Security, privacy, data, access, backup, continuity and release controls where relevant",
+            "Change, configuration, version, document and records management method",
+            "Transition, training, support, handover, rollback and closure approach",
+            "Funded benefits-review effort, operational benefit owner and default Gate 7 due date",
+            "Baseline quality tests passed: complete, consistent, achievable, controlled, acceptable",
+            "Role separation meets Section 3.3, or compensating assurance approved and recorded",
+            "Plan readiness checklist (Appendix C) signed by Sponsor, PM and reviewers",
+            "Gate 3 decision recorded with approver, date and conditions"
+          ]
+        },
+        {
+          "gate": "Gate 4",
+          "gate_name": "Major deliverable or release readiness",
+          "stage": "Stage 4 - Execution and Team Coordination",
+          "decision": "Accept work packages and authorise release or transition",
+          "approver": "Named acceptance authority; Project Authority concurrence for Class A",
+          "exit": "The deliverable meets agreed requirements; tests and reviews are evidenced; unresolved defects and risks are within approved limits; operations and users are ready; security and privacy conditions are satisfied; and release or transition authority is granted.",
+          "items": [
+            "Formal kickoff held confirming objectives, roles, ways of working, reporting and escalation",
+            "Work packages authorised with outputs, owners, dates, quality criteria and dependencies",
+            "One controlled source maintained for plans, decisions, risks, issues, changes and deliverable versions",
+            "Deliverables reviewed early and progressively rather than at final testing only",
+            "Vendors, external contributors and client dependencies controlled against agreed obligations",
+            "Users, operations, training, support, data migration and release environments prepared in parallel",
+            "Work package acceptance evidence: output exists, checks passed, defects resolved or formally accepted, documentation updated, reviewer accepted",
+            "Test and review evidence identifying deliverable version and test environment",
+            "Defect and risk position within approved limits",
+            "Operational and user readiness confirmed",
+            "Security and privacy conditions satisfied",
+            "Gate 4 decision recorded with acceptance authority, date and conditions"
+          ]
+        },
+        {
+          "gate": "Gate 5",
+          "gate_name": "Continuation or exception decision",
+          "stage": "Stage 5 - Continuous Monitoring, Control and Corrective Action (recurring from Gate 3 to Gate 6)",
+          "decision": "Continue, correct, rebaseline, escalate or stop",
+          "approver": "Sponsor within tolerance; Project Authority beyond tolerance or for Class A",
+          "exit": "Forecast performance remains acceptable, or a credible recovery/rebaseline decision has been approved. If value has disappeared, risk is unacceptable or recovery is not credible, the project must be paused, redirected or terminated.",
+          "items": [
+            "Status reporting running at the class cadence (Class A weekly review plus formal status fortnightly; Class B monthly with fortnightly team review; Class C monthly plus midpoint check beyond 20 business days)",
+            "Minimum status report content complete: overall status, achievements, next period, schedule, cost/resources, scope/quality, risks/issues, decisions required",
+            "Status colour supported by evidence, not by activity or an unexpired deadline",
+            "Tolerance position measured against approved cost, schedule, scope, quality and risk limits",
+            "Variance analysis with root causes, consequences and corrective options",
+            "Gate 5 trigger log maintained (escalation trigger, forecast tolerance breach, material change, rebaseline, funding release, supplier failure, recovery plan, critical dependency change, doubtful acceptance, or a call by Sponsor/Authority/assurance)",
+            "Gate 5 convened within 2 business days for a red condition and 5 business days for any other material trigger",
+            "Corrective actions implemented, affected plans updated and effectiveness verified",
+            "Rebaseline decisions retain original commitment, approved changes and current forecast",
+            "Gate 5 decision recorded with approver, date and conditions"
+          ]
+        },
+        {
+          "gate": "Gate 6",
+          "gate_name": "Closure approval",
+          "stage": "Stage 6 - Transition, Acceptance and Closure",
+          "decision": "Approve closure and release resources",
+          "approver": "Project Sponsor",
+          "exit": "The authorised client or sponsor has accepted the outcome; operations own it; outstanding actions are assigned; finances and contracts are reconciled; records are archived; and the sponsor approves project closure.",
+          "items": [
+            "Formal acceptance obtained against approved criteria, with accepted limitations recorded",
+            "Release, migration, training, support, security, backup, recovery and operational-readiness actions complete",
+            "Ownership transferred: products, data, licences, environments, documentation and unresolved actions",
+            "Contracts, invoices, assets, accounts and access rights closed or handed over",
+            "Budget reconciled; final cost, schedule, scope and quality performance recorded",
+            "Current versions, approvals, evidence, decisions, lessons and closure records archived",
+            "People and resources released responsibly and contributions acknowledged",
+            "Benefits measures, owners, review dates and outstanding corrective actions assigned",
+            "Records reviewed against the Appendix J retention schedule; legal holds identified",
+            "Project register status set to 'Operational - Benefits Pending' with Gate 7 due date and evidence owner",
+            "Closure report completed (Appendix G)",
+            "Gate 6 decision recorded with approver, date and conditions"
+          ]
+        },
+        {
+          "gate": "Gate 7",
+          "gate_name": "Benefits confirmation",
+          "stage": "Stage 7 - Benefits Realisation and Post-Project Review",
+          "decision": "Confirm benefits, corrective actions and lessons",
+          "approver": "Project Sponsor, supported by the Service / Operations Owner",
+          "exit": "Benefits evidence is reviewed, remaining actions have owners, important lessons are incorporated into institutional practice and leadership decides whether to sustain, improve, expand, replace or retire the outcome.",
+          "items": [
+            "Benefits plan complete: benefit, baseline, measure, target, owner, dependencies and review dates",
+            "Protected review effort used as budgeted at Gate 3 (Class A two person-days, Class B one, Class C half)",
+            "Usage evidence gathered: is the product or capability being used as intended?",
+            "Outcome evidence gathered: service, revenue, efficiency, learning, quality, safety or client improvement",
+            "Costs, delays, negative impacts or risks transferred elsewhere identified",
+            "Correct and incorrect assumptions reviewed",
+            "Corrective actions, follow-on investment or retirement decisions identified with owners",
+            "Lessons routed into institutional standards or training content",
+            "Project register status changed to 'Closed - Benefits Reviewed'",
+            "Gate 7 decision recorded with approver, date and conditions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SDLC",
+      "name": "Software Development and Engineering Track",
+      "short": "SDLC G0-G6",
+      "source": "Software Development and Engineering Framework v1.2",
+      "stages": [
+        {
+          "gate": "G0",
+          "gate_name": "Intake",
+          "stage": "Stage 1 - Initiation and feasibility",
+          "decision": "Authorise discovery or decline the request",
+          "approver": "Sponsor and delivery lead",
+          "exit": "The problem and intended benefits are clear enough to investigate; ownership and discovery resources are assigned; material legal, privacy, security or procurement blockers are identified; and management has approved, deferred or declined in writing.",
+          "items": [
+            "Project request or concept note",
+            "Preliminary business case and feasibility assessment (technical, economic, operational, schedule, legal, data, security, resource)",
+            "Named sponsor, delivery lead and technical owner",
+            "Initial scope, stakeholder list, risk class and risk register",
+            "Alternatives considered, including process change, configuration or acquisition instead of custom development",
+            "Discovery effort estimated and authority to proceed obtained",
+            "G0 decision record",
+            "No coding started as an informal commitment before owner, outcome, data constraints and acceptance authority exist"
+          ]
+        },
+        {
+          "gate": "G1",
+          "gate_name": "Requirements baseline",
+          "stage": "Stage 2 - Discovery and requirements engineering",
+          "decision": "Authorise design and delivery commitment",
+          "approver": "Product owner and delivery lead",
+          "exit": "Each committed requirement is necessary, clear, feasible, testable, traceable and prioritised; conflicts and ambiguities are resolved or assigned with dates and owners; the acceptance authority approves the baseline; and scope, schedule and cost assumptions align with the approved requirements.",
+          "items": [
+            "Software Requirements Specification, product backlog or equivalent controlled requirements set",
+            "Functional requirements, business rules, data needs, interfaces, roles and permissions documented",
+            "Non-functional requirements defined: security, privacy, performance, availability, reliability, accessibility, usability, compatibility, maintainability, scalability, portability, logging, backup and recovery",
+            "User journeys, process maps, use cases or stories as appropriate",
+            "Acceptance criteria and initial test conditions",
+            "Data inventory and classification (Public / Internal / Confidential / Restricted)",
+            "Preliminary privacy and security requirements",
+            "Requirements traceability matrix or linked work-item structure",
+            "Requirements reviewed with affected stakeholders and formally baselined",
+            "Requirement quality rules applied: clear, atomic, feasible, testable, traceable, consistent, controlled",
+            "Unresolved-question log with owners and dates",
+            "G1 approval recorded"
+          ]
+        },
+        {
+          "gate": "G2",
+          "gate_name": "Design readiness",
+          "stage": "Stage 3 - Planning, architecture and detailed design",
+          "decision": "Authorise implementation",
+          "approver": "Technical lead; security reviewer for higher risk",
+          "exit": "The design addresses the approved functional and non-functional requirements; interfaces, data ownership, trust boundaries and failure modes are understood; critical risks are reduced, accepted or assigned to a dated action; and build, test, deployment and operational approaches are feasible and funded.",
+          "items": [
+            "Project delivery plan and updated estimates",
+            "Assurance effort, schedule and budget as a distinct line item; commercial disclosure for Class 3 and Class 4 client work",
+            "Architecture description with context, component, deployment and data-flow views",
+            "Architecture Decision Records for material choices, including rejected alternatives",
+            "UX prototypes/designs, database model and API/interface specifications",
+            "Threat model and privacy assessment",
+            "Security design: authentication, authorisation, secrets, encryption, logging and recovery controls",
+            "Test strategy, environment plan, migration approach, observability, support model, backup and rollback concept",
+            "Risky assumptions validated with controlled prototypes or spikes",
+            "Architecture expectations addressed: modularity, least privilege, failure containment, observability, recoverability, technology fitness",
+            "G2 review and approval record"
+          ]
+        },
+        {
+          "gate": "G3",
+          "gate_name": "Code complete",
+          "stage": "Stage 4 - Implementation and integration",
+          "decision": "Authorise formal system testing",
+          "approver": "Technical lead and QA lead",
+          "exit": "All committed work is merged through the approved review path; the build is reproducible and automated checks pass or have approved exceptions; no unresolved critical defect, exposed secret or prohibited component is known; and the test environment holds an identifiable release candidate.",
+          "items": [
+            "Version-controlled source code, configuration and infrastructure definitions",
+            "Work items, commits and pull/merge requests linked with reviewer evidence",
+            "Protected release branches enforced; merges require successful checks and review",
+            "Peer review completed (two-person or specialist review for critical security, data, payment or infrastructure changes)",
+            "Unit tests written with the code; integration, contract or component tests added where interfaces are affected",
+            "Continuous integration passing: formatting, linting, build, test, secret and dependency/security scans",
+            "Successful automated build and test results retained",
+            "Dependency and licence inventory; software bill of materials where required",
+            "Secrets held in an approved secret store and absent from code, fixtures, logs and collaboration tools",
+            "AI- or tool-generated code reviewed, tested and accepted by a competent human",
+            "Architecture, API, data, operational and user documentation updated with the change",
+            "Known-defect, technical-debt and deviation records",
+            "G3 code-complete decision"
+          ]
+        },
+        {
+          "gate": "G4-R",
+          "gate_name": "Release recommendation (verification and acceptance)",
+          "stage": "Stage 5 - Verification, validation and acceptance",
+          "decision": "Recommend the release candidate for production authorisation",
+          "approver": "QA lead and product owner; independent QA for Class 3, independent or specialist QA for Class 4",
+          "exit": "Every release requirement has passed evidence or an explicitly accepted deviation; no open Severity 1 or unaccepted Severity 2 defect remains; security, privacy and operational risks meet the release criteria; and the release candidate and evidence set are uniquely identified and protected from uncontrolled change.",
+          "items": [
+            "Approved risk-based test plan with traceability to requirements",
+            "Test cases, automated suites, actual results and evidence recorded with environment, build identifier and tester",
+            "Unit, integration, contract, system, regression and user-acceptance tests executed as applicable",
+            "Security, privacy, performance, accessibility, compatibility, migration, backup/restore and resilience testing according to risk",
+            "Production-like environments used with representative, lawful test data and no uncontrolled production-data copying",
+            "Defect register with severity, disposition, owner and retest status",
+            "Corrections retested and targeted regression tests run",
+            "No open S1 defect; any S2 released only with documented residual-risk acceptance",
+            "Security/privacy scan and review records",
+            "User-acceptance record from the authorised product owner or client representative",
+            "G4 recommendation issued"
+          ]
+        },
+        {
+          "gate": "G4",
+          "gate_name": "Release readiness authorisation",
+          "stage": "Stage 6 - Release and deployment",
+          "decision": "Authorise production deployment",
+          "approver": "Product owner, service owner and release authority (Executive Sponsor or delegate for Class 3-4; Technical Lead for Class 1-2)",
+          "exit": "Release approval is recorded before production change except under the emergency-change process; deployment completed successfully or rollback restored the approved service state; monitoring shows acceptable service health; and support and service owners accept the deployed version and known issues.",
+          "items": [
+            "Release package assembled: version, approved changes, dependencies, configuration, migration and known limitations",
+            "Release notes and immutable release/build identifier",
+            "Production access, infrastructure, capacity, monitoring, backup, support and communication readiness confirmed",
+            "Approved deployment, data migration, rollback and communication plans with named decision authority",
+            "Build and deployment credentials kept separate; deployment automated and repeatable where practical",
+            "Affected data backed up or checkpointed; restoration or rollback feasibility validated before irreversible change",
+            "Operational runbook, monitoring/alert configuration and support handover ready",
+            "Release-readiness checklist (Appendix F) completed across scope, requirements, code, tests, security/privacy, dependencies, data, operations, deployment and approval",
+            "Release authority is not the sole author of the release (role separation for Class 3-4)",
+            "Deployment executed with smoke tests and business verification; actual deployment, deviations, approvers and outcome recorded",
+            "G4 release authorisation recorded"
+          ]
+        },
+        {
+          "gate": "G5",
+          "gate_name": "Operational acceptance",
+          "stage": "Stage 7 - Operations, maintenance and support",
+          "decision": "Confirm stable service and close transition",
+          "approver": "Service owner and product owner",
+          "exit": "The service remains within approved operational and security limits; incidents, vulnerabilities and maintenance obligations have accountable owners and target dates; access, dependencies, data retention and continuity controls are reviewed periodically; and management receives sufficient evidence to continue, improve, replace or retire the service.",
+          "items": [
+            "Service catalogue entry, named service owner and support model",
+            "Deployment record, smoke tests and early-life review",
+            "Monitoring of availability, performance, capacity, errors, security events, backups, certificate expiry and critical dependencies",
+            "Documented support channels, service hours, escalation paths and response targets",
+            "Incident, problem, change, maintenance and vulnerability records",
+            "Root-cause analysis for significant or recurring incidents with tracked corrective actions",
+            "Vulnerability remediation within service targets (critical: 7 days Class 3-4, 14 days Class 2; high: 30 days Class 3-4, 60 days Class 2)",
+            "S1 incident acknowledgement within target (1 hour Class 3-4, 4 hours Class 2)",
+            "Backup restoration tested on schedule (quarterly Class 3-4, at least semi-annually Class 2) with results compared to RPO/RTO",
+            "Access review completed on schedule (quarterly Class 3-4, at least annually Class 2)",
+            "Enhancements and changes processed through the same traceability, review, testing and release controls",
+            "Service review reports and improvement backlog maintained",
+            "G5 operational acceptance recorded"
+          ]
+        },
+        {
+          "gate": "G6",
+          "gate_name": "Retirement / closure",
+          "stage": "Stage 8 - Retirement and project closure",
+          "decision": "Authorise disposal or project closure",
+          "approver": "Sponsor, data owner and service owner",
+          "exit": "Users and stakeholders have been notified and supported through transition; required data is preserved or transferred and unneeded data securely disposed of; no orphaned credential, public endpoint, paid service or unmanaged dependency remains; and the sponsor, data owner and service owner approve closure.",
+          "items": [
+            "Retirement reason, affected users, replacement service, dependencies and approved date confirmed",
+            "Transition and communication plan, including data export or migration",
+            "Retention, archival, transfer or secure-deletion decisions applied to data and records",
+            "Accounts, credentials, integrations, domains, certificates, pipelines, infrastructure and supplier services disabled",
+            "Source, releases, configuration, decisions, test evidence, licences and operational records archived",
+            "Final asset inventory and archive location recorded",
+            "Financial and contractual closure verified",
+            "Lessons learned, benefits achieved and outstanding actions captured",
+            "Client or sponsor acceptance recorded",
+            "G6 closure decision"
+          ]
+        }
+      ]
+    }
+  ],
+
+  "artefact_floor": [
+    {"stage": "Initiation", "c1": "R-light", "c2": "R", "c3": "R", "c4": "R", "floor": "C1: purpose, owner, scope, risk class and disposal date. C2-4: request/charter, feasibility, stakeholders, scope and risk.", "owner": "Sponsor / delivery lead", "evidence": "G0 decision"},
+    {"stage": "Requirements", "c1": "C", "c2": "R", "c3": "R", "c4": "R", "floor": "C1: acceptance note; full requirements when user-facing, integrated or persistent data is used. C2-4: requirements/backlog, acceptance, data classification and traceability.", "owner": "Product owner / analyst", "evidence": "G1 baseline"},
+    {"stage": "Design", "c1": "C", "c2": "R-proportionate", "c3": "R", "c4": "R + independent review", "floor": "C1: design note for material interface, data or security risk. C2: architecture and test/deployment design. C3-4: add threat/privacy and specialist assurance.", "owner": "Technical lead", "evidence": "G2 review"},
+    {"stage": "Implementation", "c1": "R-light", "c2": "R", "c3": "R", "c4": "R", "floor": "Controlled source/configuration, review evidence, build/CI results and component inventory. C1 may use simplified review evidence but must retain source control and basic testing.", "owner": "Technical lead", "evidence": "G3 code-complete record"},
+    {"stage": "Testing", "c1": "R-basic", "c2": "R", "c3": "R + independent QA", "c4": "R + independent/specialist QA", "floor": "C1: basic acceptance and defect record. C2-4: plan, cases, results, defects, security/privacy and user acceptance at class depth.", "owner": "QA lead / product owner", "evidence": "G4 recommendation"},
+    {"stage": "Release", "c1": "C - non-production only", "c2": "R", "c3": "R", "c4": "R", "floor": "C1: demonstration/non-production release record only; any production use requires reclassification. C2-4: release notes, approval, migration, deployment, rollback and validation.", "owner": "Release / service owner", "evidence": "G4 authorisation and deployment record"},
+    {"stage": "Operations", "c1": "N/A - production prohibited", "c2": "R", "c3": "R", "c4": "R", "floor": "C2-4: runbooks, monitoring, access, backup/recovery, support, incidents, targets and reviews. A Class 1 experiment must be reclassified before operational reliance.", "owner": "Service owner", "evidence": "G5 acceptance and service reviews"},
+    {"stage": "Closure", "c1": "R", "c2": "R", "c3": "R", "c4": "R", "floor": "C1: disposal date, access removal and data/code disposition. C2-4: acceptance/closure, data disposition, decommissioning, archive and lessons.", "owner": "Sponsor / service owner", "evidence": "G6 decision"}
+  ],
+
+  "alignment": [
+    {"pm": "Gate 1 - Intake", "sdlc": "G0 - Intake", "rule": "Use one intake record, sponsor, feasibility screen and initial classification decision."},
+    {"pm": "Gate 2 - Project Authorisation", "sdlc": "G1 - Requirements Baseline", "rule": "Combine when requirements and acceptance criteria are sufficiently mature. If G1 follows later, reuse the charter and add only the requirements evidence; do not repeat the business decision."},
+    {"pm": "Gate 3 - Delivery Readiness", "sdlc": "G2 - Design Readiness", "rule": "Use one integrated readiness pack covering project baseline, architecture, security/privacy, test, deployment, assurance and operational plans."},
+    {"pm": "Gate 4 - Release Readiness", "sdlc": "G3 prerequisite and G4 - Release Readiness", "rule": "G3 code-complete evidence is an engineering prerequisite. One G4/Gate 4 approval pack authorises release under the stricter approver set."},
+    {"pm": "Gate 5 - Continuation / Exception", "sdlc": "G3 or G5 evidence where relevant", "rule": "Gate 5 is recurring or triggered project governance. Engineering or early-life evidence may support it; no duplicate gate is required solely because numbering differs."},
+    {"pm": "Gate 6 - Closure", "sdlc": "G5 - Operational Acceptance and G6 - Retirement/Closure", "rule": "Use G5 evidence for handover. Use G6 when the project closes or a service is retired. One closure record may satisfy both where scope matches."},
+    {"pm": "Gate 7 - Benefits", "sdlc": "Post-implementation review evidence; no separate software gate", "rule": "Use service measures and the software review as evidence for the single Gate 7 benefits decision."}
+  ],
+
+  "class_mapping": [
+    {"pm_class": "Class C - Small / Low Risk", "sdlc_class": "Software Class 1 or Class 2", "interpretation": "Class 1 is permitted only for time-bound, non-production experimentation with no real personal, client-confidential or payment data. Any operational or production use is at least Class 2."},
+    {"pm_class": "Class B - Standard / Medium Risk", "sdlc_class": "Software Class 2 or Class 3", "interpretation": "Use Class 3 where personal/sensitive data, public exposure, finance/identity, material reputation, contractual service levels or significant recovery impact exists."},
+    {"pm_class": "Class A - Strategic / High Risk", "sdlc_class": "Software Class 3 or Class 4", "interpretation": "Use Class 4 for safety-significant, critical-infrastructure, large-scale restricted-data or mission-critical services. Executive governance and explicit residual-risk acceptance apply."}
+  ],
+
+  "measures": [
+    {"track": "PM", "measure": "Milestone reliability = milestones achieved on or before the approved date / milestones due", "source_owner": "Approved schedule and status reports / Project Manager; consolidated by Framework Owner", "frequency": "Monthly", "target": "At least 85% portfolio-wide"},
+    {"track": "PM", "measure": "Absolute cost forecast variance = |forecast total cost - approved budget| / approved budget", "source_owner": "Budget, commitments and forecast / Project Manager and Finance", "frequency": "Monthly", "target": "Within class tolerance: A 5%, B 10%, C 15%"},
+    {"track": "PM", "measure": "First-pass acceptance rate = deliverables accepted without material rework / deliverables presented", "source_owner": "Acceptance and defect records / Quality Reviewer or acceptance authority", "frequency": "At each acceptance event; quarterly portfolio total", "target": "At least 90%"},
+    {"track": "PM", "measure": "Overdue critical risk actions = count of critical-risk actions past their approved due date", "source_owner": "Risk register / Project Manager; challenged by Assurance", "frequency": "Weekly on project; monthly portfolio total", "target": "Zero overdue critical actions"},
+    {"track": "PM", "measure": "On-time Gate 7 completion = Gate 7 decisions completed by due date / Gate 7 reviews due", "source_owner": "Project register and benefits records / Framework Owner and Sponsor", "frequency": "Monthly tracking; quarterly report", "target": "100% completed on time"},
+    {"track": "SDLC", "measure": "Delivery flow: median lead time from authorised work item to accepted release, with material delay reasons", "source_owner": "Delivery lead", "frequency": "Monthly", "target": "Set by project; trend must not deteriorate"},
+    {"track": "SDLC", "measure": "Defect escape rate = production defects / total defects found in testing and production, reported with severity", "source_owner": "QA lead", "frequency": "Per release and quarterly", "target": "Set by project; severity trend reported"},
+    {"track": "SDLC", "measure": "Availability: observed production-service availability against the approved service target", "source_owner": "Service owner", "frequency": "Monthly", "target": "Approved service target"},
+    {"track": "SDLC", "measure": "Open vulnerability age by severity against institutional service targets", "source_owner": "Technical / security owner", "frequency": "Monthly", "target": "Within the Class service targets"},
+    {"track": "SDLC", "measure": "Gate compliance = applicable gates with required evidence and approval recorded before the governed commitment", "source_owner": "Freston Kenny Adedeme, Framework Owner", "frequency": "Quarterly", "target": "100%"}
+  ],
+
+  "registers": {
+    "risk": {
+      "columns": ["ID", "Risk or issue statement", "Type", "Category", "Likelihood", "Impact", "Rating", "Owner", "Response", "Action", "Due", "Residual risk", "Status", "Last review", "Next review"],
+      "example": ["R-001", "Because the bank API sandbox has no certification slot before November, there is a possibility that connectivity testing slips, resulting in a Gate 4 delay", "Risk", "Technical", "Medium", "High", "High", "Technical Lead", "Reduce", "Book a certification slot and prepare an aggregator fallback path", "2026-10-15", "Moderate", "Open", "2026-09-15", "2026-09-29"],
+      "note": "Use the form: Because of [cause], there is a possibility that [uncertain event], resulting in [effect on objectives]. For issues, state what has happened, current impact, immediate containment, root-cause owner and resolution date."
+    },
+    "change": {
+      "columns": ["Change ID", "Date", "Requester", "Requested change and reason", "Urgency and consequence of delay", "Scope and requirements impact", "Schedule and milestone impact", "Cost, resources and procurement impact", "Quality, security, privacy and operational impact", "Risk, benefit and stakeholder impact", "Options considered", "Recommendation", "Decision and conditions", "Change authority", "Baselines updated by", "Implementation verified"],
+      "example": ["CR-001", "2026-09-20", "Product Owner", "Add multi-currency display conversion to the first release", "Medium - client demonstration on 12 November", "Adds 3 requirements and 2 acceptance criteria", "+5 business days on the build milestone", "+GHS 4,000 contractor effort", "Adds an exchange-rate dependency requiring availability monitoring", "Improves client acceptance likelihood; adds a third-party dependency risk", "Reject / defer / substitute / reduce other scope / approve", "Approve with a rate-provider fallback", "Approved with conditions", "Project Sponsor", "Project Manager", "Pending"],
+      "note": "A change becomes part of the project only after need, impact, alternatives, risks, cost, schedule, quality and benefits are assessed and the correct authority approves it."
+    },
+    "exception": {
+      "columns": ["Exception ID", "Date raised", "Type", "Exact requirement that cannot be met", "Business and technical reason", "Affected systems, data, users", "Duration", "Risk assessment", "Accountable risk owner", "Compensating controls", "Validation evidence", "Remediation plan and owner", "Expiry date", "Approval level and approver", "Status"],
+      "example": ["EX-001", "2026-09-22", "Exception", "Independent QA for a Class 3 release (Appendix A testing floor)", "No second qualified tester available in the delivery window", "Bank connectivity module; no personal data in test", "Until 2026-11-30", "Moderate residual risk of undetected regression", "Technical Lead", "External reviewer appointed for regression evidence; extended smoke test set", "Reviewer report and test results attached", "Recruit or contract a QA reviewer before the next release - Delivery Lead", "2026-11-30", "Project Authority", "Open"],
+      "note": "Types: Exception (approved, time-bound deviation) or Non-conformance (required process or evidence absent, inaccurate or bypassed). An expired exception is non-compliance. An exception may never authorise unlawful conduct. Critical non-conformance blocks the relevant gate."
+    },
+    "emergency": {
+      "columns": ["Emergency ID", "Incident / change identifier", "Date and time", "Requester", "Authoriser", "Operator", "Reason (contain / restore / prevent harm / urgent security)", "Scope", "Least-privileged access used", "Activity logs protected", "Backup taken or reason unsafe", "Rollback or containment path", "Smoke / safety verification", "Deferred evidence and owners", "Due dates", "Retrospective review date", "Review outcome", "Repeat? Problem record raised"],
+      "example": ["EM-001", "INC-2026-041", "2026-11-04 22:10", "On-call engineer", "Service Owner", "DevOps engineer", "Restore a failed service", "Payments read API pod restart and config rollback", "Yes", "Yes", "Yes - snapshot 22:05", "Revert to build 1.4.2", "Smoke suite passed 22:35", "Full regression pack; final release notes", "2026-11-07", "2026-11-06", "Change retained; root cause assigned", "No"],
+      "note": "Software, production-service or client-data emergencies follow the SDLC emergency-change procedure: named authority and deputy, non-waivable minimum record, deferrable-evidence list and a retrospective review within 72 hours of stabilisation. All other projects: Sponsor records the same elements and convenes a review within 5 business days."
+    },
+    "decision": {
+      "columns": ["Decision ID", "Date", "Gate or trigger", "Decision requested", "Authority", "Evidence reviewed", "Decision", "Conditions", "Dissent recorded", "Condition owner", "Condition due date", "Status"],
+      "example": ["D-001", "2026-09-30", "Gate 3 / G2", "Approve baselines and authorise execution", "Project Sponsor", "Integrated plan, architecture, threat model, test strategy, benefits funding", "Approve with conditions", "Confirm the QA reviewer before the first build increment", "None", "Delivery Lead", "2026-10-10", "Open"],
+      "note": "Gate decisions are one of: Approve, Approve with conditions, Hold, Redirect, Terminate. Unresolved critical conditions cannot be treated as 'approve with conditions'."
+    }
+  }
+};
+
+/* =========================================================================
+   Storage. Three fallbacks so the file works inside the app, in a browser,
+   and from a plain local copy with storage disabled.
+   ========================================================================= */
+const KEY = "kenaddme-build-tracker-v1";
+let memoryOnly = false;
+
+const Store = {
+  async get(){
+    try{ if(window.storage){ const r = await window.storage.get(KEY,false); return r ? r.value : null; } }catch(e){}
+    try{ return localStorage.getItem(KEY); }catch(e){ memoryOnly = true; return null; }
+  },
+  async set(value){
+    try{ if(window.storage){ await window.storage.set(KEY,value,false); return true; } }catch(e){}
+    try{ localStorage.setItem(KEY,value); return true; }catch(e){ memoryOnly = true; return false; }
+  }
+};
+
+/* =========================================================================
+   State. Everything the user types lives here and is keyed so that adding
+   items to DATA later never scrambles existing entries.
+   ========================================================================= */
+let state = {
+  project: {},    // field name -> value
+  items:   {},    // "PM|Gate 1.01" -> {status, owner, due, done, ref, notes}
+  gates:   {},    // "PM|Gate 1"    -> {decision, date, authority, conditions}
+apiItems:{},    // "PM|Gate 1.01" -> API evidence item id
+  measures:{},    // index          -> {value, date}
+  registers:{}    // "risk"         -> array of row objects
+};
+
+const API_BASE = window.location.protocol === "http:" || window.location.protocol === "https:"
+  ? window.location.origin
+  : null;
+let apiProjectId = null;
+
+async function syncFromApi(){
+  if(!API_BASE) return false;
+  try{
+    const projectsResponse = await fetch(API_BASE + "/tracker/projects");
+    if(!projectsResponse.ok) return false;
+    const projects = await projectsResponse.json();
+    if(!projects.length) return false;
+
+    const project = projects[0];
+    apiProjectId = project.id;
+    const statusResponse = await fetch(API_BASE + "/tracker/projects/" + project.id + "/status");
+    if(!statusResponse.ok) return false;
+    const status = await statusResponse.json();
+    state.items = {};
+    state.gates = {};
+    state.apiItems = {};
+
+    const fields = {
+      "Project / product name": project.name,
+      "Project register ID": project.register_id || "",
+      "Project class (PM)": project.pm_class,
+      "Software class (SDLC)": project.sdlc_class,
+      "Classification rationale": project.classification_note || "",
+      "Project Sponsor": project.sponsor || "",
+      "Project Manager / Delivery Lead": project.project_manager || "",
+      "Technical Lead / Solution Architect": project.technical_lead || "",
+      "Service / Operations Owner": project.service_owner || "",
+      "Release Authority": project.release_authority || ""
+    };
+    state.project = Object.assign({}, state.project, fields);
+
+    for(const track of DATA.tracks){
+      const itemsResponse = await fetch(
+        API_BASE + "/tracker/projects/" + project.id + "/items?track=" + encodeURIComponent(track.id)
+      );
+      if(!itemsResponse.ok) continue;
+      const items = await itemsResponse.json();
+      for(const item of items){
+        const key = item.track + "|" + item.reference;
+        state.items[key] = {
+          status: item.item_status,
+          owner: item.owner || "",
+          due: item.due_date || "",
+          done: item.completed_date || "",
+          ref: item.evidence_reference || "",
+          notes: item.notes || ""
+        };
+        state.apiItems[key] = item.id;
+      }
+    }
+    for(const gate of status.gates){
+      state.gates[gateKey(gate.track, gate.gate)] = {
+        decision: gate.decision,
+        date: gate.decision_date || "",
+        authority: gate.authority || "",
+        conditions: gate.conditions || ""
+      };
+    }
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
+async function updateApiItem(itemId, record){
+  if(!API_BASE || !itemId) return;
+  const response = await fetch(API_BASE + "/tracker/items/" + itemId, {
+    method: "PATCH",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      item_status: record.status,
+      owner: record.owner || null,
+      due_date: record.due || null,
+      completed_date: record.done || null,
+      evidence_reference: record.ref || null,
+      notes: record.notes || null
+    })
+  });
+  if(!response.ok) throw new Error("Evidence item update failed");
+}
+
+async function updateApiGate(track, gate, record){
+  if(!API_BASE || !apiProjectId) return;
+  const response = await fetch(
+    API_BASE + "/tracker/projects/" + apiProjectId + "/gates/" +
+      encodeURIComponent(track) + "/" + encodeURIComponent(gate),
+    {
+      method: "PUT",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        decision: record.decision,
+        decision_date: record.date || null,
+        authority: record.authority || null,
+        conditions: record.conditions || null
+      })
+    }
+  );
+  if(!response.ok) throw new Error("Gate decision update failed");
+}
+
+function apiUpdate(task){
+  if(!API_BASE) return;
+  task().catch(error => {
+    const note = document.getElementById("saved-note");
+    note.textContent = "Local change saved, but API update failed: " + error.message;
+  });
+}
+
+function itemKey(track, gate, n){ return track + "|" + gate + "." + String(n).padStart(2,"0"); }
+function gateKey(track, gate){ return track + "|" + gate; }
+
+function getItem(key){
+  if(!state.items[key]) state.items[key] = {status:"Not started", owner:"", due:"", done:"", ref:"", notes:""};
+  return state.items[key];
+}
+function getGate(key){
+  if(!state.gates[key]) state.gates[key] = {decision:"Not yet held", date:"", authority:"", conditions:""};
+  return state.gates[key];
+}
+
+/* Debounced save so typing does not hit storage on every keystroke. */
+let saveTimer = null;
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(save, 700);
+}
+async function save(){
+  const ok = await Store.set(JSON.stringify(state));
+  const note = document.getElementById("saved-note");
+  const stamp = new Date().toLocaleTimeString();
+  note.textContent = ok
+    ? "Saved at " + stamp + "."
+    : "Storage is unavailable here, so entries last only until this page closes. Use \u201cDownload a copy of the data\u201d to keep them.";
+}
+
+/* =========================================================================
+   Progress helpers. An item counted as tailored out is removed from the
+   denominator, matching how the Appendix A floor is applied.
+   ========================================================================= */
+const TAILORED = ["Not applicable","Exception approved"];
+
+function gateProgress(track, stage){
+  let total = stage.items.length, done = 0, tailored = 0, prog = 0;
+  stage.items.forEach((_, i) => {
+    const s = getItem(itemKey(track, stage.gate, i+1)).status;
+    if(s === "Complete") done++;
+    else if(TAILORED.includes(s)) tailored++;
+    else if(s === "In progress" || s === "Submitted for review") prog++;
+  });
+  const denom = total - tailored;
+  return {total, done, tailored, prog, denom,
+          outstanding: denom - done,
+          pct: denom ? done/denom : 1};
+}
+
+function trackProgress(track){
+  let t=0,d=0,ta=0;
+  track.stages.forEach(s => { const p = gateProgress(track.id, s); t+=p.total; d+=p.done; ta+=p.tailored; });
+  return {total:t, done:d, tailored:ta, denom:t-ta, pct:(t-ta)?d/(t-ta):1};
+}
+
+/* =========================================================================
+   Small DOM helpers, kept deliberately plain.
+   ========================================================================= */
+function el(tag, attrs, children){
+  const node = document.createElement(tag);
+  for(const k in (attrs||{})){
+    if(k === "class") node.className = attrs[k];
+    else if(k === "html") node.innerHTML = attrs[k];
+    else if(k === "text") node.textContent = attrs[k];
+    else if(k.startsWith("on")) node.addEventListener(k.slice(2), attrs[k]);
+    else node.setAttribute(k, attrs[k]);
+  }
+  (children||[]).forEach(c => node.appendChild(c));
+  return node;
+}
+function field(labelText, control, wide){
+  const box = el("div", {class: wide ? "wide" : ""});
+  box.appendChild(el("label", {text: labelText}));
+  box.appendChild(control);
+  return box;
+}
+function input(type, value, onchange, placeholder){
+  const i = el("input", {type: type, value: value || ""});
+  if(placeholder) i.placeholder = placeholder;
+  i.addEventListener("input", e => { onchange(e.target.value); scheduleSave(); });
+  return i;
+}
+function textarea(value, onchange, placeholder){
+  const t = el("textarea", {});
+  t.value = value || "";
+  if(placeholder) t.placeholder = placeholder;
+  t.addEventListener("input", e => { onchange(e.target.value); scheduleSave(); });
+  return t;
+}
+function select(options, value, onchange){
+  const s = el("select", {});
+  options.forEach(o => {
+    const opt = el("option", {value:o, text:o});
+    if(o === value) opt.selected = true;
+    s.appendChild(opt);
+  });
+  s.addEventListener("change", e => { onchange(e.target.value); scheduleSave(); });
+  return s;
+}
+
+/* =========================================================================
+   Views.
+   ========================================================================= */
+let currentTab = "PM";
+let currentGate = {PM:0, SDLC:0};
+
+const TABS = [
+  {id:"PM",        label:"Project gates 1–7"},
+  {id:"SDLC",      label:"Software gates G0–G6"},
+  {id:"setup",     label:"Project details"},
+  {id:"registers", label:"Registers"},
+  {id:"measures",  label:"Measures"},
+  {id:"reference", label:"Reference"}
+];
+
+function renderTabs(){
+  const nav = document.getElementById("tabs");
+  nav.innerHTML = "";
+  TABS.forEach(t => {
+    const b = el("button", {text:t.label, onclick:() => { currentTab = t.id; render(); }});
+    b.setAttribute("aria-selected", currentTab === t.id);
+    nav.appendChild(b);
+  });
+}
+
+/* ---- a governance track: spine of gates on the left, evidence on the right */
+function renderTrack(trackId){
+  const track = DATA.tracks.find(t => t.id === trackId);
+  const view = document.getElementById("view");
+  const tp = trackProgress(track);
+
+  const stats = el("div", {class:"summary"});
+  [[tp.done + " of " + tp.denom, "Evidence items recorded"],
+   [Math.round(tp.pct*100) + "%", "Required evidence complete"],
+   [tp.tailored, "Tailored out or under exception"],
+   [track.stages.filter(s => getGate(gateKey(trackId, s.gate)).decision === "Approve" ||
+                             getGate(gateKey(trackId, s.gate)).decision === "Approve with conditions").length
+      + " of " + track.stages.length, "Gates decided"]
+  ].forEach(([big, small]) => {
+    stats.appendChild(el("div", {class:"stat"}, [el("b",{text:String(big)}), el("span",{text:small})]));
+  });
+
+  /* left: the spine */
+  const spine = el("div", {class:"spine"});
+  track.stages.forEach((stage, idx) => {
+    const p = gateProgress(trackId, stage);
+    const btn = el("button", {class:"gate-btn", onclick:() => { currentGate[trackId] = idx; render(); }});
+    btn.setAttribute("aria-current", currentGate[trackId] === idx);
+    btn.appendChild(el("span", {class:"count", text: p.done + "/" + p.denom}));
+    btn.appendChild(el("span", {class:"gid", text: stage.gate}));
+    btn.appendChild(el("span", {class:"gname", text: stage.gate_name}));
+    const bar = el("div", {class:"bar"});
+    const fill = el("span", {});
+    fill.style.width = Math.round(p.pct*100) + "%";
+    if(p.outstanding > 0) fill.style.background = "var(--hold)";
+    bar.appendChild(fill);
+    btn.appendChild(bar);
+    spine.appendChild(btn);
+  });
+
+  /* right: the evidence ledger for the selected gate */
+  const stage = track.stages[currentGate[trackId]];
+  const p = gateProgress(trackId, stage);
+  const right = el("div", {});
+
+  const head = el("div", {class:"stage-head"});
+  head.appendChild(el("h2", {text: stage.gate + " — " + stage.gate_name}));
+  head.appendChild(el("p", {class:"meta", text: stage.stage}));
+  head.appendChild(el("p", {class:"meta", text: "Decision: " + stage.decision}));
+  head.appendChild(el("p", {class:"meta", text: "Decision owner: " + stage.approver}));
+  right.appendChild(head);
+  right.appendChild(el("div", {class:"exit", text: "Exit criteria. " + stage.exit}));
+
+  right.appendChild(el("p", {class:"note", text:
+    p.outstanding > 0
+      ? p.outstanding + " of " + p.denom + " required evidence items are still outstanding at this gate."
+      : "All required evidence at this gate is recorded. The named authority can now decide."}));
+
+  stage.items.forEach((text, i) => {
+    const key = itemKey(trackId, stage.gate, i+1);
+    const rec = getItem(key);
+    let cls = "item";
+    if(rec.status === "Complete") cls += " done";
+    else if(rec.status === "In progress" || rec.status === "Submitted for review") cls += " prog";
+    else if(TAILORED.includes(rec.status)) cls += " na";
+
+    const row = el("div", {class:cls});
+    row.appendChild(el("div", {class:"txt"}, [
+      el("span", {class:"ref", text: stage.gate + "." + String(i+1).padStart(2,"0")}),
+      el("span", {text: text})
+    ]));
+
+    const f = el("div", {class:"fields"});
+    const apiItem = state.apiItems && state.apiItems[key];
+    const persistItem = () => apiUpdate(() => updateApiItem(apiItem, rec));
+    f.appendChild(field("Status", select(DATA.meta.statuses, rec.status, v => { rec.status = v; persistItem(); render(); })));
+    f.appendChild(field("Owner", input("text", rec.owner, v => { rec.owner = v; persistItem(); }, "Named person")));
+    f.appendChild(field("Due", input("date", rec.due, v => { rec.due = v; persistItem(); })));
+    f.appendChild(field("Completed", input("date", rec.done, v => { rec.done = v; persistItem(); })));
+    f.appendChild(field("Evidence reference", input("text", rec.ref, v => { rec.ref = v; persistItem(); }, "Where the record lives"), true));
+    f.appendChild(field("Notes", textarea(rec.notes, v => { rec.notes = v; persistItem(); }, "Conditions, deviations, links"), true));
+    row.appendChild(f);
+    right.appendChild(row);
+  });
+
+  /* gate decision block */
+  const gk = gateKey(trackId, stage.gate);
+  const g = getGate(gk);
+  const dec = el("div", {class:"decision"});
+  dec.appendChild(el("h3", {text:"Gate decision"}));
+  let badgeClass = "badge";
+  if(g.decision === "Approve") badgeClass += " ok";
+  else if(g.decision === "Approve with conditions" || g.decision === "Hold" || g.decision === "Redirect") badgeClass += " warn";
+  else if(g.decision === "Terminate") badgeClass += " bad";
+  dec.appendChild(el("p", {}, [el("span", {class:badgeClass, text:g.decision})]));
+  const df = el("div", {class:"fields"});
+  const persistGate = () => apiUpdate(() => updateApiGate(trackId, stage.gate, g));
+  df.appendChild(field("Decision", select(DATA.meta.gate_decisions, g.decision, v => { g.decision = v; persistGate(); render(); })));
+  df.appendChild(field("Decision date", input("date", g.date, v => { g.date = v; persistGate(); })));
+  df.appendChild(field("Deciding authority", input("text", g.authority, v => { g.authority = v; persistGate(); }, "Name and role")));
+  df.appendChild(field("Conditions, owners and due dates", textarea(g.conditions, v => { g.conditions = v; persistGate(); },
+    "Unresolved critical conditions cannot be approved with conditions"), true));
+  dec.appendChild(df);
+  right.appendChild(dec);
+
+  view.innerHTML = "";
+  const panel = el("div", {class:"panel"});
+  panel.appendChild(el("h2", {text: track.name}));
+  panel.appendChild(el("p", {class:"note", text: "Source: " + track.source}));
+  panel.appendChild(stats);
+  panel.appendChild(el("div", {class:"ledger"}, [spine, right]));
+  view.appendChild(panel);
+}
+
+/* ---- project details ---- */
+function renderSetup(){
+  const view = document.getElementById("view");
+  const panel = el("div", {class:"panel"});
+  panel.appendChild(el("h2", {text:"Project details"}));
+  panel.appendChild(el("p", {class:"note", text:
+    "The controlled header for both tracks. Classification decides how deep the evidence must go, "
+    + "so set it before you start ticking items."}));
+
+  const grid = el("div", {class:"fields"});
+  DATA.project_fields.forEach(f => {
+    const control = f.hint && f.hint.length > 60
+      ? textarea(state.project[f.field], v => state.project[f.field] = v, f.hint)
+      : input("text", state.project[f.field], v => state.project[f.field] = v, f.hint);
+    grid.appendChild(field(f.field, control, true));
+  });
+  panel.appendChild(grid);
+  view.innerHTML = "";
+  view.appendChild(panel);
+}
+
+/* ---- registers ---- */
+const REGISTERS = [
+  ["risk","Risk and issue register"],
+  ["change","Change requests"],
+  ["exception","Exceptions and non-conformances"],
+  ["emergency","Emergency changes"],
+  ["decision","Gate and decision log"]
+];
+
+function renderRegisters(){
+  const view = document.getElementById("view");
+  view.innerHTML = "";
+  REGISTERS.forEach(([key, title]) => {
+    const reg = DATA.registers[key];
+    if(!state.registers[key]) state.registers[key] = [];
+    const rows = state.registers[key];
+
+    const panel = el("div", {class:"panel"});
+    panel.appendChild(el("h2", {text:title}));
+    panel.appendChild(el("p", {class:"note", text: reg.note}));
+
+    const table = el("table", {});
+    const thead = el("thead", {});
+    const hr = el("tr", {});
+    reg.columns.forEach(c => hr.appendChild(el("th", {text:c})));
+    hr.appendChild(el("th", {text:""}));
+    thead.appendChild(hr);
+    table.appendChild(thead);
+
+    const tbody = el("tbody", {});
+    const ex = el("tr", {class:"example"});
+    reg.example.forEach(v => ex.appendChild(el("td", {text:String(v)})));
+    ex.appendChild(el("td", {text:"example"}));
+    tbody.appendChild(ex);
+
+    rows.forEach((row, ri) => {
+      const tr = el("tr", {});
+      reg.columns.forEach((c, ci) => {
+        const td = el("td", {});
+        td.appendChild(input("text", row[ci] || "", v => row[ci] = v));
+        tr.appendChild(td);
+      });
+      const del = el("td", {});
+      del.appendChild(el("button", {class:"btn", text:"Remove",
+        onclick:() => { rows.splice(ri,1); save(); render(); }}));
+      tr.appendChild(del);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+    panel.appendChild(el("div", {class:"scroll"}, [table]));
+    panel.appendChild(el("button", {class:"btn primary", text:"Add an entry",
+      onclick:() => { rows.push(reg.columns.map(() => "")); save(); render(); }}));
+    view.appendChild(panel);
+  });
+}
+
+/* ---- measures ---- */
+function renderMeasures(){
+  const view = document.getElementById("view");
+  const panel = el("div", {class:"panel"});
+  panel.appendChild(el("h2", {text:"Year-One mandatory measures"}));
+  panel.appendChild(el("p", {class:"note", text:
+    "Both frameworks make five measures mandatory from the effective date of 31 October 2026."}));
+
+  const table = el("table", {});
+  const thead = el("thead", {});
+  const hr = el("tr", {});
+  ["Track","Measure","Source and owner","Frequency","Target","Current value","As at"].forEach(c => hr.appendChild(el("th",{text:c})));
+  thead.appendChild(hr); table.appendChild(thead);
+  const tbody = el("tbody", {});
+  DATA.measures.forEach((m, i) => {
+    if(!state.measures[i]) state.measures[i] = {value:"", date:""};
+    const rec = state.measures[i];
+    const tr = el("tr", {});
+    [m.track, m.measure, m.source_owner, m.frequency, m.target].forEach(v => tr.appendChild(el("td",{text:v})));
+    const v1 = el("td", {}); v1.appendChild(input("text", rec.value, v => rec.value = v)); tr.appendChild(v1);
+    const v2 = el("td", {}); v2.appendChild(input("date", rec.date, v => rec.date = v)); tr.appendChild(v2);
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  panel.appendChild(el("div", {class:"scroll"}, [table]));
+  view.innerHTML = ""; view.appendChild(panel);
+}
+
+/* ---- reference tables ---- */
+function simpleTable(headers, rows){
+  const table = el("table", {});
+  const thead = el("thead", {}); const hr = el("tr", {});
+  headers.forEach(h => hr.appendChild(el("th",{text:h})));
+  thead.appendChild(hr); table.appendChild(thead);
+  const tbody = el("tbody", {});
+  rows.forEach(r => {
+    const tr = el("tr", {});
+    r.forEach(c => tr.appendChild(el("td",{text:c})));
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return el("div", {class:"scroll"}, [table]);
+}
+
+function renderReference(){
+  const view = document.getElementById("view");
+  view.innerHTML = "";
+
+  const p1 = el("div", {class:"panel"});
+  p1.appendChild(el("h2", {text:"Mandatory artefact floor by software class"}));
+  p1.appendChild(el("p", {class:"note", text:
+    "R = required, C = conditional as stated, N/A = not applicable. Records may be combined; a required "
+    + "record may not be omitted without an approved exception."}));
+  p1.appendChild(simpleTable(
+    ["Stage","Class 1","Class 2","Class 3","Class 4","Tailoring floor","Owner","Approval / evidence"],
+    DATA.artefact_floor.map(a => [a.stage,a.c1,a.c2,a.c3,a.c4,a.floor,a.owner,a.evidence])));
+  view.appendChild(p1);
+
+  const p2 = el("div", {class:"panel"});
+  p2.appendChild(el("h2", {text:"Gate alignment and evidence reuse"}));
+  p2.appendChild(el("p", {class:"note", text:
+    "Evidence is created once and referenced by both tracks. The higher classification, stronger control "
+    + "and more senior approver govern wherever the mappings differ."}));
+  p2.appendChild(simpleTable(["Project gate","Software checkpoint","Consolidation rule"],
+    DATA.alignment.map(a => [a.pm,a.sdlc,a.rule])));
+  view.appendChild(p2);
+
+  const p3 = el("div", {class:"panel"});
+  p3.appendChild(el("h2", {text:"Classification mapping"}));
+  p3.appendChild(simpleTable(["Project class","Normal software class","Mandatory interpretation"],
+    DATA.class_mapping.map(c => [c.pm_class,c.sdlc_class,c.interpretation])));
+  view.appendChild(p3);
+}
+
+/* ---- router ---- */
+function render(){
+  renderTabs();
+  if(currentTab === "PM" || currentTab === "SDLC") renderTrack(currentTab);
+  else if(currentTab === "setup") renderSetup();
+  else if(currentTab === "registers") renderRegisters();
+  else if(currentTab === "measures") renderMeasures();
+  else renderReference();
+  scheduleSave();
+}
+
+/* =========================================================================
+   Toolbar actions.
+   ========================================================================= */
+document.getElementById("btn-save").addEventListener("click", save);
+
+document.getElementById("btn-export").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+  const a = el("a", {href:URL.createObjectURL(blob), download:"kenaddme-build-status.json"});
+  document.body.appendChild(a); a.click(); a.remove();
+});
+
+document.getElementById("btn-import").addEventListener("click", () => document.getElementById("file-input").click());
+document.getElementById("file-input").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      state = JSON.parse(reader.result);
+      save(); render();
+    }catch(err){
+      alert("That file is not a tracker export. Choose the JSON file downloaded from this tracker.");
+    }
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById("btn-print").addEventListener("click", () => window.print());
+
+document.getElementById("btn-reset").addEventListener("click", () => {
+  if(confirm("Clear every entry in this tracker? Download a copy first if you need one.")){
+    state = {project:{}, items:{}, gates:{}, apiItems:{}, measures:{}, registers:{}};
+    save(); render();
+  }
+});
+
+/* =========================================================================
+   Start.
+   ========================================================================= */
+(async function start(){
+  document.getElementById("view").innerHTML =
+    '<div class="panel"><h2>Loading project workspace</h2><p class="note">Connecting to the tracker API and loading registered projects...</p></div>';
+  document.getElementById("subtitle").textContent = DATA.meta.subtitle;
+  document.getElementById("sources").innerHTML =
+    DATA.meta.sources.map(s => "<div>" + s + "</div>").join("")
+    + "<div>Framework owner and custodian: " + DATA.meta.owner + "</div>";
+  const saved = await Store.get();
+  if(saved){
+    try{ state = JSON.parse(saved); }catch(e){}
+  }
+  const synced = await syncFromApi();
+  if(synced){
+    document.getElementById("saved-note").textContent =
+      "Loaded from the tracker API. Project " + state.project["Project / product name"] + ".";
+  }
+  render();
+  if(memoryOnly){
+    document.getElementById("saved-note").textContent =
+      "Storage is unavailable here, so entries last only until this page closes. Use \u201cDownload a copy of the data\u201d to keep them.";
+  }
+})();
+</script>
+</body>
+</html>

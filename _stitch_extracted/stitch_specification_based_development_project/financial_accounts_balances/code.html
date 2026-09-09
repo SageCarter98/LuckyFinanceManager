@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#93ccff", "background": "#f8f9ff", "slate-border": "#CBD5E1", "on-primary": "#ffffff", "on-secondary-container": "#00714d", "on-primary-container": "#7c839b", "on-secondary-fixed-variant": "#005236", "surface-variant": "#d3e4fe", "on-surface": "#0b1c30", "error-container": "#ffdad6", "surface-dim": "#cbdbf5", "slate-surface": "#F8FAFC", "growth-emerald-tint": "#ECFDF5", "warning-amber": "#F59E0B", "secondary": "#006c49", "on-primary-fixed": "#131b2e", "outline-variant": "#c6c6cd", "surface-container": "#e5eeff", "tertiary-fixed": "#cce5ff", "on-error-container": "#93000a", "primary": "#000000", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#188ace", "on-secondary-fixed": "#002113", "table-header-fill": "#E2E8F0", "info-sky-tint": "#F0F9FF", "primary-fixed-dim": "#bec6e0", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "primary-fixed": "#dae2fd", "surface-container-high": "#dce9ff", "error": "#ba1a1a", "slate-surface-subtle": "#F1F5F9", "secondary-fixed": "#6ffbbe", "secondary-container": "#6cf8bb", "warning-amber-tint": "#FFFBEB", "primary-container": "#131b2e", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30", "on-tertiary-fixed": "#001d31", "on-primary-fixed-variant": "#3f465c", "growth-emerald-deep": "#059669", "on-surface-variant": "#45464d", "tertiary-container": "#001d31", "surface-tint": "#565e74", "slate-navy-deep": "#1E293B", "surface-container-low": "#eff4ff", "outline": "#76777d", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "info-sky": "#0284C7", "secondary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#004b73", "inverse-primary": "#bec6e0", "expense-crimson": "#EF4444", "surface": "#f8f9ff", "expense-crimson-tint": "#FEF2F2", "on-tertiary": "#ffffff", "inverse-on-surface": "#eaf1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "table-cell-y": "0.625rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "margin-desktop": "3rem", "space-sm": "0.75rem", "margin-tablet": "2rem", "space-md": "1rem", "space-2xs": "0.25rem", "table-cell-x": "0.875rem", "space-2xl": "3rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "margin-mobile": "1rem", "gutter-mobile": "1rem" }, "fontFamily": { "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "currency-table": [ "Inter" ], "label-md": [ "Inter" ], "currency-stat": [ "Inter" ], "display": [ "Plus Jakarta Sans" ], "currency-display": [ "Inter" ], "label-sm": [ "Inter" ], "display-mobile": [ "Plus Jakarta Sans" ], "title": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "body-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "400" } ], "currency-table": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" } ], "label-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.005em", "fontWeight": "500" } ], "currency-stat": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "display": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "currency-display": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "title": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><img alt="FinPlatform Geometric Brand Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">FinPlatform</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-space-3xs">Finance Management</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="accounts" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span>Accounts</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span>Categories</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recurring-bills" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span>Recurring Bills</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="#"><span class="material-symbols-outlined text-[20px]">flag</span><span>Goals</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Reports</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="banking" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">savings</span><span>Banking</span></div><span class="material-symbols-outlined text-[16px] text-on-surface-variant" title="Gated Verification Required">lock</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary font-title rounded-xl" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">FRS v1.0 Audited</span></div><span class="h-2 w-2 rounded-full bg-secondary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-full cursor-pointer hover:bg-surface-container transition-colors" title="Preferred Active Display Currency (FE-3.1)"><span class="font-label-sm text-label-sm font-semibold text-on-surface">USD ($)</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div><a class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="staff-console" href="#"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span><span>Staff Console</span></a></div><div class="flex items-center gap-space-md"><button aria-label="Notifications (FE-10.1)" class="relative p-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-expense-crimson"></span></button><div class="relative group"><button aria-expanded="false" aria-haspopup="true" class="flex items-center gap-space-sm pl-space-xs pr-space-sm py-space-2xs rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvdVSBQ9I2Z6pOcVK9iXo3u0_t1ItkK96Oeo6d2OE4DBviKDfghiObVa6whsj2mT0DYyAj7AHBR-_tQSJ0RPhCzkfrvexaCWZL6rEgaeJyek-xG-uvwmdxxfFqi5R3YeLgSCfePfrE4LF8xEanIhbPIgZGGysf-fKoob0s6REr8WfIp1Qv18fKpn_RImKesIzHSzNr8Rfgjoo7vXm7NajKuspHEOqbHT0wS2RuHFm5bhJ3dPfYfo1"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Eleanor Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Individual Tier</span></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span></button><div class="absolute right-0 mt-space-2xs w-56 bg-surface-container-lowest rounded-xl shadow-[0_4px_6px_-1px_rgba(15,23,42,0.08),0_2px_4px_-2px_rgba(15,23,42,0.04)] p-space-xs hidden group-hover:block transition-all z-50"><div class="px-space-sm py-space-xs"><p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account</p></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">manage_accounts</span><span>Profile &amp; Preferences</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="security" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-rights" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>Data Rights</span></a><div class="my-space-2xs bg-surface-container-high h-[1px]"></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-expense-crimson hover:bg-expense-crimson-tint transition-colors" data-path="logout" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Logout</span></a></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Top Level Summary Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-xl">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-2xs text-on-surface-variant mb-space-3xs">
+<span class="material-symbols-outlined text-[16px] text-info-sky">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Ledger Registry • SRS 3.4 Spec</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Financial Accounts</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-space-3xs">
+        Manage your manual accounts, view settled balances in native currencies, and calibrate institution ledgers with deterministic audit tracking.
+      </p>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-lowest text-on-surface rounded-xl shadow-sm hover:bg-surface-container transition-all" onclick="document.getElementById('reconcileModal').classList.toggle('hidden')" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="font-label-md text-label-md">Reconcile Balances</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-primary-container text-on-primary rounded-xl shadow-md hover:bg-slate-navy-deep transition-all" onclick="document.getElementById('createAccountDrawer').classList.remove('translate-x-full'); document.getElementById('drawerBackdrop').classList.remove('hidden')" type="button">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="font-label-md text-label-md">Add New Account</span>
+</button>
+</div>
+</div>
+<!-- FRS Metric Summary Tiles -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-lg">
+<!-- Card 1: Total Liquid Assets -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Total Liquid Assets (Converted)</span>
+<span class="material-symbols-outlined text-growth-emerald-deep bg-growth-emerald-tint p-space-2xs rounded-lg text-[20px]">savings</span>
+</div>
+<div class="flex items-baseline gap-space-xs my-space-2xs">
+<span class="font-currency-display text-currency-display text-on-surface tabular-nums">$26,674.12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">USD eq.</span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant pt-space-xs bg-surface-container-low px-space-xs py-space-3xs rounded-lg mt-space-xs">
+<span class="flex items-center gap-1 text-growth-emerald-deep font-semibold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>+4.82%
+        </span>
+<span>Includes EUR &amp; GBP Spot Fix</span>
+</div>
+</div>
+<!-- Card 2: Total Revolving Liabilities -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Revolving Credit Obligations</span>
+<span class="material-symbols-outlined text-expense-crimson bg-expense-crimson-tint p-space-2xs rounded-lg text-[20px]">credit_card_off</span>
+</div>
+<div class="flex items-baseline gap-space-xs my-space-2xs">
+<span class="font-currency-display text-currency-display text-expense-crimson tabular-nums">-$1,420.80</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">USD Due</span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant pt-space-xs bg-surface-container-low px-space-xs py-space-3xs rounded-lg mt-space-xs">
+<span>Active Utilization: 9.4%</span>
+<span class="text-on-surface font-semibold">1 Statement Open</span>
+</div>
+</div>
+<!-- Card 3: Ledger Distribution -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Account Master Count</span>
+<span class="material-symbols-outlined text-info-sky bg-info-sky-tint p-space-2xs rounded-lg text-[20px]">account_balance</span>
+</div>
+<div class="flex items-baseline gap-space-sm my-space-2xs">
+<span class="font-currency-display text-currency-display text-on-surface">4</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Active Institutions</span>
+</div>
+<div class="flex items-center gap-space-sm mt-space-xs">
+<div class="flex-1 bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary-container w-2/4" title="Checking (2)"></div>
+<div class="bg-growth-emerald-deep w-1/4" title="Savings (1)"></div>
+<div class="bg-warning-amber w-1/4" title="Credit (1)"></div>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">100% Audited</span>
+</div>
+</div>
+</div>
+<!-- Regulatory Safeguard Banner (FE-4.4) -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm mb-space-xl flex items-start gap-space-md relative overflow-hidden">
+<div class="w-1.5 self-stretch bg-info-sky rounded-full"></div>
+<div class="bg-info-sky-tint text-info-sky p-space-xs rounded-xl flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-space-xs mb-space-3xs">
+<h2 class="font-title text-title text-on-surface">Account Deletion Safeguard &amp; Attribution Protocol (FE-4.4)</h2>
+<span class="bg-info-sky-tint text-info-sky font-label-sm text-label-sm px-space-xs py-space-3xs rounded-md">Safety Lock Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+        Deleting an account archives its balance math and prompts re-attribution of all associated transactions. Historical balance logs remain accessible for auditing compliance, preventing orphan journal entries and preserving ledger reconciliations.
+      </p>
+</div>
+<button aria-label="Dismiss alert" class="shrink-0 text-on-surface-variant hover:text-on-surface p-space-2xs" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Main Multi-Account Registry -->
+<div class="flex flex-col gap-space-xl">
+<!-- CATEGORY 1: LIQUID CHECKING -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs bg-surface-container-lowest/40 px-space-sm py-space-xs rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="h-3 w-3 rounded-full bg-info-sky"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Checking Accounts</h2>
+<span class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded-full">2 Active</span>
+</div>
+<span class="font-currency-table text-currency-table text-on-surface-variant tabular-nums">Subtotal: $22,129.56 USD eq.</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Account Card 1: Chase Liquid Checking (USD) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[22px]">payments</span>
+</div>
+<div>
+<h3 class="font-title text-title text-on-surface">Chase Premier Liquid Checking</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">JP Morgan Chase • Acct #•••9021</span>
+</div>
+</div>
+<span class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-space-xs py-space-3xs rounded-md">Checking</span>
+</div>
+<!-- Currency lock badge (FE-4.3) -->
+<div class="flex items-center gap-space-2xs bg-surface-container-low px-space-xs py-space-3xs rounded-md w-fit mb-space-md">
+<span class="material-symbols-outlined text-[14px] text-growth-emerald-deep">lock</span>
+<span class="font-label-sm text-label-sm text-on-surface">Native Denomination Locked: USD ($)</span>
+</div>
+<!-- Balance Presentation -->
+<div class="flex flex-col bg-surface-container-low p-space-sm rounded-xl mb-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-space-3xs">Current Settled Native Balance</span>
+<div class="flex items-baseline justify-between">
+<span class="font-currency-stat text-currency-stat text-on-surface tabular-nums font-bold">$18,450.20 <span class="text-body-sm font-normal text-on-surface-variant">USD</span></span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Settled
+                </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">Display Value: $18,450.20 USD (Base Native)</span>
+</div>
+</div>
+<!-- Bottom Footer Details -->
+<div class="pt-space-xs flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Reconciled today at 09:42 AM
+            </span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="View Ledger" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="Edit Details" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs hover:bg-expense-crimson-tint text-expense-crimson rounded-lg transition-colors" onclick="openDeleteModal('Chase Premier Liquid Checking')" title="Delete Account" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Account Card 2: Barclays London Operating (GBP) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[22px]">public</span>
+</div>
+<div>
+<h3 class="font-title text-title text-on-surface">Barclays Global Operating</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Barclays UK PLC • Acct #•••4412</span>
+</div>
+</div>
+<span class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-space-xs py-space-3xs rounded-md">Checking</span>
+</div>
+<!-- Currency lock badge (FE-4.3) -->
+<div class="flex items-center gap-space-2xs bg-surface-container-low px-space-xs py-space-3xs rounded-md w-fit mb-space-md">
+<span class="material-symbols-outlined text-[14px] text-growth-emerald-deep">lock</span>
+<span class="font-label-sm text-label-sm text-on-surface">Native Denomination Locked: GBP (£)</span>
+</div>
+<!-- Balance Presentation with FX conversion preview (FE-X.2) -->
+<div class="flex flex-col bg-surface-container-low p-space-sm rounded-xl mb-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-space-3xs">Current Settled Native Balance</span>
+<div class="flex items-baseline justify-between">
+<span class="font-currency-stat text-currency-stat text-on-surface tabular-nums font-bold">£2,890.00 <span class="text-body-sm font-normal text-on-surface-variant">GBP</span></span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Settled
+                </span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant mt-space-3xs">
+<span>Display Value: <strong class="text-on-surface font-currency-table font-semibold">≈ $3,679.36 USD</strong></span>
+<span class="text-[11px] bg-surface-container-high px-space-2xs py-0.5 rounded text-on-surface font-medium">FX @ 1.2731</span>
+</div>
+</div>
+</div>
+<!-- Bottom Footer Details -->
+<div class="pt-space-xs flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Reconciled yesterday at 04:15 PM
+            </span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="View Ledger" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="Edit Details" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs hover:bg-expense-crimson-tint text-expense-crimson rounded-lg transition-colors" onclick="openDeleteModal('Barclays Global Operating')" title="Delete Account" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CATEGORY 2: SAVINGS & TREASURY -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs bg-surface-container-lowest/40 px-space-sm py-space-xs rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="h-3 w-3 rounded-full bg-growth-emerald-deep"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Savings &amp; Treasury</h2>
+<span class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded-full">1 Active</span>
+</div>
+<span class="font-currency-table text-currency-table text-on-surface-variant tabular-nums">Subtotal: $4,544.56 USD eq.</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Account Card 3: Deutsche Reserve Savings (EUR) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[22px]">account_balance</span>
+</div>
+<div>
+<h3 class="font-title text-title text-on-surface">Deutsche Bank Reserve Savings</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Deutsche Bank AG • IBAN DE89•••1002</span>
+</div>
+</div>
+<span class="bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm px-space-xs py-space-3xs rounded-md">High-Yield Reserve</span>
+</div>
+<!-- Currency lock badge (FE-4.3) -->
+<div class="flex items-center gap-space-2xs bg-surface-container-low px-space-xs py-space-3xs rounded-md w-fit mb-space-md">
+<span class="material-symbols-outlined text-[14px] text-growth-emerald-deep">lock</span>
+<span class="font-label-sm text-label-sm text-on-surface">Native Denomination Locked: EUR (€)</span>
+</div>
+<!-- Balance Presentation -->
+<div class="flex flex-col bg-surface-container-low p-space-sm rounded-xl mb-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-space-3xs">Current Settled Native Balance</span>
+<div class="flex items-baseline justify-between">
+<span class="font-currency-stat text-currency-stat text-on-surface tabular-nums font-bold">€4,210.50 <span class="text-body-sm font-normal text-on-surface-variant">EUR</span></span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 3.45% APY
+                </span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant mt-space-3xs">
+<span>Display Value: <strong class="text-on-surface font-currency-table font-semibold">≈ $4,544.56 USD</strong></span>
+<span class="text-[11px] bg-surface-container-high px-space-2xs py-0.5 rounded text-on-surface font-medium">FX @ 1.0793</span>
+</div>
+</div>
+</div>
+<!-- Bottom Footer Details -->
+<div class="pt-space-xs flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Reconciled 2 days ago
+            </span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="View Ledger" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="Edit Details" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs hover:bg-expense-crimson-tint text-expense-crimson rounded-lg transition-colors" onclick="openDeleteModal('Deutsche Bank Reserve Savings')" title="Delete Account" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Inline Visual Placeholder / Analytics Preview -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between relative overflow-hidden">
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface font-semibold">Treasury Asset Allocation</span>
+<span class="font-label-sm text-label-sm text-info-sky">Real-time Rates</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">All multicurrency cash repositories operate with continuous dual-ledger auditing.</p>
+</div>
+<!-- Simple inline SVG chart showing multi-currency cash distribution -->
+<div class="my-space-md flex items-center justify-center">
+<svg class="w-full h-20 overflow-visible" viewbox="0 0 320 80">
+<rect fill="#0b1c30" height="28" rx="6" width="220" x="0" y="24"></rect>
+<rect fill="#0284C7" height="28" rx="6" width="56" x="224" y="24"></rect>
+<rect fill="#059669" height="28" rx="6" width="36" x="284" y="24"></rect>
+<text class="font-label-sm text-[11px] fill-current text-on-surface-variant" x="5" y="16">USD Checking (69%)</text>
+<text class="font-label-sm text-[11px] fill-current text-on-surface-variant" x="210" y="16">EUR (17%)</text>
+<text class="font-label-sm text-[11px] fill-current text-on-surface-variant" x="280" y="16">GBP (14%)</text>
+</svg>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant pt-space-xs">
+<span>Next Automated Rebalancing: <strong class="text-on-surface">Oct 31, 2024</strong></span>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep font-semibold">Variance: 0.00%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CATEGORY 3: REVOLVING CREDIT -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs bg-surface-container-lowest/40 px-space-sm py-space-xs rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="h-3 w-3 rounded-full bg-expense-crimson"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Revolving Credit Facilities</h2>
+<span class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded-full">1 Active</span>
+</div>
+<span class="font-currency-table text-currency-table text-expense-crimson tabular-nums">Subtotal: -$1,420.80 USD Due</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Account Card 4: Amex Platinum Corporate (USD) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-expense-crimson">
+<span class="material-symbols-outlined text-[22px]">credit_card</span>
+</div>
+<div>
+<h3 class="font-title text-title text-on-surface">Amex Platinum Corporate Charge</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">American Express • Card ending in 1008</span>
+</div>
+</div>
+<span class="bg-expense-crimson-tint text-expense-crimson font-label-sm text-label-sm px-space-xs py-space-3xs rounded-md">Revolving Credit</span>
+</div>
+<!-- Currency lock badge (FE-4.3) -->
+<div class="flex items-center gap-space-2xs bg-surface-container-low px-space-xs py-space-3xs rounded-md w-fit mb-space-md">
+<span class="material-symbols-outlined text-[14px] text-growth-emerald-deep">lock</span>
+<span class="font-label-sm text-label-sm text-on-surface">Native Denomination Locked: USD ($)</span>
+</div>
+<!-- Balance Presentation -->
+<div class="flex flex-col bg-surface-container-low p-space-sm rounded-xl mb-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-space-3xs">Current Settled Native Balance</span>
+<div class="flex items-baseline justify-between">
+<span class="font-currency-stat text-currency-stat text-expense-crimson tabular-nums font-bold">-$1,420.80 <span class="text-body-sm font-normal text-on-surface-variant">USD Credit</span></span>
+<span class="font-body-sm text-body-sm text-warning-amber flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">event_upcoming</span> Due Nov 12
+                </span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant mt-space-3xs">
+<span>Display Value: -$1,420.80 USD (Base Native)</span>
+<span>Limit: $15,000.00</span>
+</div>
+</div>
+</div>
+<!-- Bottom Footer Details -->
+<div class="pt-space-xs flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Reconciled 3 hours ago
+            </span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="View Ledger" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs hover:bg-surface-container rounded-lg text-on-surface transition-colors" title="Edit Details" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs hover:bg-expense-crimson-tint text-expense-crimson rounded-lg transition-colors" onclick="openDeleteModal('Amex Platinum Corporate Charge')" title="Delete Account" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Regulatory & Security Info Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-sm mb-space-sm">
+<div class="w-10 h-10 rounded-xl bg-growth-emerald-tint flex items-center justify-center text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</div>
+<div>
+<h3 class="font-title text-title text-on-surface">Dual-Entry Verification Standard</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Section 4.4 Financial Standards (FRS)</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Every balance displayed is computed by aggregating validated double-entry debits and credits from the transaction register. Manual reconciliations insert calibrating balance checkpoints without breaking historical audit trails.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-space-md bg-surface-container-low p-space-sm rounded-xl mt-space-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Last Full Ledger Audit</span>
+<span class="font-label-sm text-label-sm font-semibold text-growth-emerald-deep">100% Consistent (0 Discrepancies)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SLIDE-OVER DRAWER: CREATE NEW ACCOUNT (FE-4.2, FE-4.3) -->
+<div class="fixed inset-0 bg-slate-navy-deep/45 backdrop-blur-sm z-50 hidden transition-opacity" id="drawerBackdrop" onclick="closeDrawer()"></div>
+<aside class="fixed top-0 right-0 h-full w-full max-w-md bg-surface-container-lowest shadow-2xl z-50 flex flex-col justify-between translate-x-full transition-transform duration-300 ease-in-out" id="createAccountDrawer">
+<div class="flex flex-col h-full overflow-y-auto">
+<!-- Drawer Header -->
+<div class="p-space-lg flex items-center justify-between bg-surface-container-low">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Create New Account</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">SRS 3.4 Ledger Onboarding</span>
+</div>
+<button class="p-space-2xs rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="closeDrawer()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Drawer Form -->
+<form class="p-space-lg flex flex-col gap-space-lg flex-1" id="createAccountForm" onsubmit="handleAccountCreate(event)">
+<!-- Account Name Input -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm text-on-surface font-semibold" for="accName">Account Name</label>
+<input class="h-10 px-space-sm bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:shadow-[0_0_0_2px_#0284C7] outline-none transition-all" id="accName" placeholder="e.g., Vanguard Treasury Fund" required="" type="text"/>
+<span class="text-[11px] text-on-surface-variant">Use an identifiable institutional account alias.</span>
+</div>
+<!-- Account Type Dropdown -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm text-on-surface font-semibold" for="accType">Account Classification</label>
+<select class="h-10 px-space-sm bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:shadow-[0_0_0_2px_#0284C7] outline-none transition-all" id="accType">
+<option value="checking">Checking (Liquid Cash)</option>
+<option value="savings">Savings (Reserve / High Yield)</option>
+<option value="credit">Credit (Revolving Facility)</option>
+<option value="investment">Investment / Custodial</option>
+</select>
+</div>
+<!-- Native Currency Selector (FE-4.3) -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm text-on-surface font-semibold" for="accCurrency">Native Denomination</label>
+<select class="h-10 px-space-sm bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:shadow-[0_0_0_2px_#0284C7] outline-none transition-all" id="accCurrency">
+<option selected="" value="USD">USD ($) - United States Dollar (Display Currency)</option>
+<option value="EUR">EUR (€) - Eurozone</option>
+<option value="GBP">GBP (£) - British Pound Sterling</option>
+<option value="CAD">CAD ($) - Canadian Dollar</option>
+<option value="JPY">JPY (¥) - Japanese Yen</option>
+<option value="CHF">CHF (Fr) - Swiss Franc</option>
+</select>
+<span class="text-[11px] text-on-surface-variant">Defaulted to your preferred display currency (USD).</span>
+</div>
+<!-- Opening Settled Balance -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm text-on-surface font-semibold" for="accBalance">Opening Settled Balance</label>
+<div class="flex items-center h-10 rounded-lg overflow-hidden bg-surface-container-low">
+<span class="px-space-sm font-label-md text-label-md text-on-surface-variant bg-surface-container">USD $</span>
+<input class="flex-1 h-full px-space-sm bg-transparent text-on-surface font-currency-table text-currency-table outline-none" id="accBalance" step="0.01" type="number" value="0.00"/>
+</div>
+</div>
+<!-- EXPLICIT POLICY CALLOUT (FE-4.3) -->
+<div class="p-space-md bg-warning-amber-tint rounded-xl flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-warning-amber text-[20px] shrink-0 mt-0.5">lock_clock</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Crucial Denomination Constraint (FE-4.3)</span>
+<p class="text-[12px] text-on-surface-variant mt-1 leading-normal">
+<strong>Account native currency is permanent upon creation</strong> to maintain historical double-entry integrity. Changing currency requires creating a separate account and transferring balances through verified foreign exchange postings.
+            </p>
+</div>
+</div>
+<!-- Action CTAs inside Drawer -->
+<div class="flex items-center gap-space-sm mt-auto pt-space-lg">
+<button class="flex-1 py-space-sm bg-surface-container text-on-surface rounded-xl font-label-md text-label-md hover:bg-surface-container-high transition-colors" onclick="closeDrawer()" type="button">
+            Cancel
+          </button>
+<button class="flex-1 py-space-sm bg-primary-container text-on-primary rounded-xl font-label-md text-label-md hover:bg-slate-navy-deep shadow transition-all" type="submit">
+            Confirm &amp; Bind Account
+          </button>
+</div>
+</form>
+</div>
+</aside>
+<!-- MODAL: ACCOUNT RECONCILIATION -->
+<div class="fixed inset-0 bg-slate-navy-deep/45 backdrop-blur-sm z-50 hidden flex items-center justify-center p-space-md" id="reconcileModal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[24px]">verified_user</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Reconcile Account Ledgers</h2>
+</div>
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface" onclick="document.getElementById('reconcileModal').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Execute a balance audit across all 4 institution registries. This evaluates ledger transactions against reported bank endpoints to spot orphan movements.
+      </p>
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-md rounded-xl">
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1">
+<span class="text-on-surface font-medium">Chase Liquid Checking (USD)</span>
+<span class="text-growth-emerald-deep font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span> Validated
+          </span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1">
+<span class="text-on-surface font-medium">Barclays Global Operating (GBP)</span>
+<span class="text-growth-emerald-deep font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span> Validated
+          </span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1">
+<span class="text-on-surface font-medium">Deutsche Bank Reserve (EUR)</span>
+<span class="text-growth-emerald-deep font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span> Validated
+          </span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1">
+<span class="text-on-surface font-medium">Amex Platinum Charge (USD)</span>
+<span class="text-warning-amber font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sync</span> 1 Pending Float
+          </span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-xl font-label-md text-label-md" onclick="document.getElementById('reconcileModal').classList.add('hidden')" type="button">
+          Dismiss
+        </button>
+<button class="px-space-md py-space-sm bg-primary-container text-on-primary rounded-xl font-label-md text-label-md hover:bg-slate-navy-deep" onclick="executeReconciliation()" type="button">
+          Run Comprehensive Recalibration
+        </button>
+</div>
+</div>
+</div>
+<!-- MODAL: ACCOUNT DELETION IMPACT (FE-4.4) -->
+<div class="fixed inset-0 bg-slate-navy-deep/45 backdrop-blur-sm z-50 hidden flex items-center justify-center p-space-md" id="deleteModal">
+<div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-2xl p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm text-expense-crimson">
+<div class="p-space-2xs bg-expense-crimson-tint rounded-xl">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Archive &amp; Delete Account</h2>
+</div>
+<div class="p-space-sm bg-expense-crimson-tint rounded-xl">
+<p class="font-label-sm text-label-sm font-semibold text-expense-crimson">Action requires ledger re-attribution (FE-4.4)</p>
+<p class="text-[12px] text-on-surface-variant mt-1">
+          You are preparing to delete <strong class="text-on-surface font-semibold" id="deleteTargetName"></strong>. Historical entries will remain in the database for auditing, but balance math will be removed from your active dashboard.
+        </p>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm text-on-surface font-semibold" for="reassignTarget">Re-attribute transactions to:</label>
+<select class="h-10 px-space-sm bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md outline-none" id="reassignTarget">
+<option value="archive">General Audit Archive Ledger</option>
+<option value="chase">Chase Premier Liquid Checking</option>
+<option value="barclays">Barclays Global Operating</option>
+</select>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-xl font-label-md text-label-md" onclick="document.getElementById('deleteModal').classList.add('hidden')" type="button">
+          Cancel
+        </button>
+<button class="px-space-md py-space-sm bg-expense-crimson text-on-primary rounded-xl font-label-md text-label-md hover:bg-error" onclick="confirmAccountDeletion()" type="button">
+          Archive &amp; Confirm
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function closeDrawer() {
+    document.getElementById('createAccountDrawer').classList.add('translate-x-full');
+    document.getElementById('drawerBackdrop').classList.add('hidden');
+  }
+
+  function handleAccountCreate(event) {
+    event.preventDefault();
+    const name = document.getElementById('accName').value;
+    const currency = document.getElementById('accCurrency').value;
+    alert(`Account "${name}" created successfully with locked native currency: ${currency}`);
+    closeDrawer();
+  }
+
+  function openDeleteModal(accountName) {
+    document.getElementById('deleteTargetName').innerText = accountName;
+    document.getElementById('deleteModal').classList.remove('hidden');
+  }
+
+  function confirmAccountDeletion() {
+    const target = document.getElementById('deleteTargetName').innerText;
+    alert(`Account "${target}" archived. Associated double-entry ledgers re-attributed successfully under FE-4.4.`);
+    document.getElementById('deleteModal').classList.add('hidden');
+  }
+
+  function executeReconciliation() {
+    alert("Running full dual-entry reconciliation... Audit state synchronized with 0 variances found.");
+    document.getElementById('reconcileModal').classList.add('hidden');
+  }
+</script></main></div></body></html>

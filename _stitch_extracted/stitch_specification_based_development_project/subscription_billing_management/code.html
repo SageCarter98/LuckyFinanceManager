@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#93ccff", "background": "#f8f9ff", "slate-border": "#CBD5E1", "on-primary": "#ffffff", "on-secondary-container": "#00714d", "on-primary-container": "#7c839b", "on-secondary-fixed-variant": "#005236", "surface-variant": "#d3e4fe", "on-surface": "#0b1c30", "error-container": "#ffdad6", "surface-dim": "#cbdbf5", "slate-surface": "#F8FAFC", "growth-emerald-tint": "#ECFDF5", "warning-amber": "#F59E0B", "secondary": "#006c49", "on-primary-fixed": "#131b2e", "outline-variant": "#c6c6cd", "surface-container": "#e5eeff", "tertiary-fixed": "#cce5ff", "on-error-container": "#93000a", "primary": "#000000", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#188ace", "on-secondary-fixed": "#002113", "table-header-fill": "#E2E8F0", "info-sky-tint": "#F0F9FF", "primary-fixed-dim": "#bec6e0", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "primary-fixed": "#dae2fd", "surface-container-high": "#dce9ff", "error": "#ba1a1a", "slate-surface-subtle": "#F1F5F9", "secondary-fixed": "#6ffbbe", "secondary-container": "#6cf8bb", "warning-amber-tint": "#FFFBEB", "primary-container": "#131b2e", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30", "on-tertiary-fixed": "#001d31", "on-primary-fixed-variant": "#3f465c", "growth-emerald-deep": "#059669", "on-surface-variant": "#45464d", "tertiary-container": "#001d31", "surface-tint": "#565e74", "slate-navy-deep": "#1E293B", "surface-container-low": "#eff4ff", "outline": "#76777d", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "info-sky": "#0284C7", "secondary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#004b73", "inverse-primary": "#bec6e0", "expense-crimson": "#EF4444", "surface": "#f8f9ff", "expense-crimson-tint": "#FEF2F2", "on-tertiary": "#ffffff", "inverse-on-surface": "#eaf1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "table-cell-y": "0.625rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "margin-desktop": "3rem", "space-sm": "0.75rem", "margin-tablet": "2rem", "space-md": "1rem", "space-2xs": "0.25rem", "table-cell-x": "0.875rem", "space-2xl": "3rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "margin-mobile": "1rem", "gutter-mobile": "1rem" }, "fontFamily": { "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "currency-table": [ "Inter" ], "label-md": [ "Inter" ], "currency-stat": [ "Inter" ], "display": [ "Plus Jakarta Sans" ], "currency-display": [ "Inter" ], "label-sm": [ "Inter" ], "display-mobile": [ "Plus Jakarta Sans" ], "title": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "body-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "400" } ], "currency-table": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" } ], "label-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.005em", "fontWeight": "500" } ], "currency-stat": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "display": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "currency-display": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "title": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><img alt="FinPlatform Geometric Brand Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">FinPlatform</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-space-3xs">Finance Management</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="accounts" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span>Accounts</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span>Categories</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recurring-bills" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span>Recurring Bills</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="#"><span class="material-symbols-outlined text-[20px]">flag</span><span>Goals</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Reports</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="banking" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">savings</span><span>Banking</span></div><span class="material-symbols-outlined text-[16px] text-on-surface-variant" title="Gated Verification Required">lock</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary font-title rounded-xl" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">FRS v1.0 Audited</span></div><span class="h-2 w-2 rounded-full bg-secondary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-full cursor-pointer hover:bg-surface-container transition-colors" title="Preferred Active Display Currency (FE-3.1)"><span class="font-label-sm text-label-sm font-semibold text-on-surface">USD ($)</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div><a class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="staff-console" href="#"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span><span>Staff Console</span></a></div><div class="flex items-center gap-space-md"><button aria-label="Notifications (FE-10.1)" class="relative p-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-expense-crimson"></span></button><div class="relative group"><button aria-expanded="false" aria-haspopup="true" class="flex items-center gap-space-sm pl-space-xs pr-space-sm py-space-2xs rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvdVSBQ9I2Z6pOcVK9iXo3u0_t1ItkK96Oeo6d2OE4DBviKDfghiObVa6whsj2mT0DYyAj7AHBR-_tQSJ0RPhCzkfrvexaCWZL6rEgaeJyek-xG-uvwmdxxfFqi5R3YeLgSCfePfrE4LF8xEanIhbPIgZGGysf-fKoob0s6REr8WfIp1Qv18fKpn_RImKesIzHSzNr8Rfgjoo7vXm7NajKuspHEOqbHT0wS2RuHFm5bhJ3dPfYfo1"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Eleanor Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Individual Tier</span></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span></button><div class="absolute right-0 mt-space-2xs w-56 bg-surface-container-lowest rounded-xl shadow-[0_4px_6px_-1px_rgba(15,23,42,0.08),0_2px_4px_-2px_rgba(15,23,42,0.04)] p-space-xs hidden group-hover:block transition-all z-50"><div class="px-space-sm py-space-xs"><p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account</p></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">manage_accounts</span><span>Profile &amp; Preferences</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="security" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-rights" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>Data Rights</span></a><div class="my-space-2xs bg-surface-container-high h-[1px]"></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-expense-crimson hover:bg-expense-crimson-tint transition-colors" data-path="logout" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Logout</span></a></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full">
+<div class="flex flex-col gap-space-2xl max-w-[1400px] mx-auto w-full pb-space-3xl">
+<!-- Header Section with Statutory Freedom Guarantee Banner -->
+<header class="flex flex-col gap-space-md">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-semibold">Regulatory Compliance FRS v1.0 • Ch. 5</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">SRS 3.12 Protocol</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Subscription, Plans &amp; Billing Management</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+            Manage your automated bank-linking subscription, invoices, and payment methods. Manual financial tracking remains 100% free and unhindered forever.
+          </p>
+</div>
+<!-- Quick Quick Action Hub -->
+<div class="flex items-center gap-space-sm shrink-0">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all shadow-sm" href="#invoices-history">
+<span class="material-symbols-outlined text-[18px]">receipt</span>
+<span>Billing Records</span>
+</a>
+<button class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-surface-container hover:bg-expense-crimson-tint hover:text-expense-crimson text-on-surface-variant font-label-md text-label-md transition-all shadow-sm" onclick="document.getElementById('cancellation-section').scrollIntoView({behavior: 'smooth'})">
+<span class="material-symbols-outlined text-[18px]">rule_settings</span>
+<span>Manage Plan</span>
+</button>
+</div>
+</div>
+<!-- Freedom Guarantee Banner (FE-12.1 Compliance) -->
+<div class="relative overflow-hidden rounded-xl bg-growth-emerald-tint p-space-md text-on-surface flex items-start sm:items-center gap-space-md shadow-sm">
+<div class="p-space-xs rounded-lg bg-surface-container-lowest text-growth-emerald-deep shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs w-full">
+<div class="flex flex-col">
+<span class="font-title text-title text-slate-navy-deep font-semibold tracking-tight">FRS FR-12.1 Statutory Non-Degradation Guarantee</span>
+<p class="font-body-sm text-body-sm text-growth-emerald-deep font-medium">
+              Manual ledger accounts, category budgets, double-entry transactions, and financial reports are NEVER restricted or degraded by subscription status.
+            </p>
+</div>
+<span class="font-label-sm text-label-sm px-space-sm py-space-3xs rounded-full bg-surface-container-lowest text-growth-emerald-deep font-semibold whitespace-nowrap self-start sm:self-auto shadow-sm">
+            Perpetual Ledger Safe
+          </span>
+</div>
+</div>
+</header>
+<!-- Active Plan & Payment Instruments Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Active Plan Status Card (FE-12.4, FE-12.5) -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-space-xl flex flex-col justify-between shadow-md relative overflow-hidden">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-sm py-space-3xs rounded-full bg-surface-container-low font-label-sm text-label-sm font-semibold text-on-surface-variant tracking-wider uppercase">
+                Active Commitment
+              </span>
+<span class="px-space-sm py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-growth-emerald-deep"></span>
+                Active • Renews Nov 14, 2026
+              </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">ID: SUB-88219-INST</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-slate-navy-deep font-bold tracking-tight">
+              FinPlatform Institutional Tier
+            </h2>
+<div class="flex items-baseline gap-1">
+<span class="font-currency-display text-currency-display font-bold text-slate-navy-deep tracking-tight">$19.00</span>
+<span class="font-body-md text-body-md text-on-surface-variant">USD / mo</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Billed annually at <span class="font-semibold text-on-surface font-mono">$228.00 USD</span>. Automated live gross balance reconciliation with priority Open Banking throughput.
+          </p>
+<!-- Plan Health & Telemetry Indicators (FE-12.5) -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Billing Cadence</span>
+<span class="font-title text-title text-slate-navy-deep font-semibold">Annual Renewal</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">365 Days per cycle</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Trial &amp; Grace (FE-12.5)</span>
+<span class="font-title text-title text-growth-emerald-deep font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Concluded
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">0 Grace Periods Active</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live Bank Feeds</span>
+<span class="font-title text-title text-slate-navy-deep font-semibold">4 / ∞ Connected</span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep font-medium">Real-time sync active</span>
+</div>
+</div>
+</div>
+<div class="mt-space-lg pt-space-md bg-surface-container-low -mx-space-xl -mb-space-xl px-space-xl py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-info-sky">security_update_good</span>
+<span class="font-body-sm text-body-sm">Automated reconciliation scheduled next at 00:00 UTC</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="font-label-sm text-label-sm font-semibold text-slate-navy-deep hover:text-info-sky px-space-sm py-space-xs rounded-lg hover:bg-surface-container transition-all flex items-center gap-1" onclick="simulatePortalRedirect()">
+<span>Customer Portal (Stripe)</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Payment Method & Processor-Hosted Security (FE-12.3) -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-xl p-space-xl flex flex-col justify-between shadow-md">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-title text-title text-slate-navy-deep font-bold">Primary Payment Instrument</span>
+<span class="px-space-xs py-space-3xs rounded bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">Default</span>
+</div>
+<!-- Realistic Payment Card Layout -->
+<div class="p-space-lg rounded-xl bg-slate-navy-deep text-on-primary shadow-lg flex flex-col justify-between h-44 relative overflow-hidden">
+<!-- Card Texture Graphic -->
+<div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-surface-container-highest/10 pointer-events-none"></div>
+<div class="absolute right-12 top-4 w-20 h-20 rounded-full bg-info-sky/10 pointer-events-none"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[28px] text-tertiary-fixed-dim">credit_card</span>
+<span class="font-headline-sm text-headline-sm font-bold tracking-widest text-on-primary">Mastercard</span>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-lowest/20 text-on-primary uppercase tracking-wider font-mono">Corporate Debit</span>
+</div>
+<div class="flex items-center gap-space-sm relative z-10">
+<span class="font-mono text-title tracking-widest text-on-primary">••••</span>
+<span class="font-mono text-title tracking-widest text-on-primary">••••</span>
+<span class="font-mono text-title tracking-widest text-on-primary">••••</span>
+<span class="font-mono text-title font-bold tracking-widest text-on-primary">8841</span>
+</div>
+<div class="flex items-end justify-between relative z-10">
+<div class="flex flex-col">
+<span class="text-[9px] uppercase tracking-wider text-surface-variant font-semibold">Cardholder Name</span>
+<span class="font-label-md text-label-md font-semibold text-on-primary uppercase tracking-wide">Eleanor Vance</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[9px] uppercase tracking-wider text-surface-variant font-semibold">Valid Thru</span>
+<span class="font-mono text-label-md font-semibold text-on-primary">09 / 28</span>
+</div>
+</div>
+</div>
+<!-- PCI-DSS Level 1 Hosted Security Tokenization Disclaimer -->
+<div class="p-space-sm rounded-lg bg-info-sky-tint text-on-surface flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-info-sky shrink-0 mt-0.5">encrypted</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface font-semibold">Stripe Elements Encrypted Enclave (FE-12.3):</strong> Credit card data is tokenized directly through Stripe PCI-DSS Level 1 certified systems. FinPlatform infrastructure strictly never receives, stores, or processes raw card PANs or CVVs.
+            </p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-space-xs mt-space-md pt-space-sm">
+<button class="flex-1 inline-flex items-center justify-center gap-space-xs px-space-md py-space-xs rounded-xl bg-slate-navy-deep text-on-primary font-label-md text-label-md hover:bg-on-surface transition-all shadow-sm" onclick="triggerPaymentModal()">
+<span class="material-symbols-outlined text-[18px]">credit_card_heart</span>
+<span>Update Card via Stripe Portal</span>
+</button>
+<button class="inline-flex items-center justify-center px-space-md py-space-xs rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all shadow-sm" onclick="alert('Secondary fallback payment configuration modal initiated.')">
+<span>+ Add Backup</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Past-Due & Grace Period Alert Simulation (FE-12.6) -->
+<section class="bg-warning-amber-tint rounded-xl p-space-md shadow-sm">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="p-space-xs rounded-lg bg-surface-container-lowest text-warning-amber shrink-0 shadow-sm mt-0.5 md:mt-0">
+<span class="material-symbols-outlined text-[24px]">history_toggle_off</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-slate-navy-deep font-bold">14-Day Statutory Grace &amp; Retry Engine (FE-12.6 Simulation)</span>
+<span class="px-space-xs py-space-3xs rounded-full bg-surface-container-lowest font-label-sm text-label-sm font-semibold text-warning-amber">Standard Policy</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-4xl">
+              Automatic Retry Schedule Notice: If an institutional renewal fails, a 14-day statutory grace period activates with 3 automated retries. Direct bank feeds continue uninterrupted until grace expiration. Manual tracking, balance logs, and transaction recording are <strong class="text-on-surface">never affected or interrupted</strong>.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end md:self-auto shrink-0">
+<button class="font-label-sm text-label-sm text-slate-navy-deep hover:text-warning-amber font-semibold bg-surface-container-lowest px-space-sm py-space-xs rounded-lg transition-all shadow-sm flex items-center gap-1" onclick="toggleSimulationDetails()">
+<span id="sim-btn-text">Inspect Protocol Rules</span>
+<span class="material-symbols-outlined text-[16px]" id="sim-btn-icon">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Collapsible Detailed Rule Breakdown -->
+<div class="hidden mt-space-md pt-space-md bg-surface-container-lowest rounded-lg p-space-md" id="sim-details">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md text-on-surface">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs font-semibold text-slate-navy-deep font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-warning-amber"></span>
+              Retry 1: Day 3 Post-Due
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Automated smart billing sweep with card updater ping. Webhook triggers non-intrusive notification badge.</p>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs font-semibold text-slate-navy-deep font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-warning-amber"></span>
+              Retry 2: Day 7 Post-Due
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Secondary retry via Stripe smart routing engine. Account administrator receives authenticated direct email dispatch.</p>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs font-semibold text-slate-navy-deep font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-expense-crimson"></span>
+              Grace Expiration: Day 14
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Final automated retry. If unresolved, tenant gracefully reverts to Free Tier. Zero ledger records deleted (FE-12.10).</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Subscription Tiers Matrix & Live Gating Explanation (FE-12.1, FE-12.2, FE-12.9) -->
+<section class="flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-3xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Tier Architecture</span>
+<span class="text-on-surface-variant">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">FE-12.2 / FE-12.9 Gating Specification</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-slate-navy-deep font-bold tracking-tight">Functional Tier Comparison</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg items-stretch">
+<!-- Tier 1: Standard Ledger (Free Forever) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-xl flex flex-col justify-between shadow-md relative">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-slate-navy-deep font-bold">Standard Ledger</span>
+<span class="px-space-sm py-space-3xs rounded-full bg-surface-container font-label-sm text-label-sm font-semibold text-on-surface-variant">
+                Free Forever
+              </span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-currency-display text-currency-display font-bold text-slate-navy-deep tracking-tight">$0.00</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">/ perpetual lease</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Complete, self-hosted or cloud manual financial sovereignty with standard compliance accounting mechanics.
+            </p>
+<div class="bg-surface-container-low rounded-lg p-space-sm">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface-variant">Active by default for all registered tenants without credit card requirement.</span>
+</div>
+<!-- Features List -->
+<ul class="flex flex-col gap-space-xs pt-space-xs">
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Unlimited manual accounts:</strong> Cash, investments, credit lines, liabilities</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Multi-currency manual entries:</strong> Real-time exchange snapshot &amp; valuation</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Full category budgeting:</strong> Envelope &amp; standard monthly threshold pacing</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Complete financial reporting:</strong> P&amp;L, Cash Flow, Net Worth histories</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">check</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Data Sovereignty:</strong> Unrestricted CSV / JSON bidirectional exports anytime</span>
+</li>
+</ul>
+</div>
+<div class="mt-space-xl pt-space-md">
+<button class="w-full py-space-xs rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md font-semibold cursor-not-allowed text-center" disabled="">
+              Included in Baseline Workspace
+            </button>
+</div>
+</div>
+<!-- Tier 2: Institutional Open Banking (Active Tier) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-xl flex flex-col justify-between shadow-xl relative overflow-hidden">
+<!-- Active Highlight Banner -->
+<div class="absolute top-0 right-0">
+<span class="bg-growth-emerald-deep text-on-primary font-label-sm text-label-sm font-bold uppercase tracking-widest px-space-md py-space-2xs rounded-bl-xl shadow-md">
+              Current Active Tier
+            </span>
+</div>
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pr-24">
+<span class="font-headline-sm text-headline-sm text-slate-navy-deep font-bold">Institutional Open Banking</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-currency-display text-currency-display font-bold text-slate-navy-deep tracking-tight">$19.00</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">/ month (billed annually)</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Autonomous sync engine with cryptographic open banking feeds, automated reconciliations, and compliance logs.
+            </p>
+<div class="bg-growth-emerald-tint rounded-lg p-space-sm text-growth-emerald-deep">
+<span class="font-label-sm text-label-sm font-semibold">Includes every capability within Standard Ledger, plus:</span>
+</div>
+<!-- Extended Features List -->
+<ul class="flex flex-col gap-space-xs pt-space-xs">
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">verified</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Unlimited Direct Bank Feeds:</strong> Plaid, UK Open Banking, and PSD2 compliance</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">verified</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Automated Gross Balance Recon:</strong> Zero-drift balance verification against bank ledger</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">verified</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Live Multi-Currency Sync:</strong> Direct forex clearing rates updated hourly</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">verified</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Automated Recurring Bill Matching:</strong> AI pattern matching against historical debits</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep mt-0.5">verified</span>
+<span class="font-body-md text-body-md text-on-surface"><strong>Priority Ledger Audit Trail:</strong> Cryptographic SHA-256 exports for tax auditors</span>
+</li>
+</ul>
+</div>
+<div class="mt-space-xl pt-space-md flex items-center gap-space-xs">
+<span class="w-full py-space-xs rounded-xl bg-growth-emerald-deep text-on-primary font-label-md text-label-md font-semibold text-center shadow-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+              Plan Active • Renews Automatically
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Transparent Self-Service Cancellation Flow (FE-12.7, FE-12.8, FE-12.10) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-md flex flex-col gap-space-md" id="cancellation-section">
+<div class="flex items-start justify-between flex-wrap gap-space-md">
+<div class="flex flex-col gap-space-2xs max-w-2xl">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-slate-navy-deep font-bold">Plan Cancellation &amp; Immediate Reversion Protocol</span>
+<span class="px-space-xs py-space-3xs rounded bg-surface-container-low font-label-sm text-label-sm font-semibold text-on-surface-variant font-mono">FE-12.8 Frictionless</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            In compliance with FRS v1.0 Section 5.1, cancellation requires strictly <strong>zero retention gauntlets</strong>, <strong>no exit surveys</strong>, and <strong>no mandatory phone calls</strong>. Reverting to the Free Tier takes effect at the end of the billing period.
+          </p>
+</div>
+<button class="px-space-md py-space-xs rounded-xl bg-surface-container hover:bg-expense-crimson hover:text-on-primary text-expense-crimson font-label-md text-label-md font-semibold transition-all shadow-sm flex items-center gap-space-xs" onclick="openCancellationModal()">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span>Cancel Subscription (Revert to Free Tier)</span>
+</button>
+</div>
+<!-- Statutory Cancellation Impact Audit Card -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md bg-surface-container-low p-space-md rounded-lg">
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md font-semibold text-slate-navy-deep flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-growth-emerald-deep">verified</span>
+            100% Ledger Retention (FE-12.10)
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">All manually entered transactions, historical bank records, and category configurations remain completely intact forever.</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md font-semibold text-slate-navy-deep flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-warning-amber">pause_circle</span>
+            Bank Connection Dormancy
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Automated sync channels transition to inactive state after Nov 14, 2026. Feeds can be reactivated instantly at any time.</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md font-semibold text-slate-navy-deep flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-info-sky">lock_open</span>
+            No Lock-In Or Data Degradation
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Generate unlimited CSV ledger audits and report summaries at any time before or after reversion without penalty.</span>
+</div>
+</div>
+</section>
+<!-- Invoices & Billing History (FE-12.4) -->
+<section class="bg-surface-container-lowest rounded-xl shadow-md overflow-hidden flex flex-col" id="invoices-history">
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-slate-navy-deep font-bold">Invoices &amp; Fiscal Receipts</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Official VAT/GST tax invoices generated by Stripe Billing with verified digital cryptographic signatures.</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-all" onclick="downloadAllInvoices()">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Bulk Export (ZIP)</span>
+</button>
+</div>
+</div>
+<!-- Financial Ledger Table for Invoices -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-md text-body-md border-collapse">
+<thead>
+<tr class="bg-table-header-fill text-slate-navy-deep font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-table-cell-y px-table-cell-x">Invoice Identifier</th>
+<th class="py-table-cell-y px-table-cell-x">Billing Period</th>
+<th class="py-table-cell-y px-table-cell-x text-right">Gross Amount</th>
+<th class="py-table-cell-y px-table-cell-x">Instrument</th>
+<th class="py-table-cell-y px-table-cell-x text-center">Settlement Status</th>
+<th class="py-table-cell-y px-table-cell-x text-right">Tax Documentation</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-surface transition-colors">
+<td class="py-table-cell-y px-table-cell-x font-mono font-semibold text-slate-navy-deep">
+                #INV-2025-001
+              </td>
+<td class="py-table-cell-y px-table-cell-x font-body-md text-body-md">
+                Nov 14, 2025 – Nov 14, 2026
+              </td>
+<td class="py-table-cell-y px-table-cell-x text-right font-currency-table text-currency-table font-bold text-slate-navy-deep">
+                $228.00 USD
+              </td>
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">credit_card</span>
+<span class="font-mono text-body-sm text-body-sm">Mastercard ••••8841</span>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-center">
+<span class="inline-flex items-center gap-1 px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-growth-emerald-deep"></span> Paid
+                </span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-right">
+<button class="inline-flex items-center gap-1 text-slate-navy-deep hover:text-info-sky font-label-sm text-label-sm font-semibold px-space-xs py-space-3xs rounded hover:bg-surface-container transition-all" onclick="downloadPdfInvoice('INV-2025-001')">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Download PDF</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-surface transition-colors">
+<td class="py-table-cell-y px-table-cell-x font-mono font-semibold text-slate-navy-deep">
+                #INV-2024-001
+              </td>
+<td class="py-table-cell-y px-table-cell-x font-body-md text-body-md">
+                Nov 14, 2024 – Nov 14, 2025
+              </td>
+<td class="py-table-cell-y px-table-cell-x text-right font-currency-table text-currency-table font-bold text-slate-navy-deep">
+                $228.00 USD
+              </td>
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">credit_card</span>
+<span class="font-mono text-body-sm text-body-sm">Mastercard ••••8841</span>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-center">
+<span class="inline-flex items-center gap-1 px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-growth-emerald-deep"></span> Paid
+                </span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-right">
+<button class="inline-flex items-center gap-1 text-slate-navy-deep hover:text-info-sky font-label-sm text-label-sm font-semibold px-space-xs py-space-3xs rounded hover:bg-surface-container transition-all" onclick="downloadPdfInvoice('INV-2024-001')">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Download PDF</span>
+</button>
+</td>
+</tr>
+<!-- Historical Initial Setup -->
+<tr class="hover:bg-slate-surface transition-colors">
+<td class="py-table-cell-y px-table-cell-x font-mono font-semibold text-slate-navy-deep">
+                #INV-2023-INIT
+              </td>
+<td class="py-table-cell-y px-table-cell-x font-body-md text-body-md">
+                Nov 14, 2023 – Nov 14, 2024
+              </td>
+<td class="py-table-cell-y px-table-cell-x text-right font-currency-table text-currency-table font-bold text-slate-navy-deep">
+                $228.00 USD
+              </td>
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">credit_card</span>
+<span class="font-mono text-body-sm text-body-sm">Mastercard ••••8841</span>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-center">
+<span class="inline-flex items-center gap-1 px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-growth-emerald-deep"></span> Paid
+                </span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-right">
+<button class="inline-flex items-center gap-1 text-slate-navy-deep hover:text-info-sky font-label-sm text-label-sm font-semibold px-space-xs py-space-3xs rounded hover:bg-surface-container transition-all" onclick="downloadPdfInvoice('INV-2023-INIT')">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Download PDF</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing all 3 historic invoices. Invoices are maintained in cold archival storage for 7 years under corporate tax law.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Archive Status: Synced</span>
+</div>
+</section>
+</div>
+<!-- Frictionless Self-Service Reversion Modal (FE-12.8 Compliance Preview) -->
+<div class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-navy-deep/60 backdrop-blur-sm p-space-md" id="cancellation-modal">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-xl shadow-2xl flex flex-col gap-space-md relative">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs text-expense-crimson">
+<span class="material-symbols-outlined text-[26px]">cancel</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-slate-navy-deep">Confirm Plan Reversion</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="closeCancellationModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-xs text-on-surface">
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Your workspace will revert to <strong class="text-on-surface">Standard Ledger (Free Tier)</strong> at the conclusion of your current billing period:
+        </p>
+<div class="p-space-sm rounded-lg bg-surface-container font-mono text-label-md font-semibold text-center text-slate-navy-deep">
+          Reversion Date: November 14, 2026
+        </div>
+<div class="p-space-sm rounded-lg bg-growth-emerald-tint text-growth-emerald-deep font-body-sm text-body-sm">
+<strong>FE-12.8 Frictionless Guarantee:</strong> No retention agents, zero exit surveys. You retain 100% full access to all existing ledgers and manual financial management tools forever.
+        </div>
+</div>
+<div class="flex items-center justify-end gap-space-xs pt-space-xs">
+<button class="px-space-md py-space-xs rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md" onclick="closeCancellationModal()">
+          Keep Institutional Plan
+        </button>
+<button class="px-space-md py-space-xs rounded-xl bg-expense-crimson hover:bg-red-700 text-on-primary font-label-md text-label-md font-semibold shadow-md" onclick="executeCancellation()">
+          Confirm Reversion to Free
+        </button>
+</div>
+</div>
+</div>
+<!-- Notification Toast Container -->
+<div class="fixed bottom-6 right-6 z-50 hidden px-space-md py-space-sm rounded-xl bg-slate-navy-deep text-on-primary shadow-xl font-label-md text-label-md flex items-center gap-space-xs transition-all" id="toast-msg">
+<span class="material-symbols-outlined text-[20px] text-growth-emerald-tint" id="toast-icon">check_circle</span>
+<span id="toast-text">Notice dispatched.</span>
+</div>
+</div>
+<script>
+  function toggleSimulationDetails() {
+    const details = document.getElementById('sim-details');
+    const icon = document.getElementById('sim-btn-icon');
+    const btnText = document.getElementById('sim-btn-text');
+    if (details.classList.contains('hidden')) {
+      details.classList.remove('hidden');
+      icon.textContent = 'expand_less';
+      btnText.textContent = 'Hide Protocol Rules';
+    } else {
+      details.classList.add('hidden');
+      icon.textContent = 'expand_more';
+      btnText.textContent = 'Inspect Protocol Rules';
+    }
+  }
+
+  function triggerPaymentModal() {
+    showToast('Redirecting securely to Stripe Hosted Elements Portal (FE-12.3)...', 'lock');
+  }
+
+  function simulatePortalRedirect() {
+    showToast('Opening Stripe Customer Billing Portal session...', 'open_in_new');
+  }
+
+  function openCancellationModal() {
+    document.getElementById('cancellation-modal').classList.remove('hidden');
+  }
+
+  function closeCancellationModal() {
+    document.getElementById('cancellation-modal').classList.add('hidden');
+  }
+
+  function executeCancellation() {
+    closeCancellationModal();
+    showToast('Subscription scheduled for reversion on Nov 14, 2026. Zero ledger data altered.', 'verified');
+  }
+
+  function downloadPdfInvoice(invId) {
+    showToast('Generating signed PDF for ' + invId + '...', 'picture_as_pdf');
+  }
+
+  function downloadAllInvoices() {
+    showToast('Bundling tax receipts into cryptographic ZIP archive...', 'folder_zip');
+  }
+
+  function showToast(message, iconName) {
+    const toast = document.getElementById('toast-msg');
+    const toastText = document.getElementById('toast-text');
+    const toastIcon = document.getElementById('toast-icon');
+    toastText.textContent = message;
+    if (iconName) {
+      toastIcon.textContent = iconName;
+    }
+    toast.classList.remove('hidden');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 3800);
+  }
+</script></main></div></body></html>

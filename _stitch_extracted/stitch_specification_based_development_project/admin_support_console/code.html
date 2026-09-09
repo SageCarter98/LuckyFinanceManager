@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"inverse-surface":"#213145","outline":"#76777d","surface-container":"#e5eeff","slate-border":"#CBD5E1","on-primary-fixed-variant":"#3f465c","on-background":"#0b1c30","tertiary":"#000000","growth-emerald-tint":"#ECFDF5","error-container":"#ffdad6","slate-surface-subtle":"#F1F5F9","on-tertiary-fixed":"#001d31","growth-emerald-deep":"#059669","on-error":"#ffffff","slate-surface":"#F8FAFC","primary-fixed-dim":"#bec6e0","info-sky-tint":"#F0F9FF","warning-amber-tint":"#FFFBEB","on-secondary-fixed":"#002113","surface-container-low":"#eff4ff","surface-variant":"#d3e4fe","on-tertiary-fixed-variant":"#004b73","on-primary-container":"#7c839b","surface-container-highest":"#d3e4fe","background":"#f8f9ff","on-secondary":"#ffffff","inverse-primary":"#bec6e0","primary-container":"#131b2e","secondary-fixed":"#6ffbbe","error":"#ba1a1a","surface":"#f8f9ff","table-header-fill":"#E2E8F0","on-tertiary":"#ffffff","on-tertiary-container":"#188ace","on-surface":"#0b1c30","secondary":"#006c49","on-primary":"#ffffff","on-surface-variant":"#45464d","secondary-fixed-dim":"#4edea3","info-sky":"#0284C7","secondary-container":"#6cf8bb","inverse-on-surface":"#eaf1ff","on-error-container":"#93000a","primary-fixed":"#dae2fd","tertiary-fixed-dim":"#93ccff","surface-container-lowest":"#ffffff","surface-dim":"#cbdbf5","outline-variant":"#c6c6cd","surface-bright":"#f8f9ff","tertiary-fixed":"#cce5ff","tertiary-container":"#001d31","on-secondary-fixed-variant":"#005236","on-secondary-container":"#00714d","expense-crimson":"#EF4444","slate-navy-deep":"#1E293B","warning-amber":"#F59E0B","surface-container-high":"#dce9ff","primary":"#000000","surface-tint":"#565e74","expense-crimson-tint":"#FEF2F2","on-primary-fixed":"#131b2e"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter-mobile":"1rem","table-cell-y":"0.625rem","space-3xs":"0.125rem","margin-mobile":"1rem","gutter-desktop":"1.5rem","space-3xl":"4rem","space-sm":"0.75rem","table-cell-x":"0.875rem","space-lg":"1.5rem","space-2xl":"3rem","space-xl":"2rem","margin-tablet":"2rem","space-xs":"0.5rem","space-md":"1rem","space-2xs":"0.25rem","margin-desktop":"3rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"body-md":["Inter"],"headline-sm":["Plus Jakarta Sans"],"label-md":["Inter"],"currency-stat":["Inter"],"headline-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"title":["Inter"],"currency-table":["Inter"],"display":["Plus Jakarta Sans"],"label-sm":["Inter"],"display-mobile":["Plus Jakarta Sans"],"currency-display":["Inter"]},"fontSize":{"body-lg":["1rem",{"lineHeight":"1.5rem","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"400"}],"body-md":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"0em","fontWeight":"400"}],"headline-sm":["1.125rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"label-md":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"0.005em","fontWeight":"500"}],"currency-stat":["1.5rem",{"lineHeight":"2rem","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-md":["1.25rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["1.5rem",{"lineHeight":"2rem","letterSpacing":"-0.02em","fontWeight":"700"}],"title":["1rem",{"lineHeight":"1.5rem","letterSpacing":"-0.005em","fontWeight":"600"}],"currency-table":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"0em","fontWeight":"500"}],"display":["2.25rem",{"lineHeight":"2.75rem","letterSpacing":"-0.025em","fontWeight":"700"}],"label-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.04em","fontWeight":"600"}],"display-mobile":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"700"}],"currency-display":["2rem",{"lineHeight":"2.5rem","letterSpacing":"-0.02em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-primary-container z-50 flex flex-col pt-space-lg pb-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.12)]"><div class="px-space-lg pb-space-md"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-warning-amber text-headline-md font-headline-md">shield_person</span><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed">Staff Enclave</span><span class="font-label-sm text-label-sm text-on-primary-container">admin.finplatform.internal</span></div></div></div><div class="px-space-lg py-space-xs"><div class="bg-tertiary-container rounded-lg p-space-xs flex items-center justify-between"><span class="font-label-sm text-label-sm text-tertiary-fixed">RBAC: Tier 3</span><span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-2xs py-space-3xs rounded">Enforced</span></div></div><div class="px-space-md py-space-xs"><span class="px-space-xs font-label-sm text-label-sm uppercase tracking-wider text-on-primary-container">Operations</span></div><nav class="flex-1 px-space-md flex flex-col gap-space-2xs" data-active-classes="bg-surface-container text-on-surface font-headline-sm rounded-lg"><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs transition-all bg-surface-container text-on-surface font-headline-sm rounded-lg" data-path="tenant-directory-lookup" href="#"><span class="material-symbols-outlined text-headline-sm font-headline-sm">corporate_fare</span><span class="font-label-md text-label-md">Tenant Directory & Lookup</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-primary-fixed hover:bg-inverse-surface hover:text-inverse-on-surface transition-all" data-path="access-reason-audit-log" href="#"><span class="material-symbols-outlined text-headline-sm font-headline-sm">history_toggle_off</span><span class="font-label-md text-label-md">Access Reason & Audit Log</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-primary-fixed hover:bg-inverse-surface hover:text-inverse-on-surface transition-all" data-path="system-health-queues" href="#"><span class="material-symbols-outlined text-headline-sm font-headline-sm">monitoring</span><span class="font-label-md text-label-md">System Health & Queues</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-primary-fixed hover:bg-inverse-surface hover:text-inverse-on-surface transition-all" data-path="invariant-compliance-monitor" href="#"><span class="material-symbols-outlined text-headline-sm font-headline-sm">verified_user</span><span class="font-label-md text-label-md">Invariant & Compliance</span></a></nav><div class="px-space-md pt-space-xs"><div class="p-space-sm bg-tertiary-container rounded-lg flex flex-col gap-space-3xs"><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-warning-amber text-headline-sm font-headline-sm">lock</span><span class="font-label-sm text-label-sm text-primary-fixed">Isolation: Zero-Write</span></div><span class="font-body-sm text-body-sm text-on-primary-container">Production Mutation Keys Disabled</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><img alt="Brand logo. - Primary color: #0f172a - Font: plusJakartaSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-title text-title text-on-surface">Staff Support & Operations Console</span><span class="font-body-sm text-body-sm text-on-surface-variant">admin.finplatform.internal</span></div><span class="bg-warning-amber-tint text-warning-amber font-label-sm text-label-sm px-space-xs py-space-3xs rounded">RESTRICTED PORTAL • READ-ONLY</span></div><div class="hidden xl:flex items-center gap-space-xs bg-warning-amber-tint px-space-sm py-space-2xs rounded-lg"><span class="material-symbols-outlined text-warning-amber text-headline-sm font-headline-sm">timer</span><span class="font-label-sm text-label-sm text-on-surface">Elevation Window: <strong class="text-warning-amber font-label-sm text-label-sm">41m 24s</strong> remaining • Case #SUP-9921 • Reason: Ledger Invariant Reconciliation</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Vzqf-Emtq2uQJDptAIo6hKjfIUNVDbM4H_bZlm2sKO4o9uXkbj6ipQOzdIi0f2GsKIuWsqvrTlGZ2FYOTRjnp3_rAG9vAOvEms-eGiFoSM_dbGiweUiBJdOCpAfkUnh3GZ-mmNTghDcxN4qjsahBdTyRXOloJTkQDhBagjrMoPOAg3mpYku0Ax0bnRrmx1N8j1La-eR0bAfZ9A5TwxZRiC7z7Smw0dsujhvvQahznKvgz92ILzMREZYgg"/><div class="hidden md:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface">Eleanor Vance</span><span class="font-body-sm text-body-sm text-on-surface-variant">Staff Tier 3 Specialist</span></div></div><button class="flex items-center gap-space-3xs px-space-xs py-space-3xs rounded-lg bg-surface-container-high hover:bg-surface-container hover:text-on-surface text-on-surface transition-all font-label-sm text-label-sm"><span class="material-symbols-outlined text-headline-sm font-headline-sm">logout</span><span>Log Out Console</span></button></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- Security Enclave Banner & Elevation Context (FE-11.2 & FE-11.4) -->
+<div class="px-space-lg pt-space-md flex flex-col gap-space-xs">
+<div class="bg-expense-crimson-tint rounded-lg p-space-sm flex flex-col md:flex-row md:items-center justify-between gap-space-xs shadow-sm">
+<div class="flex items-center gap-space-xs text-expense-crimson">
+<span class="material-symbols-outlined text-headline-md font-headline-md" style="font-variation-settings: 'FILL' 1;">security</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm uppercase tracking-wider text-expense-crimson">Strict Read-Only Enclave (FE-11.2)</span>
+<span class="font-body-sm text-body-sm text-on-surface">Support staff cannot modify, insert, delete, or disburse tenant financial records under any circumstance. All mutation endpoints disabled at gateway level.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-2xs bg-surface-container-lowest px-space-sm py-space-2xs rounded-lg shadow-sm self-start md:self-auto">
+<span class="inline-block w-2 h-2 rounded-full bg-expense-crimson animate-ping"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-expense-crimson">Zero-Write Enforced</span>
+</div>
+</div>
+<!-- Active Elevation Sub-bar (FE-11.4) -->
+<div class="bg-slate-navy-deep text-surface-container-lowest rounded-lg p-space-sm flex flex-wrap items-center justify-between gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="bg-warning-amber/20 text-warning-amber p-space-2xs rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-sm font-headline-sm">search_off</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase text-warning-amber tracking-wider">Active Elevation Window (FE-11.4)</span>
+<span class="text-surface-variant font-label-sm text-label-sm">•</span>
+<span class="font-label-md text-label-md text-warning-amber font-semibold" id="elevation-timer">38m 12s remaining</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary-fixed">Authorizing Officer: <strong class="text-surface-bright font-medium">Security Ops (SO-SEC-92)</strong> • Staff Operator: <strong class="text-surface-bright font-medium">Eleanor Vance (#STF-7712)</strong></span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<div class="bg-primary-container px-space-sm py-space-2xs rounded text-primary-fixed font-label-sm text-label-sm flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-growth-emerald-deep text-label-md">verified_user</span>
+<span>Clearance: Level 2 Tier Support</span>
+</div>
+<button class="bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-sm text-label-sm px-space-sm py-space-2xs rounded transition-colors flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-label-md">shield_lock</span>
+<span>Relinquish Elevation</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Audited Tenant Lookup & Access Justification (FE-11.1, FE-11.3) -->
+<div class="px-space-lg pt-space-md grid grid-cols-1 xl:grid-cols-12 gap-space-md">
+<!-- Lookup Search Panel -->
+<div class="xl:col-span-5 flex flex-col gap-space-sm">
+<div class="bg-surface-container-lowest rounded-lg p-space-md flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-info-sky text-headline-sm">person_search</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Tenant Directory Lookup</h2>
+</div>
+<span class="font-label-sm text-label-sm bg-info-sky-tint text-info-sky px-space-xs py-space-3xs rounded font-medium">SRS §3.11 Audited</span>
+</div>
+<label class="flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lookup Tenant by Verified Primary Email / Partition UID</span>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-headline-sm">alternate_email</span>
+<input class="w-full bg-slate-surface-subtle text-on-surface pl-10 pr-24 py-2.5 rounded-lg font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest" readonly="" type="email" value="eleanor.vance@enterprise-sample.com"/>
+<button class="absolute right-2 px-space-xs py-space-3xs bg-slate-navy-deep hover:bg-inverse-surface text-on-secondary rounded text-label-sm font-label-sm transition-all flex items-center gap-space-3xs shadow-sm">
+<span class="material-symbols-outlined text-label-md">search</span>
+<span>Resolve</span>
+</button>
+</div>
+</label>
+<!-- Resolved Tenant Tag Quick Card -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-slate-navy-deep text-surface-container-lowest flex items-center justify-center font-headline-sm text-headline-sm font-bold">
+              EV
+            </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-2xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Eleanor Vance</span>
+<span class="material-symbols-outlined text-growth-emerald-deep text-label-md">check_circle</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-mono">UID: USR-4901-EVA • Tenant Hash: #e82c...91b4</span>
+</div>
+</div>
+<span class="bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm px-space-xs py-space-3xs rounded font-semibold flex items-center gap-space-3xs">
+<span class="w-1.5 h-1.5 rounded-full bg-growth-emerald-deep"></span>
+            Partition Active
+          </span>
+</div>
+</div>
+<!-- Quick Session Compliance Token -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-warning-amber text-headline-sm">key</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Elevation Nonce & Session Key</span>
+<span class="font-body-sm text-body-sm text-on-surface font-mono">HMAC-SHA256: 7d49...bb81</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-slate-surface-subtle text-on-surface-variant px-space-xs py-space-2xs rounded">TTL: 2292s</span>
+</div>
+</div>
+<!-- Mandatory Reason-for-Access Card (FE-11.3) -->
+<div class="xl:col-span-7 flex flex-col">
+<div class="bg-surface-container-lowest rounded-lg p-space-md flex-1 flex flex-col justify-between shadow-sm gap-space-sm">
+<div>
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-warning-amber text-headline-sm">assignment_turned_in</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Mandatory Reason-for-Access Justification (FE-11.3)</h2>
+</div>
+<span class="font-label-sm text-label-sm bg-growth-emerald-tint text-growth-emerald-deep px-space-xs py-space-3xs rounded font-medium">Consent Active & Logged</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Under SRS Section 3.11, support staff inspection of isolated tenant partition records requires affirmative ticket linkage and automated ledger attestation logging.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex flex-col gap-space-3xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Authorized Ticket Reference</span>
+<span class="font-title text-title text-on-surface font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-info-sky text-label-md">confirmation_number</span>
+              INC-88219 (Billing & Invariant)
+            </span>
+</div>
+<div class="flex flex-col gap-space-3xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Customer Affirmative Consent</span>
+<span class="font-title text-title text-growth-emerald-deep font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-label-md">thumb_up</span>
+              Verified (Auth Token #ZD-8849)
+            </span>
+</div>
+<div class="md:col-span-2 flex flex-col gap-space-3xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Justification Category & Diagnostic Scope</span>
+<span class="font-body-md text-body-md text-on-surface font-medium bg-surface-container-lowest p-space-xs rounded">
+              Customer Requested Ledger Synchronization Audit • Scope: Double-entry journal balance inspection & Plaid/SEPA telemetry feeds.
+            </span>
+</div>
+</div>
+<div class="bg-slate-surface-subtle p-space-xs rounded-lg flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-headline-sm text-on-surface">fingerprint</span>
+<span class="font-body-sm text-body-sm">
+<strong class="text-on-surface">Cryptographic Audit Trail Notice:</strong> Every record viewed in this session is signed with Staff Key <strong class="text-on-surface font-mono">#STF-7712</strong> and recorded in immutable cold storage audit chain.
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Grid: Inspected Tenant Account Diagnostics (FE-11.1, FE-11.6) -->
+<div class="px-space-lg pt-space-md grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Tenant Profile Snapshot Card -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Tenant Profile Meta</span>
+<span class="font-label-sm text-label-sm bg-growth-emerald-tint text-growth-emerald-deep px-space-xs py-space-3xs rounded">Subscription Active</span>
+</div>
+<div class="flex items-center gap-space-sm py-space-xs">
+<img class="w-16 h-16 rounded-full object-cover shadow-sm bg-surface-container-high" data-alt="Modern corporate executive portrait of Eleanor Vance in clean daylight office attire, professional neutral expression, soft natural background tones with charcoal and slate ambiance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjRVOkdFQj3-FpZfzdWdyl677ROma_Nbb4UvReZqMERlpKy96petLeKcms-qIhvdCz4QDGj7R7hibtyWa9fTGoh4zv4Igz0fiHWwbcrkz5qwRiyEAev5iltvsrCDFXb9ujSwpq_BMizbQnyOUORBCzdpXSUazmJ_rfuTMm93TkOSZoUQ5wRxrVhiLFgHUvmCIHyys0DWTxG8fb6vNcm0-hrEPyJURDudeSdDrPOFjOY0XKn0J2aryF"/>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">Eleanor Vance</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">eleanor.vance@enterprise-sample.com</span>
+<span class="font-label-sm text-label-sm text-info-sky mt-space-3xs">Tier: Institutional Enterprise (SUB-88219-INST)</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-xs bg-surface-container-low p-space-sm rounded-lg font-body-sm text-body-sm">
+<div>
+<span class="text-on-surface-variant block font-label-sm text-label-sm">Created Date</span>
+<span class="text-on-surface font-medium">Nov 14, 2023</span>
+</div>
+<div>
+<span class="text-on-surface-variant block font-label-sm text-label-sm">Email Status</span>
+<span class="text-growth-emerald-deep font-semibold flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-label-sm">mark_email_read</span>
+              Verified (2FA TOTP)
+            </span>
+</div>
+<div class="col-span-2 pt-space-2xs">
+<span class="text-on-surface-variant block font-label-sm text-label-sm">Isolation Hash (FE-11.1)</span>
+<span class="text-on-surface font-mono text-body-sm break-all">#e82c5f11a90bc892d19488a091b4</span>
+</div>
+</div>
+<div class="p-space-xs bg-slate-surface-subtle rounded flex items-center gap-space-2xs text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md text-growth-emerald-deep">check_circle</span>
+<span class="font-body-sm text-body-sm">Partition strictly isolated (Zero multi-tenant cross-talk)</span>
+</div>
+</div>
+<!-- Purpose-Limited Read-Only Financial Snapshot (FE-11.6) -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Financial Ledger Snapshot</span>
+<span class="font-label-sm text-label-sm bg-slate-surface-subtle text-on-surface-variant px-space-xs py-space-3xs rounded flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-label-sm">lock</span>
+            Immutable View
+          </span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Liquid Converted Balance (USD Eq.)</span>
+<div class="flex items-baseline gap-space-xs mt-space-3xs">
+<span class="font-currency-display text-currency-display text-on-surface font-bold tracking-tight">$26,674.12</span>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep bg-growth-emerald-tint px-space-xs py-space-3xs rounded font-medium">Reconciled</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-xs pt-space-2xs">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Ledger Accounts</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold mt-space-3xs">4 active</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Asset, Liab, Equity</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Double-Entry Sets</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold mt-space-3xs">148 records</span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep font-medium">Σ Debits = Credits</span>
+</div>
+</div>
+<!-- Strict Read-Only Guardrail Warning (FE-11.6) -->
+<div class="bg-slate-navy-deep text-surface-container-lowest p-space-sm rounded-lg flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-warning-amber text-headline-sm shrink-0">block</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-warning-amber">Mutation Guardrail Active (FE-11.6)</span>
+<span class="font-body-sm text-body-sm text-primary-fixed mt-space-3xs">
+              No manual credit/debit overrides or balance adjustments are allowed on this console. Contact Lead Auditor for escalation.
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Connected Institutions Diagnostic Table (FE-11.6 Masked) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-on-surface text-headline-sm">account_balance</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Connected Financial Institutions (FE-11.6)</h2>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Account identifiers masked to trailing 4 digits per compliance standards.</span>
+</div>
+<div class="flex items-center gap-space-2xs bg-growth-emerald-tint px-space-sm py-space-2xs rounded-lg text-growth-emerald-deep font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-growth-emerald-deep"></span>
+<span>3 Active Feeds Bound</span>
+</div>
+</div>
+<!-- Masked Accounts Table -->
+<div class="overflow-x-auto rounded-lg">
+<table class="w-full text-left font-body-md text-body-md">
+<thead>
+<tr class="bg-table-header-fill text-on-surface font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-table-cell-y px-table-cell-x">Institution & Subtype</th>
+<th class="py-table-cell-y px-table-cell-x">Masked Account</th>
+<th class="py-table-cell-y px-table-cell-x">Protocol / Pipe</th>
+<th class="py-table-cell-y px-table-cell-x">Last Synchronization</th>
+<th class="py-table-cell-y px-table-cell-x text-right">Telemetry Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Item 1: Chase -->
+<tr class="bg-surface-container-lowest hover:bg-slate-surface transition-colors">
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface font-bold text-label-md">
+                      JPM
+                    </div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface">JPMorgan Chase & Co.</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Commercial Checking</span>
+</div>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x font-mono font-medium text-on-surface">
+                  •••• 4019
+                </td>
+<td class="py-table-cell-y px-table-cell-x">
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-space-xs py-space-3xs rounded">TLS 1.3 Direct API</span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-on-surface-variant font-body-sm text-body-sm">
+                  8m ago
+                </td>
+<td class="py-table-cell-y px-table-cell-x text-right">
+<span class="inline-flex items-center gap-space-3xs font-label-sm text-label-sm bg-growth-emerald-tint text-growth-emerald-deep px-space-xs py-space-3xs rounded font-medium">
+<span class="material-symbols-outlined text-label-sm">wifi_tethering</span>
+                    Healthy Feed
+                  </span>
+</td>
+</tr>
+<!-- Item 2: Deutsche Bank -->
+<tr class="bg-slate-surface hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface font-bold text-label-md">
+                      DB
+                    </div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface">Deutsche Bank AG</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Euro Treasury Savings</span>
+</div>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x font-mono font-medium text-on-surface">
+                  •••• 7731
+                </td>
+<td class="py-table-cell-y px-table-cell-x">
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-space-xs py-space-3xs rounded">Direct SEPA Core</span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-on-surface-variant font-body-sm text-body-sm">
+                  14m ago
+                </td>
+<td class="py-table-cell-y px-table-cell-x text-right">
+<span class="inline-flex items-center gap-space-3xs font-label-sm text-label-sm bg-growth-emerald-tint text-growth-emerald-deep px-space-xs py-space-3xs rounded font-medium">
+<span class="material-symbols-outlined text-label-sm">wifi_tethering</span>
+                    Healthy Feed
+                  </span>
+</td>
+</tr>
+<!-- Item 3: Barclays UK -->
+<tr class="bg-surface-container-lowest hover:bg-slate-surface transition-colors">
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface font-bold text-label-md">
+                      BARC
+                    </div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface">Barclays UK PLC</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Yield Liquidity Desk</span>
+</div>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x font-mono font-medium text-on-surface">
+                  •••• 3318
+                </td>
+<td class="py-table-cell-y px-table-cell-x">
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-space-xs py-space-3xs rounded">Open Banking UK API</span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-on-surface-variant font-body-sm text-body-sm">
+                  2h ago
+                </td>
+<td class="py-table-cell-y px-table-cell-x text-right">
+<span class="inline-flex items-center gap-space-3xs font-label-sm text-label-sm bg-warning-amber-tint text-warning-amber px-space-xs py-space-3xs rounded font-semibold">
+<span class="material-symbols-outlined text-label-sm">timer</span>
+                    Consent Warning (8d)
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Ledger Diagnostics & Verification Sparkline -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-3xs max-w-sm">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">Ledger Invariant Ingestion Rate</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">100% Invariant Compliant</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">No dangling unreferenced debits across all multi-currency partitions for this tenant.</span>
+</div>
+<div class="flex items-center gap-space-md w-full md:w-auto justify-end">
+<!-- Inline SVG Sparkline for Sync Health -->
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant">30-day reconciliation health</span>
+<svg class="w-48 h-10 text-growth-emerald-deep mt-space-3xs overflow-visible" fill="none" viewbox="0 0 192 40" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 35 L16 34 L32 36 L48 30 L64 32 L80 25 L96 28 L112 18 L128 22 L144 12 L160 14 L176 6 L192 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<circle class="fill-growth-emerald-deep" cx="192" cy="4" r="3.5"></circle>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Institutional Invariant Inspection Card -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Double-Entry Net Zero Check</span>
+<span class="font-currency-stat text-currency-stat text-growth-emerald-deep font-bold font-mono">Δ 0.0000</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Balanced across 148 entries</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Export Vault Lock (FE-13.2)</span>
+<span class="font-headline-md text-headline-md text-info-sky font-semibold">SHA-256 Valid</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ready for audit export packet</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Tenant Partition Isolation</span>
+<span class="font-headline-md text-headline-md text-growth-emerald-deep font-semibold">Row-Level (RLS)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bypassing RLS requires Level 4</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: System & Background Job Health Dashboard (FE-11.5) -->
+<div class="px-space-lg py-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-headline-md font-headline-md text-on-surface">monitoring</span>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Real-Time Operational System Health & Queues (FE-11.5)</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Core ingestion infrastructure health and async event orchestration bus</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-sm py-space-2xs rounded-lg shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-growth-emerald-deep"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Worker Cluster: 8/8 Operational Nodes</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">(EU-Frankfurt & US-East)</span>
+</div>
+</div>
+<!-- Telemetry Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<!-- API Error Rate -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">API Error Rate</span>
+<span class="font-label-sm text-label-sm bg-growth-emerald-tint text-growth-emerald-deep px-space-xs py-space-3xs rounded">Nominal</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-space-2xs">
+<span class="font-display text-display font-bold text-on-surface tracking-tight">0.012%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 24h</span>
+</div>
+<div class="flex items-center gap-space-3xs text-growth-emerald-deep font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-label-sm">arrow_downward</span>
+<span>SRS SLA Threshold < 0.1% Nominal</span>
+</div>
+</div>
+<!-- p95 Latency -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">p95 API Latency</span>
+<span class="font-label-sm text-label-sm bg-info-sky-tint text-info-sky px-space-xs py-space-3xs rounded">Target <250ms</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-space-2xs">
+<span class="font-display text-display font-bold text-on-surface tracking-tight">184</span>
+<span class="font-title text-title font-normal text-on-surface-variant">ms</span>
+</div>
+<div class="flex items-center gap-space-3xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-label-sm text-growth-emerald-deep">speed</span>
+<span>p99 Latency: 298ms across regions</span>
+</div>
+</div>
+<!-- Active Ingestion Threads -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">Active Ingestion Feeds</span>
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-space-xs py-space-3xs rounded">Total 58 Jobs</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-space-2xs">
+<span class="font-display text-display font-bold text-on-surface tracking-tight">58</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">concurrent jobs</span>
+</div>
+<div class="flex items-center gap-space-3xs text-growth-emerald-deep font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-label-sm">check</span>
+<span>0 DLQ Failures recorded</span>
+</div>
+</div>
+<!-- Node Health / Heartbeat -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">Cluster Consensus</span>
+<span class="font-label-sm text-label-sm bg-growth-emerald-tint text-growth-emerald-deep px-space-xs py-space-3xs rounded">Raft Quorum 100%</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-space-2xs">
+<span class="font-display text-display font-bold text-growth-emerald-deep tracking-tight">8 / 8</span>
+<span class="font-title text-title font-normal text-on-surface-variant">Nodes Up</span>
+</div>
+<div class="flex items-center gap-space-3xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-label-sm text-info-sky">public</span>
+<span>EU-Central-1 & US-East-1 synced</span>
+</div>
+</div>
+</div>
+<!-- Background Job Queues Detail Strip -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-2xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Async Pipeline & Ingestion Queues</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Worker Autoscaling: Dynamic Kubernetes Pod Autoscaler Active</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<!-- Queue 1 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-mono text-body-sm font-semibold text-on-surface">ledger-sync-reconciliation</span>
+<span class="w-2 h-2 rounded-full bg-growth-emerald-deep"></span>
+</div>
+<div class="flex items-baseline justify-between mt-space-2xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">14 Active Jobs</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">0 failed</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-space-3xs">
+<span>Avg Queue Latency:</span>
+<span class="font-mono font-semibold text-growth-emerald-deep">12ms</span>
+</div>
+<!-- Tiny inline progress track -->
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-growth-emerald-deep h-full rounded-full" style="width: 24%;"></div>
+</div>
+</div>
+<!-- Queue 2 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-mono text-body-sm font-semibold text-on-surface">bank-telemetry-ingest</span>
+<span class="w-2 h-2 rounded-full bg-growth-emerald-deep"></span>
+</div>
+<div class="flex items-baseline justify-between mt-space-2xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">42 Active Jobs</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">0 failed</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-space-3xs">
+<span>Avg Queue Latency:</span>
+<span class="font-mono font-semibold text-growth-emerald-deep">84ms</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-info-sky h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+<!-- Queue 3 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-mono text-body-sm font-semibold text-on-surface">export-vault-compiler</span>
+<span class="w-2 h-2 rounded-full bg-growth-emerald-deep"></span>
+</div>
+<div class="flex items-baseline justify-between mt-space-2xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">2 Active Jobs (FE-13.2)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">0 delayed</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-space-3xs">
+<span>Async Pipeline Status:</span>
+<span class="font-mono font-semibold text-growth-emerald-deep">Streaming SHA Vault</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-warning-amber h-full rounded-full" style="width: 12%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interaction countdown script -->
+<script>
+    (function() {
+      let secondsRemaining = 38 * 60 + 12;
+      const timerElement = document.getElementById('elevation-timer');
+      if (timerElement) {
+        setInterval(() => {
+          if (secondsRemaining > 0) {
+            secondsRemaining--;
+            const mins = Math.floor(secondsRemaining / 60);
+            const secs = secondsRemaining % 60;
+            timerElement.textContent = `${mins}m ${secs < 10 ? '0' : ''}${secs}s remaining`;
+          } else {
+            timerElement.textContent = 'Elevation Expired';
+            timerElement.classList.remove('text-warning-amber');
+            timerElement.classList.add('text-expense-crimson');
+          }
+        }, 1000);
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-slate-navy-deep py-space-xs px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.06)]"><div class="flex flex-col sm:flex-row items-center justify-between gap-space-xs text-primary-fixed font-body-sm text-body-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-warning-amber text-headline-sm font-headline-sm">gavel</span><span>FRS v1.0 Section 3.11 Compliant • Zero-Write Read-Only Enclave</span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-info-sky text-headline-sm font-headline-sm">verified</span><span>All API telemetry signed with SHA-256 HMAC</span></div></div></footer></div></body></html>

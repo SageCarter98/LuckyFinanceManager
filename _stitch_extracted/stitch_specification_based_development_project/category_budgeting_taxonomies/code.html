@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#93ccff", "background": "#f8f9ff", "slate-border": "#CBD5E1", "on-primary": "#ffffff", "on-secondary-container": "#00714d", "on-primary-container": "#7c839b", "on-secondary-fixed-variant": "#005236", "surface-variant": "#d3e4fe", "on-surface": "#0b1c30", "error-container": "#ffdad6", "surface-dim": "#cbdbf5", "slate-surface": "#F8FAFC", "growth-emerald-tint": "#ECFDF5", "warning-amber": "#F59E0B", "secondary": "#006c49", "on-primary-fixed": "#131b2e", "outline-variant": "#c6c6cd", "surface-container": "#e5eeff", "tertiary-fixed": "#cce5ff", "on-error-container": "#93000a", "primary": "#000000", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#188ace", "on-secondary-fixed": "#002113", "table-header-fill": "#E2E8F0", "info-sky-tint": "#F0F9FF", "primary-fixed-dim": "#bec6e0", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "primary-fixed": "#dae2fd", "surface-container-high": "#dce9ff", "error": "#ba1a1a", "slate-surface-subtle": "#F1F5F9", "secondary-fixed": "#6ffbbe", "secondary-container": "#6cf8bb", "warning-amber-tint": "#FFFBEB", "primary-container": "#131b2e", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30", "on-tertiary-fixed": "#001d31", "on-primary-fixed-variant": "#3f465c", "growth-emerald-deep": "#059669", "on-surface-variant": "#45464d", "tertiary-container": "#001d31", "surface-tint": "#565e74", "slate-navy-deep": "#1E293B", "surface-container-low": "#eff4ff", "outline": "#76777d", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "info-sky": "#0284C7", "secondary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#004b73", "inverse-primary": "#bec6e0", "expense-crimson": "#EF4444", "surface": "#f8f9ff", "expense-crimson-tint": "#FEF2F2", "on-tertiary": "#ffffff", "inverse-on-surface": "#eaf1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "table-cell-y": "0.625rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "margin-desktop": "3rem", "space-sm": "0.75rem", "margin-tablet": "2rem", "space-md": "1rem", "space-2xs": "0.25rem", "table-cell-x": "0.875rem", "space-2xl": "3rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "margin-mobile": "1rem", "gutter-mobile": "1rem" }, "fontFamily": { "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "currency-table": [ "Inter" ], "label-md": [ "Inter" ], "currency-stat": [ "Inter" ], "display": [ "Plus Jakarta Sans" ], "currency-display": [ "Inter" ], "label-sm": [ "Inter" ], "display-mobile": [ "Plus Jakarta Sans" ], "title": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "body-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "400" } ], "currency-table": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" } ], "label-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.005em", "fontWeight": "500" } ], "currency-stat": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "display": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "currency-display": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "title": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><img alt="FinPlatform Geometric Brand Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">FinPlatform</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-space-3xs">Finance Management</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="accounts" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span>Accounts</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span>Categories</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recurring-bills" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span>Recurring Bills</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="#"><span class="material-symbols-outlined text-[20px]">flag</span><span>Goals</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Reports</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="banking" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">savings</span><span>Banking</span></div><span class="material-symbols-outlined text-[16px] text-on-surface-variant" title="Gated Verification Required">lock</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary font-title rounded-xl" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">FRS v1.0 Audited</span></div><span class="h-2 w-2 rounded-full bg-secondary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-full cursor-pointer hover:bg-surface-container transition-colors" title="Preferred Active Display Currency (FE-3.1)"><span class="font-label-sm text-label-sm font-semibold text-on-surface">USD ($)</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div><a class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="staff-console" href="#"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span><span>Staff Console</span></a></div><div class="flex items-center gap-space-md"><button aria-label="Notifications (FE-10.1)" class="relative p-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-expense-crimson"></span></button><div class="relative group"><button aria-expanded="false" aria-haspopup="true" class="flex items-center gap-space-sm pl-space-xs pr-space-sm py-space-2xs rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvdVSBQ9I2Z6pOcVK9iXo3u0_t1ItkK96Oeo6d2OE4DBviKDfghiObVa6whsj2mT0DYyAj7AHBR-_tQSJ0RPhCzkfrvexaCWZL6rEgaeJyek-xG-uvwmdxxfFqi5R3YeLgSCfePfrE4LF8xEanIhbPIgZGGysf-fKoob0s6REr8WfIp1Qv18fKpn_RImKesIzHSzNr8Rfgjoo7vXm7NajKuspHEOqbHT0wS2RuHFm5bhJ3dPfYfo1"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Eleanor Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Individual Tier</span></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span></button><div class="absolute right-0 mt-space-2xs w-56 bg-surface-container-lowest rounded-xl shadow-[0_4px_6px_-1px_rgba(15,23,42,0.08),0_2px_4px_-2px_rgba(15,23,42,0.04)] p-space-xs hidden group-hover:block transition-all z-50"><div class="px-space-sm py-space-xs"><p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account</p></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">manage_accounts</span><span>Profile &amp; Preferences</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="security" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-rights" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>Data Rights</span></a><div class="my-space-2xs bg-surface-container-high h-[1px]"></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-expense-crimson hover:bg-expense-crimson-tint transition-colors" data-path="logout" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Logout</span></a></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Top Context Header & Actions -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-xl">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm mb-space-3xs">
+<span>LEDGER TAXONOMY ENGINE</span>
+<span class="inline-block w-1 h-1 rounded-full bg-slate-border"></span>
+<span class="text-info-sky font-medium">FRS 4.5 COMPLIANT</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Category Budgeting</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-space-3xs">
+        Organize ledger taxonomies, set monthly spending limits in display currency, and monitor budget burn rates across all multi-currency transactions.
+      </p>
+</div>
+<div class="flex items-center gap-space-sm self-start lg:self-center">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-xl font-label-md text-label-md text-slate-navy-deep bg-surface-container-lowest shadow-sm hover:bg-slate-surface-subtle transition-all cursor-pointer" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Export Taxonomies</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-xl font-label-md text-label-md text-on-primary bg-slate-navy-deep shadow-md hover:bg-primary-container transition-all cursor-pointer" onclick="document.getElementById('add-drawer').classList.remove('translate-x-full')" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ New Category</span>
+</button>
+</div>
+</div>
+<!-- Editorial Budget Health & Metrics Dashboard -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg mb-space-xl">
+<!-- Macro Progress Bar & Distribution -->
+<div class="xl:col-span-8 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="p-space-2xs bg-surface-container rounded-lg text-on-surface">
+<span class="material-symbols-outlined text-[20px]">donut_large</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">August 2024 Aggregate Cap</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Active burn period: 23 of 31 days elapsed (8 days remaining)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-growth-emerald-tint px-space-sm py-space-3xs rounded-full">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[16px]">check_circle</span>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep font-semibold">OVERALL: ON TRACK</span>
+</div>
+</div>
+<!-- Segmented Burn-rate Progress Visualization -->
+<div class="space-y-space-2xs my-space-md">
+<div class="flex justify-between items-baseline font-currency-table text-currency-table">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Burn Velocity: 74.6% Consumed</span>
+<span class="font-title text-title text-on-surface">$3,620.00 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ $4,850.00 USD</span></span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-4 rounded-full overflow-hidden flex p-0.5 shadow-inner">
+<div class="bg-growth-emerald-deep h-full rounded-l-full transition-all duration-500" style="width: 42%;" title="Fixed Essentials (42%)"></div>
+<div class="bg-info-sky h-full transition-all duration-500" style="width: 20%;" title="Discretionary Spend (20%)"></div>
+<div class="bg-warning-amber h-full transition-all duration-500" style="width: 12.6%;" title="Software &amp; Utilities (12.6%)"></div>
+<div class="bg-transparent h-full" style="width: 25.4%;" title="Remaining Available Limit (25.4%)"></div>
+</div>
+<!-- Non-Color-Only Indicators & Legend (FE-N.10) -->
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-2xs text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-growth-emerald-deep inline-block"></span>
+<span class="font-medium text-on-surface">Essentials</span>
+<span class="text-on-surface-variant font-normal">(Safe, 56% consumed)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-info-sky inline-block"></span>
+<span class="font-medium text-on-surface">Lifestyle</span>
+<span class="text-on-surface-variant font-normal">(Stable, 68% consumed)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-warning-amber inline-block"></span>
+<span class="font-medium text-on-surface">Utilities</span>
+<span class="text-on-surface-variant font-normal">(Near Limit, 89% consumed)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-border inline-block"></span>
+<span class="font-medium text-on-surface">Remaining Cap</span>
+<span class="text-growth-emerald-deep font-semibold">$1,230.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Guidance Box -->
+<div class="mt-space-md p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-info-sky text-[20px]">info</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+            Default system categories are fully customizable per FRS FE-5.3. Custom tags retain transactional integrity.
+          </p>
+</div>
+<span class="font-label-sm text-label-sm text-info-sky font-semibold cursor-pointer hover:underline">Auditing Docs</span>
+</div>
+</div>
+<!-- Micro Stat Bento Tiles -->
+<div class="xl:col-span-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-space-md">
+<!-- Total Budget Limit Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Monthly Limit</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">account_balance_wallet</span>
+</div>
+<div class="my-space-xs">
+<span class="font-currency-display text-currency-display text-on-surface font-bold">$4,850.00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-space-3xs">USD</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-semibold">+4.2%</span>
+<span class="text-on-surface-variant">adjusted from July base</span>
+</div>
+</div>
+<!-- Net Available Delta Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Remaining Cushion</span>
+<span class="material-symbols-outlined text-growth-emerald-deep text-[20px]">format_image_left</span>
+</div>
+<div class="my-space-xs">
+<span class="font-currency-display text-currency-display text-growth-emerald-deep font-bold">$1,230.00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-space-3xs">USD</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>Safe run-rate: ~$153.75 / day</span>
+<span class="bg-info-sky-tint text-info-sky px-space-xs py-space-3xs rounded-md font-semibold">8 Days Left</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Search and Taxonomies Toolbar -->
+<div class="bg-surface-container-lowest rounded-xl p-space-sm shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm w-full md:w-auto flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-slate-surface-subtle text-on-surface font-body-sm text-body-sm rounded-lg pl-9 pr-space-sm py-space-xs focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-on-surface-variant/70 transition-all" placeholder="Filter categories, limits, or transaction volume..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-space-xs w-full md:w-auto justify-end">
+<div class="flex items-center bg-slate-surface-subtle p-space-3xs rounded-lg text-on-surface-variant">
+<button class="p-space-2xs bg-surface-container-lowest text-on-surface rounded-md shadow-sm cursor-pointer" title="Grid View" type="button">
+<span class="material-symbols-outlined text-[18px]">grid_view</span>
+</button>
+<button class="p-space-2xs hover:text-on-surface rounded-md transition-colors cursor-pointer" title="Table View" type="button">
+<span class="material-symbols-outlined text-[18px]">table_rows</span>
+</button>
+</div>
+<span class="h-6 w-px bg-slate-border mx-space-2xs"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">7 Active Taxonomies</span>
+</div>
+</div>
+<!-- Categories Management Grid (FE-5.1, FE-5.2, FE-5.3) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md mb-space-2xl">
+<!-- Card 1: Housing & Rent -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-start justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-low text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">home</span>
+</div>
+<div>
+<div class="flex items-center gap-space-2xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Housing &amp; Rent</h3>
+<span class="text-on-surface-variant material-symbols-outlined text-[14px]" title="Starter category: customizable per FE-5.3">lock_open</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Fixed Essential</span>
+</div>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+            On Track
+          </span>
+</div>
+<div class="my-space-md">
+<div class="flex justify-between items-baseline mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cap Allocation</span>
+<span class="font-currency-table text-currency-table font-semibold text-on-surface">$1,800.00 / mo</span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-2.5 rounded-full overflow-hidden">
+<div class="bg-growth-emerald-deep h-full rounded-full" style="width: 100%;"></div>
+</div>
+<div class="flex justify-between items-center mt-space-2xs font-body-sm text-body-sm">
+<span class="text-on-surface font-medium">$1,800.00 spent</span>
+<span class="text-on-surface-variant">$0.00 remaining (100%)</span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm bg-slate-surface/40 -mx-space-lg -mb-space-lg p-space-md rounded-b-xl flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">1 transaction logged</span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="View Transactions" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="Edit Limit (FE-5.2)" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-expense-crimson rounded-lg hover:bg-expense-crimson-tint transition-colors" title="Delete Category (FE-5.4)" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Groceries & Dining (Target of the safeguard preview) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow ring-1 ring-info-sky/20">
+<div>
+<div class="flex items-start justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-growth-emerald-tint text-growth-emerald-deep flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">restaurant</span>
+</div>
+<div>
+<div class="flex items-center gap-space-2xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Groceries &amp; Dining</h3>
+<span class="text-on-surface-variant material-symbols-outlined text-[14px]" title="Starter category: customizable per FE-5.3">lock_open</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Discretionary</span>
+</div>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+            73% Used
+          </span>
+</div>
+<div class="my-space-md">
+<div class="flex justify-between items-baseline mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cap Allocation</span>
+<span class="font-currency-table text-currency-table font-semibold text-on-surface">$850.00 / mo</span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-2.5 rounded-full overflow-hidden">
+<div class="bg-growth-emerald-deep h-full rounded-full" style="width: 73%;"></div>
+</div>
+<div class="flex justify-between items-center mt-space-2xs font-body-sm text-body-sm">
+<span class="text-on-surface font-medium">$620.00 spent</span>
+<span class="text-growth-emerald-deep font-semibold">$230.00 remaining</span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm bg-slate-surface/40 -mx-space-lg -mb-space-lg p-space-md rounded-b-xl flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">34 transactions logged</span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="View Transactions" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="Edit Limit (FE-5.2)" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<!-- Triggering modal preview -->
+<button class="p-space-2xs text-expense-crimson rounded-lg hover:bg-expense-crimson-tint transition-colors cursor-pointer" onclick="document.getElementById('delete-modal').classList.remove('hidden')" title="Delete Category (Dependency Safeguard FE-5.4)" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Utilities & Bills -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-start justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-warning-amber-tint text-warning-amber flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+<div>
+<div class="flex items-center gap-space-2xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Utilities &amp; Bills</h3>
+<span class="text-on-surface-variant material-symbols-outlined text-[14px]">lock_open</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Recurring Variable</span>
+</div>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-warning-amber-tint text-warning-amber font-label-sm text-label-sm font-semibold">
+            Near Limit
+          </span>
+</div>
+<div class="my-space-md">
+<div class="flex justify-between items-baseline mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cap Allocation</span>
+<span class="font-currency-table text-currency-table font-semibold text-on-surface">$400.00 / mo</span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-2.5 rounded-full overflow-hidden">
+<div class="bg-warning-amber h-full rounded-full" style="width: 88.5%;"></div>
+</div>
+<div class="flex justify-between items-center mt-space-2xs font-body-sm text-body-sm">
+<span class="text-on-surface font-medium">$354.00 spent</span>
+<span class="text-warning-amber font-semibold">$46.00 remaining (89%)</span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm bg-slate-surface/40 -mx-space-lg -mb-space-lg p-space-md rounded-b-xl flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">5 transactions logged</span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="View Transactions" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="Edit Limit (FE-5.2)" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-expense-crimson rounded-lg hover:bg-expense-crimson-tint transition-colors" title="Delete Category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Healthcare -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-start justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-expense-crimson-tint text-expense-crimson flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">medical_services</span>
+</div>
+<div>
+<div class="flex items-center gap-space-2xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Healthcare</h3>
+<span class="text-on-surface-variant material-symbols-outlined text-[14px]">lock_open</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Contingency</span>
+</div>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+            On Track
+          </span>
+</div>
+<div class="my-space-md">
+<div class="flex justify-between items-baseline mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cap Allocation</span>
+<span class="font-currency-table text-currency-table font-semibold text-on-surface">$500.00 / mo</span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-2.5 rounded-full overflow-hidden">
+<div class="bg-growth-emerald-deep h-full rounded-full" style="width: 29.6%;"></div>
+</div>
+<div class="flex justify-between items-center mt-space-2xs font-body-sm text-body-sm">
+<span class="text-on-surface font-medium">$148.00 spent</span>
+<span class="text-growth-emerald-deep font-semibold">$352.00 remaining</span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm bg-slate-surface/40 -mx-space-lg -mb-space-lg p-space-md rounded-b-xl flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">2 transactions logged</span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="View Transactions" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="Edit Limit (FE-5.2)" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-expense-crimson rounded-lg hover:bg-expense-crimson-tint transition-colors" title="Delete Category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5: Transportation -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-start justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-info-sky-tint text-info-sky flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">directions_car</span>
+</div>
+<div>
+<div class="flex items-center gap-space-2xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Transportation</h3>
+<span class="text-on-surface-variant material-symbols-outlined text-[14px]">lock_open</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mobility</span>
+</div>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+            On Track
+          </span>
+</div>
+<div class="my-space-md">
+<div class="flex justify-between items-baseline mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cap Allocation</span>
+<span class="font-currency-table text-currency-table font-semibold text-on-surface">$450.00 / mo</span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-2.5 rounded-full overflow-hidden">
+<div class="bg-growth-emerald-deep h-full rounded-full" style="width: 53.3%;"></div>
+</div>
+<div class="flex justify-between items-center mt-space-2xs font-body-sm text-body-sm">
+<span class="text-on-surface font-medium">$240.00 spent</span>
+<span class="text-growth-emerald-deep font-semibold">$210.00 remaining</span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm bg-slate-surface/40 -mx-space-lg -mb-space-lg p-space-md rounded-b-xl flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">8 transactions logged</span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="View Transactions" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="Edit Limit (FE-5.2)" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-expense-crimson rounded-lg hover:bg-expense-crimson-tint transition-colors" title="Delete Category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 6: Software Subscriptions (Over budget state FE-N.10) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-start justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-slate-surface-subtle text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">developer_board</span>
+</div>
+<div>
+<div class="flex items-center gap-space-2xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Software &amp; Tools</h3>
+<span class="text-on-surface-variant material-symbols-outlined text-[14px]">lock_open</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SaaS / Cloud</span>
+</div>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-expense-crimson-tint text-expense-crimson font-label-sm text-label-sm font-semibold">
+            Over Budget
+          </span>
+</div>
+<div class="my-space-md">
+<div class="flex justify-between items-baseline mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cap Allocation</span>
+<span class="font-currency-table text-currency-table font-semibold text-on-surface">$200.00 / mo</span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-2.5 rounded-full overflow-hidden">
+<div class="bg-expense-crimson h-full rounded-full" style="width: 100%;"></div>
+</div>
+<div class="flex justify-between items-center mt-space-2xs font-body-sm text-body-sm">
+<span class="text-expense-crimson font-semibold">$248.00 spent</span>
+<span class="text-expense-crimson font-semibold">-$48.00 overdrawn (124%)</span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm bg-slate-surface/40 -mx-space-lg -mb-space-lg p-space-md rounded-b-xl flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">11 transactions logged</span>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="View Transactions" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-high transition-colors" title="Edit Limit (FE-5.2)" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs text-on-surface-variant hover:text-expense-crimson rounded-lg hover:bg-expense-crimson-tint transition-colors" title="Delete Category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Allocation Multi-Currency Context Alert -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm mb-space-2xl flex items-start gap-space-md">
+<div class="p-space-2xs bg-info-sky-tint text-info-sky rounded-lg mt-0.5">
+<span class="material-symbols-outlined text-[20px]">currency_exchange</span>
+</div>
+<div class="flex-1">
+<h4 class="font-title text-title text-on-surface">Automatic FX Normalization (SRS 3.5 / FE-3.1)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-3xs">
+        Budgets are denominated and tracked against your active display currency (USD $). Expenses recorded in EUR, GBP, or JPY are instantly converted based on the settlement date's verified ECB spot rates without manual ledger recalculation.
+      </p>
+</div>
+</div>
+<!-- DEPENDENCY-AWARE DELETION SAFEGUARD MODAL (FE-5.4) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-space-md bg-slate-navy-deep/50 backdrop-blur-sm transition-opacity duration-200" id="delete-modal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-xl shadow-2xl p-space-xl flex flex-col gap-space-md animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-full bg-expense-crimson-tint text-expense-crimson flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Delete "Groceries &amp; Dining" Category?</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Taxonomy Integrity Safeguard (FE-5.4)</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface cursor-pointer" onclick="document.getElementById('delete-modal').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Warning Callout -->
+<div class="bg-expense-crimson-tint/60 rounded-lg p-space-md flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs text-expense-crimson font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+<span>Active Ledger Dependencies Detected</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+          This category is currently referenced by <strong>34 transactions</strong> totaling <strong>$3,410.20 USD</strong> across your active accounts. Deleting without reallocation will leave historical journal entries uncategorized and disrupt annual reporting.
+        </p>
+</div>
+<!-- Reassignment Selection Field (Mandatory per FE-5.4) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="reassign-select">
+          Reassign existing 34 transactions to:
+        </label>
+<div class="relative">
+<select class="w-full bg-slate-surface-subtle text-on-surface font-body-md text-body-md rounded-lg p-space-sm pr-10 appearance-none focus:outline-none focus:bg-surface-container-lowest shadow-sm cursor-pointer" id="reassign-select">
+<option disabled="" selected="" value="">Select replacement category...</option>
+<option value="personal">Personal &amp; Leisure (Discretionary)</option>
+<option value="housing">Housing &amp; Rent (Fixed Essential)</option>
+<option value="utilities">Utilities &amp; Bills (Recurring)</option>
+<option value="uncategorized">Leave as "Unassigned Suspense Ledger"</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">expand_more</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+          Historical spending analytics will adjust seamlessly to the chosen target taxonomy.
+        </span>
+</div>
+<!-- Modal Action Buttons -->
+<div class="flex items-center justify-end gap-space-sm pt-space-sm mt-space-xs">
+<button class="px-space-md py-space-sm rounded-xl font-label-md text-label-md text-slate-navy-deep bg-surface-container-lowest shadow-sm hover:bg-slate-surface-subtle transition-all cursor-pointer" onclick="document.getElementById('delete-modal').classList.add('hidden')" type="button">
+          Cancel
+        </button>
+<button class="px-space-lg py-space-sm rounded-xl font-label-md text-label-md text-on-primary bg-expense-crimson shadow-md hover:bg-expense-crimson/90 transition-all cursor-pointer" onclick="document.getElementById('delete-modal').classList.add('hidden')" type="button">
+          Reassign &amp; Delete Category
+        </button>
+</div>
+</div>
+</div>
+<!-- SLIDE-OVER DRAWER: CREATE / EDIT CATEGORY PREVIEW -->
+<div class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-surface-container-lowest shadow-2xl p-space-xl flex flex-col justify-between translate-x-full transition-transform duration-300 ease-in-out" id="add-drawer">
+<div class="flex flex-col gap-space-lg overflow-y-auto">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between pb-space-sm bg-slate-surface-subtle -mx-space-xl -mt-space-xl p-space-xl">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">New Ledger Taxonomy</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Setup budget limits &amp; metadata</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-space-2xs rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer" onclick="document.getElementById('add-drawer').classList.add('translate-x-full')" type="button">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Form Inputs -->
+<form class="flex flex-col gap-space-md" onsubmit="event.preventDefault(); document.getElementById('add-drawer').classList.add('translate-x-full');">
+<!-- Category Name -->
+<div class="flex flex-col gap-space-3xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Category Title</label>
+<input class="w-full bg-slate-surface-subtle font-body-md text-body-md text-on-surface rounded-lg p-space-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-on-surface-variant/60" placeholder="e.g. Travel &amp; Flight Accommodations" required="" type="text"/>
+</div>
+<!-- Group Classification -->
+<div class="flex flex-col gap-space-3xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Taxonomy Classification</label>
+<div class="grid grid-cols-2 gap-space-2xs">
+<label class="flex items-center gap-space-xs p-space-xs bg-slate-surface-subtle rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+<input checked="" class="text-slate-navy-deep focus:ring-0" name="tax-type" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Essential Fixed</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-xs bg-slate-surface-subtle rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="text-slate-navy-deep focus:ring-0" name="tax-type" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Discretionary</span>
+</label>
+</div>
+</div>
+<!-- Monthly Budget Limit with Currency Input Anchor (FE-5.2) -->
+<div class="flex flex-col gap-space-3xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Monthly Budget Cap</label>
+<span class="font-label-sm text-label-sm text-on-surface-variant">USD ($) Base</span>
+</div>
+<div class="flex items-stretch rounded-lg shadow-sm overflow-hidden bg-slate-surface-subtle focus-within:bg-surface-container-lowest">
+<div class="bg-surface-container-high px-space-md py-space-sm font-label-md text-label-md text-on-surface font-semibold flex items-center">
+              $ USD
+            </div>
+<input class="w-full bg-transparent p-space-sm font-currency-stat text-currency-stat text-on-surface focus:outline-none" placeholder="0.00" step="0.01" type="number"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Leave blank for unconstrained tracking.</span>
+</div>
+<!-- Icon Picker Palette -->
+<div class="flex flex-col gap-space-3xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Visual Icon Emblem</label>
+<div class="grid grid-cols-6 gap-space-xs">
+<button class="h-10 rounded-lg bg-slate-navy-deep text-on-primary flex items-center justify-center cursor-pointer shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">flight</span>
+</button>
+<button class="h-10 rounded-lg bg-slate-surface-subtle text-on-surface hover:bg-surface-container-high flex items-center justify-center cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+</button>
+<button class="h-10 rounded-lg bg-slate-surface-subtle text-on-surface hover:bg-surface-container-high flex items-center justify-center cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+</button>
+<button class="h-10 rounded-lg bg-slate-surface-subtle text-on-surface hover:bg-surface-container-high flex items-center justify-center cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">school</span>
+</button>
+<button class="h-10 rounded-lg bg-slate-surface-subtle text-on-surface hover:bg-surface-container-high flex items-center justify-center cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">theater_comedy</span>
+</button>
+<button class="h-10 rounded-lg bg-slate-surface-subtle text-on-surface hover:bg-surface-container-high flex items-center justify-center cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Color Tint Token Selection -->
+<div class="flex flex-col gap-space-3xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Semantic Accent Tint</label>
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded-full bg-growth-emerald-deep ring-2 ring-offset-2 ring-growth-emerald-deep cursor-pointer"></span>
+<span class="w-7 h-7 rounded-full bg-info-sky cursor-pointer hover:opacity-80 transition-opacity"></span>
+<span class="w-7 h-7 rounded-full bg-warning-amber cursor-pointer hover:opacity-80 transition-opacity"></span>
+<span class="w-7 h-7 rounded-full bg-expense-crimson cursor-pointer hover:opacity-80 transition-opacity"></span>
+<span class="w-7 h-7 rounded-full bg-slate-navy-deep cursor-pointer hover:opacity-80 transition-opacity"></span>
+</div>
+</div>
+</form>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="flex items-center justify-between pt-space-md mt-space-md bg-slate-surface/40 -mx-space-xl -mb-space-xl p-space-xl">
+<button class="px-space-md py-space-sm rounded-xl font-label-md text-label-md text-slate-navy-deep bg-surface-container-lowest shadow-sm hover:bg-slate-surface-subtle transition-all cursor-pointer" onclick="document.getElementById('add-drawer').classList.add('translate-x-full')" type="button">
+        Cancel
+      </button>
+<button class="px-space-lg py-space-sm rounded-xl font-label-md text-label-md text-on-primary bg-slate-navy-deep shadow-md hover:bg-primary-container transition-all cursor-pointer" onclick="document.getElementById('add-drawer').classList.add('translate-x-full')" type="button">
+        Create Taxonomy
+      </button>
+</div>
+</div>
+</div></main></div></body></html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#93ccff", "background": "#f8f9ff", "slate-border": "#CBD5E1", "on-primary": "#ffffff", "on-secondary-container": "#00714d", "on-primary-container": "#7c839b", "on-secondary-fixed-variant": "#005236", "surface-variant": "#d3e4fe", "on-surface": "#0b1c30", "error-container": "#ffdad6", "surface-dim": "#cbdbf5", "slate-surface": "#F8FAFC", "growth-emerald-tint": "#ECFDF5", "warning-amber": "#F59E0B", "secondary": "#006c49", "on-primary-fixed": "#131b2e", "outline-variant": "#c6c6cd", "surface-container": "#e5eeff", "tertiary-fixed": "#cce5ff", "on-error-container": "#93000a", "primary": "#000000", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#188ace", "on-secondary-fixed": "#002113", "table-header-fill": "#E2E8F0", "info-sky-tint": "#F0F9FF", "primary-fixed-dim": "#bec6e0", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "primary-fixed": "#dae2fd", "surface-container-high": "#dce9ff", "error": "#ba1a1a", "slate-surface-subtle": "#F1F5F9", "secondary-fixed": "#6ffbbe", "secondary-container": "#6cf8bb", "warning-amber-tint": "#FFFBEB", "primary-container": "#131b2e", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30", "on-tertiary-fixed": "#001d31", "on-primary-fixed-variant": "#3f465c", "growth-emerald-deep": "#059669", "on-surface-variant": "#45464d", "tertiary-container": "#001d31", "surface-tint": "#565e74", "slate-navy-deep": "#1E293B", "surface-container-low": "#eff4ff", "outline": "#76777d", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "info-sky": "#0284C7", "secondary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#004b73", "inverse-primary": "#bec6e0", "expense-crimson": "#EF4444", "surface": "#f8f9ff", "expense-crimson-tint": "#FEF2F2", "on-tertiary": "#ffffff", "inverse-on-surface": "#eaf1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "table-cell-y": "0.625rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "margin-desktop": "3rem", "space-sm": "0.75rem", "margin-tablet": "2rem", "space-md": "1rem", "space-2xs": "0.25rem", "table-cell-x": "0.875rem", "space-2xl": "3rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "margin-mobile": "1rem", "gutter-mobile": "1rem" }, "fontFamily": { "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "currency-table": [ "Inter" ], "label-md": [ "Inter" ], "currency-stat": [ "Inter" ], "display": [ "Plus Jakarta Sans" ], "currency-display": [ "Inter" ], "label-sm": [ "Inter" ], "display-mobile": [ "Plus Jakarta Sans" ], "title": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "body-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "400" } ], "currency-table": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" } ], "label-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.005em", "fontWeight": "500" } ], "currency-stat": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "display": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "currency-display": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "title": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><img alt="FinPlatform Geometric Brand Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">FinPlatform</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-space-3xs">Finance Management</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="accounts" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span>Accounts</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span>Categories</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recurring-bills" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span>Recurring Bills</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="#"><span class="material-symbols-outlined text-[20px]">flag</span><span>Goals</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Reports</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="banking" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">savings</span><span>Banking</span></div><span class="material-symbols-outlined text-[16px] text-on-surface-variant" title="Gated Verification Required">lock</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary font-title rounded-xl" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">FRS v1.0 Audited</span></div><span class="h-2 w-2 rounded-full bg-secondary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-full cursor-pointer hover:bg-surface-container transition-colors" title="Preferred Active Display Currency (FE-3.1)"><span class="font-label-sm text-label-sm font-semibold text-on-surface">USD ($)</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div><a class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="staff-console" href="#"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span><span>Staff Console</span></a></div><div class="flex items-center gap-space-md"><button aria-label="Notifications (FE-10.1)" class="relative p-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-expense-crimson"></span></button><div class="relative group"><button aria-expanded="false" aria-haspopup="true" class="flex items-center gap-space-sm pl-space-xs pr-space-sm py-space-2xs rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvdVSBQ9I2Z6pOcVK9iXo3u0_t1ItkK96Oeo6d2OE4DBviKDfghiObVa6whsj2mT0DYyAj7AHBR-_tQSJ0RPhCzkfrvexaCWZL6rEgaeJyek-xG-uvwmdxxfFqi5R3YeLgSCfePfrE4LF8xEanIhbPIgZGGysf-fKoob0s6REr8WfIp1Qv18fKpn_RImKesIzHSzNr8Rfgjoo7vXm7NajKuspHEOqbHT0wS2RuHFm5bhJ3dPfYfo1"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Eleanor Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Individual Tier</span></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span></button><div class="absolute right-0 mt-space-2xs w-56 bg-surface-container-lowest rounded-xl shadow-[0_4px_6px_-1px_rgba(15,23,42,0.08),0_2px_4px_-2px_rgba(15,23,42,0.04)] p-space-xs hidden group-hover:block transition-all z-50"><div class="px-space-sm py-space-xs"><p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account</p></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">manage_accounts</span><span>Profile &amp; Preferences</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="security" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-rights" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>Data Rights</span></a><div class="my-space-2xs bg-surface-container-high h-[1px]"></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-expense-crimson hover:bg-expense-crimson-tint transition-colors" data-path="logout" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Logout</span></a></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Breadcrumbs & Meta Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-lg">
+<div class="flex items-center gap-space-2xs text-on-surface-variant font-body-sm text-body-sm">
+<a class="hover:text-on-surface transition-colors" href="#">Settings</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-title text-body-sm">Data Management &amp; Sovereignty</span>
+</div>
+<!-- Regulatory Compliance Badges (FRS FE-13.1 - 13.8) -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="flex items-center gap-space-3xs bg-growth-emerald-tint text-growth-emerald-deep px-space-sm py-space-3xs rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>GDPR Art. 17 &amp; 20 Compliant</span>
+</div>
+<div class="flex items-center gap-space-3xs bg-info-sky-tint text-info-sky px-space-sm py-space-3xs rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">gavel</span>
+<span>CCPA/CPRA Data Freedom</span>
+</div>
+<div class="flex items-center gap-space-3xs bg-surface-container-high text-on-surface-variant px-space-sm py-space-3xs rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">history_edu</span>
+<span>FRS FE-13.1–13.8 Standards</span>
+</div>
+</div>
+</div>
+<!-- Page Header Title Area -->
+<div class="mb-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md pb-space-md border-b border-slate-border/50">
+<div>
+<h1 class="font-display text-display text-on-surface tracking-tight">Data Sovereignty, Portability &amp; Account Deletion</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-space-2xs max-w-4xl">
+          Manage your complete personal data ledger, generate machine-readable archives, and control your cryptographic lifecycle with absolute autonomy and zero vendor lock-in.
+        </p>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-start md:self-end">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Ledger Immutability: SHA-256 Validated</span>
+</div>
+</div>
+</div>
+<!-- Section 2 Highlight: Pre-Deletion Safeguard Advisory (FE-13.6) -->
+<div class="mb-space-xl p-space-md rounded-xl bg-warning-amber-tint shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-warning-amber"></div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pl-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-warning-amber text-[28px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">privacy_tip</span>
+<div>
+<div class="flex items-center gap-space-xs">
+<h4 class="font-title text-title text-slate-navy-deep">Recommended Safeguard Prior to Termination</h4>
+<span class="font-label-sm text-label-sm text-warning-amber font-semibold bg-white/70 px-space-2xs py-0.5 rounded">FRS FE-13.6 Pre-Deletion Notice</span>
+</div>
+<p class="font-body-md text-body-md text-slate-navy-deep mt-space-3xs max-w-3xl">
+            Create a complete, verified data export before scheduling account termination. Financial auditing ledgers, FX tax fixing metadata, and historical reconciliations cannot be regenerated once the cryptographic tenancy enters the recovery queue.
+          </p>
+</div>
+</div>
+<button class="inline-flex items-center gap-space-xs bg-slate-navy-deep hover:bg-slate-navy-deep/90 text-on-primary px-space-md py-space-xs rounded-xl font-label-md text-label-md transition-all shrink-0 self-start lg:self-auto shadow-sm active:scale-95" onclick="triggerImmediateVaultDownload()" type="button">
+<span class="material-symbols-outlined text-[18px]">cloud_download</span>
+<span>Download Complete Vault</span>
+</button>
+</div>
+</div>
+<!-- Grid: Archive Engine & Extraction Hub -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg mb-space-2xl">
+<!-- Section 1: Granular Scope Selector (Left 8 Cols) -->
+<div class="xl:col-span-8 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-md pb-space-sm">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Engine FE-13.1 &amp; FE-13.3</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Machine-Readable Data Extraction</h3>
+</div>
+<!-- Format Selector Pills -->
+<div class="flex items-center bg-slate-surface-subtle p-1 rounded-xl">
+<button class="px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm bg-surface-container-lowest text-on-surface shadow-xs font-semibold" type="button">JSON (Canonical)</button>
+<button class="px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface font-medium" type="button">Ledger CSV</button>
+<button class="px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface font-medium" type="button">XML Double-Entry</button>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+          Select target domain partitions to compile into your deterministic export archive. All telemetry payloads are signed using institutional RSA-4096 checksums.
+        </p>
+<!-- Scope Checklist / Switchboard -->
+<div class="space-y-space-sm">
+<!-- Item 1: Accounts & Currencies -->
+<label class="flex items-start justify-between p-space-md rounded-xl bg-slate-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-start gap-space-sm">
+<input checked="" class="mt-1 h-4 w-4 rounded text-slate-navy-deep focus:ring-info-sky accent-slate-navy-deep" type="checkbox"/>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Accounts &amp; Native Currency Checkpoints</span>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface px-space-2xs py-0.5 rounded">Core Ledger</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Denominated asset accounts, custodial ledgers, real-time balance checkpoints, and base currency preference matrices.
+                </p>
+</div>
+</div>
+<span class="font-currency-table text-currency-table text-on-surface-variant whitespace-nowrap hidden sm:inline">6 Accounts</span>
+</label>
+<!-- Item 2: Double-Entry Transactions -->
+<label class="flex items-start justify-between p-space-md rounded-xl bg-slate-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-start gap-space-sm">
+<input checked="" class="mt-1 h-4 w-4 rounded text-slate-navy-deep focus:ring-info-sky accent-slate-navy-deep" type="checkbox"/>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Double-Entry Journal Records &amp; FX Metadata</span>
+<span class="font-label-sm text-label-sm bg-growth-emerald-tint text-growth-emerald-deep px-space-2xs py-0.5 rounded">Audit Ready</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  148 verified transactions including debits, credits, European Central Bank FX conversion reference indices, and receipt blobs.
+                </p>
+</div>
+</div>
+<span class="font-currency-table text-currency-table text-on-surface-variant whitespace-nowrap hidden sm:inline">148 Records</span>
+</label>
+<!-- Item 3: Recurring Obligations -->
+<label class="flex items-start justify-between p-space-md rounded-xl bg-slate-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-start gap-space-sm">
+<input checked="" class="mt-1 h-4 w-4 rounded text-slate-navy-deep focus:ring-info-sky accent-slate-navy-deep" type="checkbox"/>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Recurring Commitments &amp; Bills Pipeline</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Cadence intervals, contractual payment schedules, merchant identification codes, and auto-settlement hooks.
+                </p>
+</div>
+</div>
+<span class="font-currency-table text-currency-table text-on-surface-variant whitespace-nowrap hidden sm:inline">12 Schedules</span>
+</label>
+<!-- Item 4: Categories & Taxonomies -->
+<label class="flex items-start justify-between p-space-md rounded-xl bg-slate-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-start gap-space-sm">
+<input checked="" class="mt-1 h-4 w-4 rounded text-slate-navy-deep focus:ring-info-sky accent-slate-navy-deep" type="checkbox"/>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Category Taxonomies &amp; Threshold Rules</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Hierarchical spending taxonomy trees, monthly caps, dynamic rollover rules, and behavioral tagging tags.
+                </p>
+</div>
+</div>
+<span class="font-currency-table text-currency-table text-on-surface-variant whitespace-nowrap hidden sm:inline">24 Taxonomies</span>
+</label>
+<!-- Item 5: Savings Allocations -->
+<label class="flex items-start justify-between p-space-md rounded-xl bg-slate-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-start gap-space-sm">
+<input checked="" class="mt-1 h-4 w-4 rounded text-slate-navy-deep focus:ring-info-sky accent-slate-navy-deep" type="checkbox"/>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Savings Allocations &amp; Deterministic Math</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Deterministic compound math models, target milestone allocations, and reserved vault envelopes.
+                </p>
+</div>
+</div>
+<span class="font-currency-table text-currency-table text-on-surface-variant whitespace-nowrap hidden sm:inline">4 Envelopes</span>
+</label>
+<!-- Item 6: Connected Depository Telemetry (FE-13.3 Distinction) -->
+<label class="flex items-start justify-between p-space-md rounded-xl bg-info-sky-tint/50 hover:bg-info-sky-tint transition-colors cursor-pointer group">
+<div class="flex items-start gap-space-sm">
+<input checked="" class="mt-1 h-4 w-4 rounded text-slate-navy-deep focus:ring-info-sky accent-slate-navy-deep" type="checkbox"/>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Connected Depository Telemetry (Third-Party Aggregates)</span>
+<span class="font-label-sm text-label-sm bg-info-sky text-on-primary px-space-2xs py-0.5 rounded font-semibold">FE-13.3 Segregated</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  External OpenBanking &amp; Plaid sync snapshots, authorization scopes, and bank sync session nonces (segregated from pristine tenant ledgers).
+                </p>
+</div>
+</div>
+<span class="font-currency-table text-currency-table text-info-sky whitespace-nowrap hidden sm:inline">3 Depository Feeds</span>
+</label>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-md mt-space-lg pt-space-md border-t border-slate-border/50">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Cryptographically sealed under FRS v1.0 standard archive guidelines.</span>
+</div>
+<button class="inline-flex items-center gap-space-xs bg-slate-navy-deep hover:bg-slate-navy-deep/90 text-on-primary px-space-lg py-space-xs rounded-xl font-label-md text-label-md transition-all shadow-sm" id="start-export-btn" onclick="triggerAsyncExportJob()" type="button">
+<span class="material-symbols-outlined text-[18px]" id="export-btn-icon">archive</span>
+<span id="export-btn-text">Generate New Asynchronous Export</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right 4 Cols: Active Job Card & Recent Archive Telemetry (FE-13.2) -->
+<div class="xl:col-span-4 flex flex-col gap-space-md">
+<!-- Live Processing Indicator / Status Box -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm" id="export-job-card">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Portability Engine FE-13.2</span>
+<span class="inline-flex items-center gap-1.5 px-space-2xs py-0.5 bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm rounded font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Ready for Transfer
+          </span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Last Full Vault Archive</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Generated Aug 08, 2026 • 10:15 UTC <br/>
+<span class="font-currency-table text-currency-table text-on-surface font-semibold">14.8 MB ZIP</span> • Cryptographic Signature: <code class="font-mono text-xs bg-slate-surface-subtle px-1 rounded">sha256:7f8a9...c4b2</code>
+</p>
+<!-- Expiry Progress Bar -->
+<div class="mb-space-md bg-slate-surface p-space-sm rounded-xl">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+<span>Storage Availability</span>
+<span class="font-semibold text-warning-amber">Expires in 48 hours</span>
+</div>
+<div class="w-full bg-slate-surface-subtle h-2 rounded-full overflow-hidden">
+<div class="bg-warning-amber h-full rounded-full" style="width: 72%;"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+            Per strict zero-retention mandates, generated server-side zip files are shredded after 48h to prevent dormant data leakage.
+          </p>
+</div>
+<a class="w-full inline-flex items-center justify-center gap-space-xs bg-slate-surface-subtle hover:bg-surface-container text-on-surface font-title text-label-md py-space-sm rounded-xl transition-colors mb-space-xs" href="#download">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Download Vault ZIP (14.8 MB)</span>
+</a>
+<div class="hidden mt-space-md p-space-sm rounded-xl bg-info-sky-tint" id="async-queue-info">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-info-sky text-[20px] animate-spin">progress_activity</span>
+<div class="font-body-sm text-body-sm text-slate-navy-deep">
+<span class="font-semibold">Fulfillment Queued:</span> Job initialized (ID #EXP-8891). Generation duration is 2–5 minutes. You do not need to stay on this page; an email download token will arrive at <span class="font-mono text-xs">e.vance@ledger.internal</span>.
+            </div>
+</div>
+</div>
+</div>
+<!-- Micro Visual Ledger Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[20px]">security</span>
+<h5 class="font-title text-title text-on-surface">Data Custody Metrics</h5>
+</div>
+<div class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center justify-between py-space-2xs border-b border-slate-border/40">
+<span>Customer Unique UID</span>
+<span class="font-mono text-on-surface font-medium">USR-4901-EVA</span>
+</div>
+<div class="flex items-center justify-between py-space-2xs border-b border-slate-border/40">
+<span>Primary Ledger Zone</span>
+<span class="font-medium text-on-surface">EU-Frankfurt (AES-256)</span>
+</div>
+<div class="flex items-center justify-between py-space-2xs border-b border-slate-border/40">
+<span>Export Request Quota</span>
+<span class="font-medium text-growth-emerald-deep">Unlimited (Fair Use)</span>
+</div>
+<div class="flex items-center justify-between py-space-2xs">
+<span>Portability Compliance</span>
+<span class="font-medium text-on-surface">ISO/IEC 27001</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Self-Service Account Termination & Deletion Protocol (FE-13.4, FE-13.5, FE-13.7, FE-13.8) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm mb-space-2xl">
+<!-- Header with Explicit Disclosures -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-space-md border-b border-slate-border/50 mb-space-lg">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-expense-crimson text-[24px]">delete_forever</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Account Termination &amp; Cryptographic Shredding</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          Self-service account lifecycle termination protocol pursuant to FRS FE-13.4. No support interaction is required.
+        </p>
+</div>
+<div class="bg-expense-crimson-tint text-expense-crimson px-space-sm py-space-2xs rounded-full font-label-sm text-label-sm font-semibold flex items-center gap-1 self-start md:self-center">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+<span>Permanent Execution Path</span>
+</div>
+</div>
+<!-- 4-Column Structured Regulatory Disclosures (FE-13.5, FE-13.8, NFR-8.4) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-xl">
+<!-- Disclosure 1: 30-Day Recovery Queue (FE-13.5) -->
+<div class="p-space-md rounded-xl bg-slate-surface flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs text-on-surface mb-space-2xs">
+<span class="material-symbols-outlined text-warning-amber text-[20px]">hourglass_top</span>
+<h5 class="font-title text-title">30-Day Recovery Queue</h5>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Account access is instantly locked and bank tokens revoked. Data remains in a 30-day reversible safety queue before irreversible purging.
+          </p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-space-sm font-mono">FE-13.5 Mandate</span>
+</div>
+<!-- Disclosure 2: Cryptographic Shredding (FE-13.5) -->
+<div class="p-space-md rounded-xl bg-slate-surface flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs text-on-surface mb-space-2xs">
+<span class="material-symbols-outlined text-slate-navy-deep text-[20px]">key_off</span>
+<h5 class="font-title text-title">Key Shredding on Day 31</h5>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            On day 31, all customer tenant cryptographic keys (KMS DEKs) are permanently incinerated. Data blocks become irrecoverable noise.
+          </p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-space-sm font-mono">Zero-Residual Archival</span>
+</div>
+<!-- Disclosure 3: Statutory Tax Exemption (NFR-8.4) -->
+<div class="p-space-md rounded-xl bg-slate-surface flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs text-on-surface mb-space-2xs">
+<span class="material-symbols-outlined text-info-sky text-[20px]">balance</span>
+<h5 class="font-title text-title">7-Year Tax Storage</h5>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            In compliance with statutory VAT/GST audit codes (NFR-8.4), raw billing payment manifests are retained in cold escrow for 7 fiscal years.
+          </p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-space-sm font-mono">NFR-8.4 Invariance</span>
+</div>
+<!-- Disclosure 4: Active Subscription De-provisioning (FE-13.8) -->
+<div class="p-space-md rounded-xl bg-slate-surface flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs text-on-surface mb-space-2xs">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[20px]">credit_card_off</span>
+<h5 class="font-title text-title">Immediate Stripe Cancel</h5>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Active plan <strong class="text-on-surface font-semibold">SUB-88219-INST</strong> (Institutional Tier) will be immediately canceled at Stripe to eliminate orphan charges.
+          </p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-space-sm font-mono">FE-13.8 Billing Clean</span>
+</div>
+</div>
+<!-- Verification Confirmation Box (FE-13.7) -->
+<div class="p-space-lg rounded-xl bg-expense-crimson-tint/40">
+<div class="max-w-2xl">
+<h4 class="font-headline-sm text-headline-sm text-expense-crimson mb-space-2xs">
+          Typed Confirmation Protocol (FE-13.7)
+        </h4>
+<p class="font-body-md text-body-md text-on-surface mb-space-md">
+          To prevent accidental execution, please re-authenticate your administrative intent. Type <span class="font-mono font-bold bg-white px-1.5 py-0.5 rounded text-expense-crimson select-all">DELETE MY ACCOUNT FOREVER</span> and confirm your active session password.
+        </p>
+<form class="space-y-space-md" id="deletion-form" onsubmit="handleAccountDeletionSubmit(event)">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-space-2xs" for="confirmation-phrase">
+              Confirmation Phrase Verification
+            </label>
+<input autocomplete="off" class="w-full max-w-md px-space-md py-space-xs bg-surface-container-lowest rounded-xl font-mono text-body-md text-on-surface border border-slate-border focus:border-expense-crimson focus:outline-none focus:ring-2 focus:ring-expense-crimson/20" id="confirmation-phrase" oninput="validateDeletionInputs()" placeholder="DELETE MY ACCOUNT FOREVER" type="text"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-space-2xs" for="account-password">
+              Current Master Password
+            </label>
+<input autocomplete="current-password" class="w-full max-w-md px-space-md py-space-xs bg-surface-container-lowest rounded-xl font-body-md text-on-surface border border-slate-border focus:border-expense-crimson focus:outline-none focus:ring-2 focus:ring-expense-crimson/20" id="account-password" oninput="validateDeletionInputs()" placeholder="••••••••••••••••" type="password"/>
+</div>
+<div class="pt-space-xs">
+<button class="inline-flex items-center gap-space-xs bg-expense-crimson hover:bg-expense-crimson/90 disabled:opacity-40 disabled:cursor-not-allowed text-on-primary px-space-lg py-space-sm rounded-xl font-title text-title transition-all shadow-md active:scale-95" disabled="" id="delete-action-btn" type="submit">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+<span>Permanently Schedule Account Termination</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- Interactive Client Behavior Scripts -->
+<script>
+    function triggerAsyncExportJob() {
+      const btn = document.getElementById('start-export-btn');
+      const icon = document.getElementById('export-btn-icon');
+      const text = document.getElementById('export-btn-text');
+      const info = document.getElementById('async-queue-info');
+
+      btn.disabled = true;
+      btn.classList.add('opacity-75');
+      icon.innerText = 'hourglass_top';
+      text.innerText = 'Dispatching Extraction Workers...';
+
+      setTimeout(() => {
+        icon.innerText = 'check_circle';
+        text.innerText = 'Export Task Dispatched';
+        info.classList.remove('hidden');
+      }, 1200);
+    }
+
+    function triggerImmediateVaultDownload() {
+      const btn = event.currentTarget;
+      const origText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> Compiling Snapshot...';
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">file_download_done</span> Snapshot Dispatched (14.8MB)';
+        setTimeout(() => { btn.innerHTML = origText; }, 3000);
+      }, 1000);
+    }
+
+    function validateDeletionInputs() {
+      const phraseInput = document.getElementById('confirmation-phrase');
+      const passInput = document.getElementById('account-password');
+      const submitBtn = document.getElementById('delete-action-btn');
+
+      const isPhraseValid = phraseInput.value.trim() === 'DELETE MY ACCOUNT FOREVER';
+      const isPassFilled = passInput.value.length >= 6;
+
+      if (isPhraseValid && isPassFilled) {
+        submitBtn.removeAttribute('disabled');
+      } else {
+        submitBtn.setAttribute('disabled', 'true');
+      }
+    }
+
+    function handleAccountDeletionSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('delete-action-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">sync</span> Initiating Cryptographic Lockout...';
+      
+      setTimeout(() => {
+        alert('Account termination scheduled (FE-13.5). Active session terminated. Tenancy placed in 30-day soft recovery queue.');
+        window.location.reload();
+      }, 1600);
+    }
+  </script>
+</div></main></div></body></html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#93ccff", "background": "#f8f9ff", "slate-border": "#CBD5E1", "on-primary": "#ffffff", "on-secondary-container": "#00714d", "on-primary-container": "#7c839b", "on-secondary-fixed-variant": "#005236", "surface-variant": "#d3e4fe", "on-surface": "#0b1c30", "error-container": "#ffdad6", "surface-dim": "#cbdbf5", "slate-surface": "#F8FAFC", "growth-emerald-tint": "#ECFDF5", "warning-amber": "#F59E0B", "secondary": "#006c49", "on-primary-fixed": "#131b2e", "outline-variant": "#c6c6cd", "surface-container": "#e5eeff", "tertiary-fixed": "#cce5ff", "on-error-container": "#93000a", "primary": "#000000", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#188ace", "on-secondary-fixed": "#002113", "table-header-fill": "#E2E8F0", "info-sky-tint": "#F0F9FF", "primary-fixed-dim": "#bec6e0", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "primary-fixed": "#dae2fd", "surface-container-high": "#dce9ff", "error": "#ba1a1a", "slate-surface-subtle": "#F1F5F9", "secondary-fixed": "#6ffbbe", "secondary-container": "#6cf8bb", "warning-amber-tint": "#FFFBEB", "primary-container": "#131b2e", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30", "on-tertiary-fixed": "#001d31", "on-primary-fixed-variant": "#3f465c", "growth-emerald-deep": "#059669", "on-surface-variant": "#45464d", "tertiary-container": "#001d31", "surface-tint": "#565e74", "slate-navy-deep": "#1E293B", "surface-container-low": "#eff4ff", "outline": "#76777d", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "info-sky": "#0284C7", "secondary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#004b73", "inverse-primary": "#bec6e0", "expense-crimson": "#EF4444", "surface": "#f8f9ff", "expense-crimson-tint": "#FEF2F2", "on-tertiary": "#ffffff", "inverse-on-surface": "#eaf1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "table-cell-y": "0.625rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "margin-desktop": "3rem", "space-sm": "0.75rem", "margin-tablet": "2rem", "space-md": "1rem", "space-2xs": "0.25rem", "table-cell-x": "0.875rem", "space-2xl": "3rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "margin-mobile": "1rem", "gutter-mobile": "1rem" }, "fontFamily": { "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "currency-table": [ "Inter" ], "label-md": [ "Inter" ], "currency-stat": [ "Inter" ], "display": [ "Plus Jakarta Sans" ], "currency-display": [ "Inter" ], "label-sm": [ "Inter" ], "display-mobile": [ "Plus Jakarta Sans" ], "title": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "body-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "400" } ], "currency-table": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" } ], "label-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.005em", "fontWeight": "500" } ], "currency-stat": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "display": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "currency-display": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "title": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><img alt="FinPlatform Geometric Brand Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">FinPlatform</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-space-3xs">Finance Management</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="accounts" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span>Accounts</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span>Categories</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recurring-bills" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span>Recurring Bills</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="#"><span class="material-symbols-outlined text-[20px]">flag</span><span>Goals</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Reports</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="banking" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">savings</span><span>Banking</span></div><span class="material-symbols-outlined text-[16px] text-on-surface-variant" title="Gated Verification Required">lock</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary font-title rounded-xl" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">FRS v1.0 Audited</span></div><span class="h-2 w-2 rounded-full bg-secondary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-full cursor-pointer hover:bg-surface-container transition-colors" title="Preferred Active Display Currency (FE-3.1)"><span class="font-label-sm text-label-sm font-semibold text-on-surface">USD ($)</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div><a class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="staff-console" href="#"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span><span>Staff Console</span></a></div><div class="flex items-center gap-space-md"><button aria-label="Notifications (FE-10.1)" class="relative p-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-expense-crimson"></span></button><div class="relative group"><button aria-expanded="false" aria-haspopup="true" class="flex items-center gap-space-sm pl-space-xs pr-space-sm py-space-2xs rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvdVSBQ9I2Z6pOcVK9iXo3u0_t1ItkK96Oeo6d2OE4DBviKDfghiObVa6whsj2mT0DYyAj7AHBR-_tQSJ0RPhCzkfrvexaCWZL6rEgaeJyek-xG-uvwmdxxfFqi5R3YeLgSCfePfrE4LF8xEanIhbPIgZGGysf-fKoob0s6REr8WfIp1Qv18fKpn_RImKesIzHSzNr8Rfgjoo7vXm7NajKuspHEOqbHT0wS2RuHFm5bhJ3dPfYfo1"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Eleanor Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Individual Tier</span></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span></button><div class="absolute right-0 mt-space-2xs w-56 bg-surface-container-lowest rounded-xl shadow-[0_4px_6px_-1px_rgba(15,23,42,0.08),0_2px_4px_-2px_rgba(15,23,42,0.04)] p-space-xs hidden group-hover:block transition-all z-50"><div class="px-space-sm py-space-xs"><p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account</p></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">manage_accounts</span><span>Profile &amp; Preferences</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="security" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-rights" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>Data Rights</span></a><div class="my-space-2xs bg-surface-container-high h-[1px]"></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-expense-crimson hover:bg-expense-crimson-tint transition-colors" data-path="logout" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Logout</span></a></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full gap-space-xl">
+<!-- Page Header Area -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-3xs max-w-2xl">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">FRS v1.0 Section 4.8 Audited</span>
+<span class="text-on-surface-variant/40">•</span>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep font-semibold">Ledger Integrated</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">Savings Goals &amp; Capital Allocations</h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Targeted capital accumulation tracking with deterministic account attribution and milestone pacing.</p>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<button class="flex items-center gap-space-2xs px-space-md py-space-sm rounded-xl font-label-md text-label-md bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container-low transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Export Goals</span>
+</button>
+<button class="flex items-center gap-space-2xs px-space-md py-space-sm rounded-xl font-label-md text-label-md bg-primary-container text-on-primary shadow-sm hover:bg-slate-navy-deep transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Create Savings Goal</span>
+</button>
+</div>
+</div>
+<!-- Top Aggregate Summary Metric Bar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Stat 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Target Capital</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+</div>
+</div>
+<div>
+<div class="font-currency-display text-currency-display text-on-surface tracking-tight font-bold">$65,000.00</div>
+<div class="flex items-center gap-space-2xs mt-space-3xs text-on-surface-variant">
+<span class="font-label-sm text-label-sm font-semibold">USD</span>
+<span class="font-body-sm text-body-sm">• Aggregate commitment</span>
+</div>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Accumulated</span>
+<span class="inline-flex items-center px-space-2xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+          59.4%
+        </span>
+</div>
+<div>
+<div class="font-currency-display text-currency-display text-on-surface tracking-tight font-bold">$38,620.00</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-growth-emerald-deep h-full rounded-full" style="width: 59.4%;"></div>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">USD aggregate liquid valuation</div>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Active Milestones</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<div>
+<div class="font-currency-display text-currency-display text-on-surface tracking-tight font-bold">3 Active Goals</div>
+<div class="flex items-center gap-space-2xs mt-space-3xs text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="font-label-sm text-label-sm">100% deterministic rules active</span>
+</div>
+</div>
+</div>
+<!-- Stat 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Current Velocity</span>
+<div class="w-8 h-8 rounded-full bg-growth-emerald-tint flex items-center justify-center text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+</div>
+</div>
+<div>
+<div class="font-currency-stat text-currency-stat text-growth-emerald-deep font-bold leading-tight">+$1,450.00</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">USD / month planned rate</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-space-3xs">Next deposit: Oct 1, 2026</div>
+</div>
+</div>
+</div>
+<!-- Primary Goal Cards Section (FE-8.1, FE-8.2, FE-8.3) -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface font-bold">Active Capital Allocations</span>
+<span class="bg-surface-container-high px-space-xs py-space-3xs rounded-full font-label-sm text-label-sm text-on-surface-variant">3</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sort:</span>
+<button class="font-label-sm text-label-sm text-on-surface font-semibold flex items-center gap-space-3xs hover:underline" type="button">
+<span>Target Date</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Goal Card 1: Liquid Emergency Reserve -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-lg hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-growth-emerald-tint flex items-center justify-center text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[22px]">shield</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Tier 1 Liquid Emergency Reserve</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target Date: Dec 31, 2026</span>
+</div>
+</div>
+<button aria-label="Goal Settings" class="text-on-surface-variant hover:text-on-surface p-space-2xs rounded-lg hover:bg-surface-container-low" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<!-- Progress Data -->
+<div class="flex flex-col gap-space-xs bg-slate-surface rounded-xl p-space-md">
+<div class="flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Accumulated</span>
+<span class="font-currency-stat text-currency-stat font-bold text-on-surface">$20,500.00</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">$25,000.00 USD</span>
+</div>
+</div>
+<!-- Proportional Progress Bar -->
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden mt-space-2xs">
+<div class="bg-growth-emerald-deep h-full rounded-full transition-all duration-500" style="width: 82.0%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mt-space-3xs">
+<span class="text-growth-emerald-deep font-semibold">82.0% Completed</span>
+<span>$4,500.00 Remaining</span>
+</div>
+</div>
+<!-- Pacing Indicator (FE-8.3) -->
+<div class="bg-growth-emerald-tint rounded-xl p-space-sm flex items-start gap-space-xs text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5">bolt</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Pacing Analysis (FE-8.3)</span>
+<p class="font-body-sm text-body-sm leading-normal text-growth-emerald-deep">
+                Ahead of Pace — Target achievable 2 months ahead of schedule at current savings run-rate.
+              </p>
+</div>
+</div>
+<!-- Derivation Basis (FE-8.2) -->
+<div class="flex flex-col gap-space-2xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">account_balance_wallet</span>
+              Derivation Basis (FE-8.2)
+            </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Attributed to: <strong class="text-on-surface font-medium">Marcus High-Yield Savings</strong> ($18,450.20) and <strong class="text-on-surface font-medium">Chase Checking Surplus</strong> ($2,049.80). Derived from confirmed settled balances.
+            </p>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="inline-flex items-center gap-space-3xs text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+            Audited &amp; Reconciled
+          </span>
+<button class="font-label-sm text-label-sm text-info-sky font-semibold hover:underline flex items-center gap-space-3xs" onclick="document.getElementById('attribution-drawer').scrollIntoView({ behavior: 'smooth' })" type="button">
+<span>View Ledger</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Goal Card 2: European Relocation Vault -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-lg hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-info-sky-tint flex items-center justify-center text-info-sky">
+<span class="material-symbols-outlined text-[22px]">flight_takeoff</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">European Relocation &amp; Operational Vault</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target Date: June 30, 2027</span>
+</div>
+</div>
+<button aria-label="Goal Settings" class="text-on-surface-variant hover:text-on-surface p-space-2xs rounded-lg hover:bg-surface-container-low" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<!-- Progress Data -->
+<div class="flex flex-col gap-space-xs bg-slate-surface rounded-xl p-space-md">
+<div class="flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Accumulated</span>
+<span class="font-currency-stat text-currency-stat font-bold text-on-surface">€4,210.50</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target (USD Eq. $21,704.00)</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">€20,000.00 EUR</span>
+</div>
+</div>
+<!-- Proportional Progress Bar -->
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden mt-space-2xs">
+<div class="bg-info-sky h-full rounded-full transition-all duration-500" style="width: 21.1%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mt-space-3xs">
+<span class="text-info-sky font-semibold">21.1% Completed</span>
+<span>€15,789.50 Remaining</span>
+</div>
+</div>
+<!-- Pacing Indicator (FE-8.3) -->
+<div class="bg-info-sky-tint rounded-xl p-space-sm flex items-start gap-space-xs text-info-sky">
+<span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5">schedule</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Pacing Analysis (FE-8.3)</span>
+<p class="font-body-sm text-body-sm leading-normal text-on-surface-variant">
+                On Track — Monthly contribution target €620.00 EUR aligns with current recurring inflow.
+              </p>
+</div>
+</div>
+<!-- Derivation Basis (FE-8.2) -->
+<div class="flex flex-col gap-space-2xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">account_balance_wallet</span>
+              Derivation Basis (FE-8.2)
+            </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Attributed strictly to: <strong class="text-on-surface font-medium">Deutsche Bank Reserve Savings</strong> (Native EUR €4,210.50). Isolated from foreign exchange volatility risks.
+            </p>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="inline-flex items-center gap-space-3xs text-info-sky font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+            Native EUR Currency
+          </span>
+<button class="font-label-sm text-label-sm text-info-sky font-semibold hover:underline flex items-center gap-space-3xs" type="button">
+<span>Manage Vault</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Goal Card 3: Tax Reserve 2026 Fiscal Year -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-lg hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-warning-amber-tint flex items-center justify-center text-warning-amber">
+<span class="material-symbols-outlined text-[22px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Tax Reserve 2026 Fiscal Year</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target Date: Oct 15, 2026</span>
+</div>
+</div>
+<button aria-label="Goal Settings" class="text-on-surface-variant hover:text-on-surface p-space-2xs rounded-lg hover:bg-surface-container-low" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<!-- Progress Data -->
+<div class="flex flex-col gap-space-xs bg-slate-surface rounded-xl p-space-md">
+<div class="flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Accumulated</span>
+<span class="font-currency-stat text-currency-stat font-bold text-on-surface">$13,909.50</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">$18,000.00 USD</span>
+</div>
+</div>
+<!-- Proportional Progress Bar -->
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden mt-space-2xs">
+<div class="bg-warning-amber h-full rounded-full transition-all duration-500" style="width: 77.3%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mt-space-3xs">
+<span class="text-warning-amber font-semibold">77.3% Completed</span>
+<span>$4,090.50 Remaining</span>
+</div>
+</div>
+<!-- Pacing Indicator (FE-8.3) -->
+<div class="bg-warning-amber-tint rounded-xl p-space-sm flex items-start gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[18px] shrink-0 text-warning-amber mt-0.5">schedule_send</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-warning-amber">Pacing Analysis (FE-8.3)</span>
+<p class="font-body-sm text-body-sm leading-normal text-on-surface-variant">
+                On Track — $4,090.50 remaining with 2 planned client retainer allocations expected before deadline.
+              </p>
+</div>
+</div>
+<!-- Derivation Basis (FE-8.2) -->
+<div class="flex flex-col gap-space-2xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">account_balance_wallet</span>
+              Derivation Basis (FE-8.2)
+            </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Linked transaction rule: <strong class="text-on-surface font-medium">25% automatic attribution</strong> from all client retainer inflows into Marcus HYSA Sub-bucket.
+            </p>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="inline-flex items-center gap-space-3xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-warning-amber">lock_clock</span>
+            Statutory Deadline
+          </span>
+<button class="font-label-sm text-label-sm text-info-sky font-semibold hover:underline flex items-center gap-space-3xs" type="button">
+<span>Adjust Ratio</span>
+<span class="material-symbols-outlined text-[14px]">tune</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Goal Breakdown Ledger / Panel (FE-8.2) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg" id="attribution-drawer">
+<!-- Header of Panel -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-growth-emerald-tint flex items-center justify-center text-growth-emerald-deep">
+<span class="material-symbols-outlined text-[26px]">receipt_long</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Emergency Reserve — Attribution Ledger</h2>
+<span class="px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">FE-8.2 Audited</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Deterministic verification showing how the accumulated sum was calculated from confirmed accounts and settled transactions.</p>
+</div>
+</div>
+<!-- Button Controls -->
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<button class="px-space-sm py-space-xs rounded-lg font-label-md text-label-md bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Edit Target</span>
+</button>
+<button class="px-space-sm py-space-xs rounded-lg font-label-md text-label-md bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[16px]">link</span>
+<span>Adjust Linked Accounts</span>
+</button>
+<button class="px-space-sm py-space-xs rounded-lg font-label-md text-label-md bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+<span>Re-calibrate Timeline</span>
+</button>
+</div>
+</div>
+<!-- Attribution Summary Tiles -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="bg-slate-surface rounded-xl p-space-md flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account 1: Marcus HYSA</span>
+<div class="font-currency-stat text-currency-stat font-bold text-on-surface">$18,450.20 <span class="text-sm font-normal text-on-surface-variant">USD</span></div>
+<div class="flex items-center gap-space-2xs text-growth-emerald-deep font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Settled Liquid Holdings (90.0% of Goal)</span>
+</div>
+</div>
+<div class="bg-slate-surface rounded-xl p-space-md flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account 2: Chase Checking Surplus</span>
+<div class="font-currency-stat text-currency-stat font-bold text-on-surface">$2,049.80 <span class="text-sm font-normal text-on-surface-variant">USD</span></div>
+<div class="flex items-center gap-space-2xs text-growth-emerald-deep font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Settled Surplus Bucket (10.0% of Goal)</span>
+</div>
+</div>
+<div class="bg-slate-surface rounded-xl p-space-md flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Reconciliation Status</span>
+<div class="font-currency-stat text-currency-stat font-bold text-growth-emerald-deep">100% Reconciled</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+          Audit timestamp: Today at 09:30 UTC
+        </div>
+</div>
+</div>
+<!-- Attribution Transaction Table -->
+<div class="overflow-x-auto rounded-xl bg-slate-surface">
+<table class="w-full text-left font-body-md text-body-md border-collapse">
+<thead>
+<tr class="bg-table-header-fill text-slate-navy-deep font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-table-cell-y px-table-cell-x">Audit Date</th>
+<th class="py-table-cell-y px-table-cell-x">Source Account / Institution</th>
+<th class="py-table-cell-y px-table-cell-x">Attribution Rule</th>
+<th class="py-table-cell-y px-table-cell-x">Verification Mode</th>
+<th class="py-table-cell-y px-table-cell-x text-right">Attributed Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Sep 15, 2026</td>
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">savings</span>
+<span class="font-semibold text-on-surface">Marcus High-Yield Savings (...4910)</span>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Scheduled Monthly Inflow</td>
+<td class="py-table-cell-y px-table-cell-x">
+<span class="inline-flex items-center gap-space-3xs px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Settled
+              </span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-right font-currency-table text-currency-table text-on-surface font-semibold">+$750.00 USD</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Aug 31, 2026</td>
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">account_balance</span>
+<span class="font-semibold text-on-surface">Chase Premier Checking (...2188)</span>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Surplus Sweep Above $3,000 Baseline</td>
+<td class="py-table-cell-y px-table-cell-x">
+<span class="inline-flex items-center gap-space-3xs px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Settled
+              </span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-right font-currency-table text-currency-table text-on-surface font-semibold">+$450.00 USD</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Aug 15, 2026</td>
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">savings</span>
+<span class="font-semibold text-on-surface">Marcus High-Yield Savings (...4910)</span>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Scheduled Monthly Inflow</td>
+<td class="py-table-cell-y px-table-cell-x">
+<span class="inline-flex items-center gap-space-3xs px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Settled
+              </span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-right font-currency-table text-currency-table text-on-surface font-semibold">+$750.00 USD</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Jul 31, 2026</td>
+<td class="py-table-cell-y px-table-cell-x">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">trending_up</span>
+<span class="font-semibold text-on-surface">Marcus HYSA Interest Credit</span>
+</div>
+</td>
+<td class="py-table-cell-y px-table-cell-x font-body-sm text-body-sm text-on-surface-variant">Compound Interest Reinvestment (4.40% APY)</td>
+<td class="py-table-cell-y px-table-cell-x">
+<span class="inline-flex items-center gap-space-3xs px-space-xs py-space-3xs rounded-full bg-growth-emerald-tint text-growth-emerald-deep font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Settled
+              </span>
+</td>
+<td class="py-table-cell-y px-table-cell-x text-right font-currency-table text-currency-table text-on-surface font-semibold">+$67.70 USD</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Regulatory Audit Note Banner -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-info-sky text-[20px] shrink-0 mt-0.5">policy</span>
+<div class="flex flex-col gap-space-3xs">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Financial Reporting Standard (FRS FE-8.2) Verification Assurance</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Savings goals in FinPlatform are non-speculative. All balances displayed reflect strictly segregated, settled capital confirmed by connected open-banking API protocols. No un-cleared funds or projected receipts are counted as accumulated capital.
+        </p>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

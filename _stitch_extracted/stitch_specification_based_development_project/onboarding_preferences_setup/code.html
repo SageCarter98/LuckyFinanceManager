@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#93ccff", "background": "#f8f9ff", "slate-border": "#CBD5E1", "on-primary": "#ffffff", "on-secondary-container": "#00714d", "on-primary-container": "#7c839b", "on-secondary-fixed-variant": "#005236", "surface-variant": "#d3e4fe", "on-surface": "#0b1c30", "error-container": "#ffdad6", "surface-dim": "#cbdbf5", "slate-surface": "#F8FAFC", "growth-emerald-tint": "#ECFDF5", "warning-amber": "#F59E0B", "secondary": "#006c49", "on-primary-fixed": "#131b2e", "outline-variant": "#c6c6cd", "surface-container": "#e5eeff", "tertiary-fixed": "#cce5ff", "on-error-container": "#93000a", "primary": "#000000", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#188ace", "on-secondary-fixed": "#002113", "table-header-fill": "#E2E8F0", "info-sky-tint": "#F0F9FF", "primary-fixed-dim": "#bec6e0", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "primary-fixed": "#dae2fd", "surface-container-high": "#dce9ff", "error": "#ba1a1a", "slate-surface-subtle": "#F1F5F9", "secondary-fixed": "#6ffbbe", "secondary-container": "#6cf8bb", "warning-amber-tint": "#FFFBEB", "primary-container": "#131b2e", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30", "on-tertiary-fixed": "#001d31", "on-primary-fixed-variant": "#3f465c", "growth-emerald-deep": "#059669", "on-surface-variant": "#45464d", "tertiary-container": "#001d31", "surface-tint": "#565e74", "slate-navy-deep": "#1E293B", "surface-container-low": "#eff4ff", "outline": "#76777d", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "info-sky": "#0284C7", "secondary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#004b73", "inverse-primary": "#bec6e0", "expense-crimson": "#EF4444", "surface": "#f8f9ff", "expense-crimson-tint": "#FEF2F2", "on-tertiary": "#ffffff", "inverse-on-surface": "#eaf1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2rem", "table-cell-y": "0.625rem", "space-3xs": "0.125rem", "space-xs": "0.5rem", "margin-desktop": "3rem", "space-sm": "0.75rem", "margin-tablet": "2rem", "space-md": "1rem", "space-2xs": "0.25rem", "table-cell-x": "0.875rem", "space-2xl": "3rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "margin-mobile": "1rem", "gutter-mobile": "1rem" }, "fontFamily": { "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "currency-table": [ "Inter" ], "label-md": [ "Inter" ], "currency-stat": [ "Inter" ], "display": [ "Plus Jakarta Sans" ], "currency-display": [ "Inter" ], "label-sm": [ "Inter" ], "display-mobile": [ "Plus Jakarta Sans" ], "title": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "body-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.01em", "fontWeight": "400" } ], "currency-table": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" } ], "label-md": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.005em", "fontWeight": "500" } ], "currency-stat": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "display": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "currency-display": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-sm": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" } ], "display-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "title": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "1rem", { "lineHeight": "1.5rem", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest"><img alt="FinPlatform Geometric Brand Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WN0Te2Vv2_NuScj6sSOnjqJjWVbmXG0pbnufLm4VrjGiWoZstRhsD5weJtJyuIPM-tKJVYN9_TK335rAr2T-yzS8QY2WNPlNb4FIMnx9vs0irmwm1pzbu4YtQdZw37MO-Ad_p8BL6Ppq_YB5iVJwj_fEzGJLjrA0_ptrufdlkH48j_J6aItd-YflZuyOA9XO41JcSj5dJ3G9Yqb3A3bRlEcLrOq3tPSFHP3m34WYbS9U6hcbvjFA9sU1M"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">FinPlatform</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-space-3xs">Finance Management</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="accounts" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span>Accounts</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span>Categories</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="recurring-bills" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span>Recurring Bills</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="#"><span class="material-symbols-outlined text-[20px]">flag</span><span>Goals</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Reports</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-xl font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="banking" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">savings</span><span>Banking</span></div><span class="material-symbols-outlined text-[16px] text-on-surface-variant" title="Gated Verification Required">lock</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary font-title rounded-xl" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">verified_user</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">FRS v1.0 Audited</span></div><span class="h-2 w-2 rounded-full bg-secondary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-2xs rounded-full cursor-pointer hover:bg-surface-container transition-colors" title="Preferred Active Display Currency (FE-3.1)"><span class="font-label-sm text-label-sm font-semibold text-on-surface">USD ($)</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div><a class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="staff-console" href="#"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span><span>Staff Console</span></a></div><div class="flex items-center gap-space-md"><button aria-label="Notifications (FE-10.1)" class="relative p-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-expense-crimson"></span></button><div class="relative group"><button aria-expanded="false" aria-haspopup="true" class="flex items-center gap-space-sm pl-space-xs pr-space-sm py-space-2xs rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvdVSBQ9I2Z6pOcVK9iXo3u0_t1ItkK96Oeo6d2OE4DBviKDfghiObVa6whsj2mT0DYyAj7AHBR-_tQSJ0RPhCzkfrvexaCWZL6rEgaeJyek-xG-uvwmdxxfFqi5R3YeLgSCfePfrE4LF8xEanIhbPIgZGGysf-fKoob0s6REr8WfIp1Qv18fKpn_RImKesIzHSzNr8Rfgjoo7vXm7NajKuspHEOqbHT0wS2RuHFm5bhJ3dPfYfo1"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Eleanor Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Individual Tier</span></div><span class="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span></button><div class="absolute right-0 mt-space-2xs w-56 bg-surface-container-lowest rounded-xl shadow-[0_4px_6px_-1px_rgba(15,23,42,0.08),0_2px_4px_-2px_rgba(15,23,42,0.04)] p-space-xs hidden group-hover:block transition-all z-50"><div class="px-space-sm py-space-xs"><p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Account</p></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">manage_accounts</span><span>Profile &amp; Preferences</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="security" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-rights" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>Data Rights</span></a><div class="my-space-2xs bg-surface-container-high h-[1px]"></div><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg font-body-md text-body-md text-expense-crimson hover:bg-expense-crimson-tint transition-colors" data-path="logout" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Logout</span></a></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Subtle decorative ambient elements -->
+<div class="relative w-full overflow-hidden pb-space-3xl">
+<div class="absolute -top-16 -right-16 w-96 h-96 rounded-full bg-surface-container-highest/40 blur-3xl pointer-events-none"></div>
+<div class="absolute top-80 -left-20 w-80 h-80 rounded-full bg-surface-variant/30 blur-2xl pointer-events-none"></div>
+<!-- Onboarding Process Header & Wizard Tracker -->
+<div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-2xl">
+<div class="max-w-2xl">
+<div class="inline-flex items-center gap-space-2xs bg-surface-container-high px-space-sm py-space-3xs rounded-full mb-space-sm">
+<span class="material-symbols-outlined text-info-sky text-[16px]">spark</span>
+<span class="font-label-sm text-label-sm text-info-sky uppercase tracking-wider">Account Initialization</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Set up your audit environment</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-2xs">Configure your primary ledger denominations and personalize starter expenditure taxonomies. Fully customizable at any time.</p>
+</div>
+<!-- Step Indicator Bar -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center gap-space-lg min-w-[280px]">
+<div class="flex items-center gap-space-xs flex-1">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md font-semibold">1</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface leading-none">Preferences</span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep leading-tight mt-0.5">Active</span>
+</div>
+</div>
+<div class="w-8 h-0.5 bg-surface-container-high"></div>
+<div class="flex items-center gap-space-xs flex-1">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-semibold">2</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface-variant leading-none">Taxonomy</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight mt-0.5">7 Presets</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Wizard Structure (Bento Stack Layout) -->
+<form class="relative z-10 flex flex-col gap-space-2xl" id="onboarding-form" onsubmit="event.preventDefault(); window.location.href='#dashboard';">
+<!-- SECTION 1: GLOBAL CURRENCY & PREFERENCES (FE-3.1, FE-3.2) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-space-lg">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-on-surface text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Step 1: Global Currency &amp; Regional Calibration</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">Establish your default aggregate view units and temporal settlement boundary (FRS 3.1 &amp; 4.3).</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-space-sm py-space-2xs rounded-full">FE-3.1 Compliant</span>
+</div>
+<!-- Currency Selector Grid -->
+<div class="mt-space-md">
+<label class="font-label-md text-label-md font-semibold text-on-surface block mb-space-sm">Preferred Primary Display Currency</label>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-space-md" id="currency-group">
+<!-- USD -->
+<label class="relative cursor-pointer flex flex-col p-space-md bg-surface-container-low rounded-xl transition-all duration-200 hover:bg-surface-container has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group shadow-sm">
+<input checked="" class="sr-only" name="currency" onchange="updateCurrencySymbols('USD ($)', '$')" type="radio" value="USD"/>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm tracking-wider uppercase opacity-75 group-has-[:checked]:text-tertiary-fixed">United States</span>
+<span class="material-symbols-outlined text-[18px] opacity-0 group-has-[:checked]:opacity-100 transition-opacity">check_circle</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-2xs">
+<span class="font-currency-display text-currency-display font-bold leading-none">$</span>
+<span class="font-headline-md text-headline-md font-semibold leading-none">USD</span>
+</div>
+<span class="font-body-sm text-body-sm opacity-80 mt-space-2xs">US Dollar</span>
+</label>
+<!-- EUR -->
+<label class="relative cursor-pointer flex flex-col p-space-md bg-surface-container-low rounded-xl transition-all duration-200 hover:bg-surface-container has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group shadow-sm">
+<input class="sr-only" name="currency" onchange="updateCurrencySymbols('EUR (€)', '€')" type="radio" value="EUR"/>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm tracking-wider uppercase opacity-75 group-has-[:checked]:text-tertiary-fixed">Eurozone</span>
+<span class="material-symbols-outlined text-[18px] opacity-0 group-has-[:checked]:opacity-100 transition-opacity">check_circle</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-2xs">
+<span class="font-currency-display text-currency-display font-bold leading-none">€</span>
+<span class="font-headline-md text-headline-md font-semibold leading-none">EUR</span>
+</div>
+<span class="font-body-sm text-body-sm opacity-80 mt-space-2xs">European Euro</span>
+</label>
+<!-- GBP -->
+<label class="relative cursor-pointer flex flex-col p-space-md bg-surface-container-low rounded-xl transition-all duration-200 hover:bg-surface-container has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group shadow-sm">
+<input class="sr-only" name="currency" onchange="updateCurrencySymbols('GBP (£)', '£')" type="radio" value="GBP"/>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm tracking-wider uppercase opacity-75 group-has-[:checked]:text-tertiary-fixed">United Kingdom</span>
+<span class="material-symbols-outlined text-[18px] opacity-0 group-has-[:checked]:opacity-100 transition-opacity">check_circle</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-2xs">
+<span class="font-currency-display text-currency-display font-bold leading-none">£</span>
+<span class="font-headline-md text-headline-md font-semibold leading-none">GBP</span>
+</div>
+<span class="font-body-sm text-body-sm opacity-80 mt-space-2xs">British Pound</span>
+</label>
+<!-- CAD -->
+<label class="relative cursor-pointer flex flex-col p-space-md bg-surface-container-low rounded-xl transition-all duration-200 hover:bg-surface-container has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group shadow-sm">
+<input class="sr-only" name="currency" onchange="updateCurrencySymbols('CAD ($)', 'CA$')" type="radio" value="CAD"/>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm tracking-wider uppercase opacity-75 group-has-[:checked]:text-tertiary-fixed">Canada</span>
+<span class="material-symbols-outlined text-[18px] opacity-0 group-has-[:checked]:opacity-100 transition-opacity">check_circle</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-2xs">
+<span class="font-currency-display text-currency-display font-bold leading-none">$</span>
+<span class="font-headline-md text-headline-md font-semibold leading-none">CAD</span>
+</div>
+<span class="font-body-sm text-body-sm opacity-80 mt-space-2xs">Canadian Dollar</span>
+</label>
+<!-- JPY -->
+<label class="relative cursor-pointer flex flex-col p-space-md bg-surface-container-low rounded-xl transition-all duration-200 hover:bg-surface-container has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group shadow-sm">
+<input class="sr-only" name="currency" onchange="updateCurrencySymbols('JPY (¥)', '¥')" type="radio" value="JPY"/>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm tracking-wider uppercase opacity-75 group-has-[:checked]:text-tertiary-fixed">Japan</span>
+<span class="material-symbols-outlined text-[18px] opacity-0 group-has-[:checked]:opacity-100 transition-opacity">check_circle</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-2xs">
+<span class="font-currency-display text-currency-display font-bold leading-none">¥</span>
+<span class="font-headline-md text-headline-md font-semibold leading-none">JPY</span>
+</div>
+<span class="font-body-sm text-body-sm opacity-80 mt-space-2xs">Japanese Yen</span>
+</label>
+</div>
+</div>
+<!-- Informational Advisory Banner (FE-3.2 WCAG Non-color cues compliant) -->
+<div class="mt-space-lg p-space-md bg-info-sky-tint rounded-xl flex items-start gap-space-md relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-info-sky"></div>
+<span class="material-symbols-outlined text-info-sky text-[22px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-slate-navy-deep">Financial Integrity Protocol (FE-3.2)</span>
+<p class="font-body-sm text-body-sm text-slate-navy-deep/80 mt-space-3xs leading-relaxed">
+<strong>Note:</strong> Your preferred display currency is used for aggregated reports, net worth visualizations, and portfolio analytics. Individual financial accounts retain their native denominated currencies without balance mutation, preventing synthetic rounding degradation.
+            </p>
+</div>
+</div>
+<!-- Regional Timezone & Locale Setup -->
+<div class="mt-space-lg grid grid-cols-1 md:grid-cols-2 gap-space-lg items-end">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md font-semibold text-on-surface" for="timezone-select">Auditing Timezone</label>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span> Detected
+              </span>
+</div>
+<div class="relative">
+<select class="w-full h-11 px-space-md pr-space-xl bg-surface-container-low text-on-surface font-body-md text-body-md rounded-lg appearance-none cursor-pointer focus:bg-surface-container-lowest focus:outline-none transition-all" id="timezone-select">
+<option selected="" value="America/New_York">America/New_York (EST, UTC-5) — Auto Detected</option>
+<option value="America/Chicago">America/Chicago (CST, UTC-6)</option>
+<option value="America/Denver">America/Denver (MST, UTC-7)</option>
+<option value="America/Los_Angeles">America/Los_Angeles (PST, UTC-8)</option>
+<option value="Europe/London">Europe/London (GMT/BST, UTC+0)</option>
+<option value="Europe/Paris">Europe/Paris (CET, UTC+1)</option>
+<option value="Asia/Tokyo">Asia/Tokyo (JST, UTC+9)</option>
+<option value="Australia/Sydney">Australia/Sydney (AEDT, UTC+11)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-md text-label-md font-semibold text-on-surface" for="date-format-select">Ledger Timestamp Standard</label>
+<div class="relative">
+<select class="w-full h-11 px-space-md pr-space-xl bg-surface-container-low text-on-surface font-body-md text-body-md rounded-lg appearance-none cursor-pointer focus:bg-surface-container-lowest focus:outline-none transition-all" id="date-format-select">
+<option value="ISO">ISO 8601 (YYYY-MM-DD) — Enterprise Standard</option>
+<option value="US">US Formatting (MM/DD/YYYY)</option>
+<option value="EU">International Standard (DD/MM/YYYY)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: STARTER CATEGORIES (FE-5.3, SRS FR-5.3) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-on-surface text-[20px]">category</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Step 2: Starter Categories Taxonomy Review</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-3xs">Standard templates for ledger operations. Every category is customizable, removable, and non-restrictive.</p>
+</div>
+<div class="flex items-center gap-space-xs self-start md:self-auto">
+<button class="flex items-center gap-space-2xs px-space-sm py-space-xs rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" onclick="addNewCategoryModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Add Custom Category</span>
+</button>
+</div>
+</div>
+<!-- Assurance Micro-Banner -->
+<div class="p-space-sm bg-growth-emerald-tint rounded-lg flex items-center justify-between mb-space-lg">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-growth-emerald-deep text-[18px]">lock_open</span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep font-medium">SRS FR-5.3 Validated: Zero rigid system locks. Categories can be renamed, merged, or purged at will.</span>
+</div>
+<span class="font-label-sm text-label-sm text-growth-emerald-deep font-semibold" id="category-counter">7 Categories</span>
+</div>
+<!-- Editable Starter Categories Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md" id="category-grid">
+<!-- 1. Housing & Rent -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm" data-category="housing">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">home</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface" id="name-housing">Housing &amp; Rent</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Fixed Expenditure</span>
+</div>
+</div>
+<div class="flex items-center gap-space-3xs">
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="editCategoryName('housing')" title="Rename category" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" onclick="removeCategory(this)" title="Remove category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Monthly Target (Optional)</label>
+<div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+<span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">$</span>
+<input aria-label="Housing monthly budget" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" placeholder="2,200.00" type="number" value="2200"/>
+</div>
+</div>
+</div>
+<!-- 2. Groceries & Dining -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm" data-category="groceries">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">restaurant</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface" id="name-groceries">Groceries &amp; Dining</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Variable Lifestyle</span>
+</div>
+</div>
+<div class="flex items-center gap-space-3xs">
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="editCategoryName('groceries')" title="Rename category" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" onclick="removeCategory(this)" title="Remove category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Monthly Target (Optional)</label>
+<div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+<span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">$</span>
+<input aria-label="Groceries monthly budget" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" placeholder="850.00" type="number" value="850"/>
+</div>
+</div>
+</div>
+<!-- 3. Utilities -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm" data-category="utilities">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface" id="name-utilities">Utilities</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Recurring Infrastructure</span>
+</div>
+</div>
+<div class="flex items-center gap-space-3xs">
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="editCategoryName('utilities')" title="Rename category" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" onclick="removeCategory(this)" title="Remove category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Monthly Target (Optional)</label>
+<div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+<span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">$</span>
+<input aria-label="Utilities monthly budget" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" placeholder="320.00" type="number" value="320"/>
+</div>
+</div>
+</div>
+<!-- 4. Transportation -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm" data-category="transportation">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">directions_subway</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface" id="name-transportation">Transportation</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Transit &amp; Mobility</span>
+</div>
+</div>
+<div class="flex items-center gap-space-3xs">
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="editCategoryName('transportation')" title="Rename category" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" onclick="removeCategory(this)" title="Remove category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Monthly Target (Optional)</label>
+<div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+<span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">$</span>
+<input aria-label="Transportation monthly budget" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" placeholder="250.00" type="number" value="250"/>
+</div>
+</div>
+</div>
+<!-- 5. Healthcare -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm" data-category="healthcare">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">cardiology</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface" id="name-healthcare">Healthcare</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Medical &amp; Wellness</span>
+</div>
+</div>
+<div class="flex items-center gap-space-3xs">
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="editCategoryName('healthcare')" title="Rename category" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" onclick="removeCategory(this)" title="Remove category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Monthly Target (Optional)</label>
+<div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+<span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">$</span>
+<input aria-label="Healthcare monthly budget" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" placeholder="180.00" type="number" value="180"/>
+</div>
+</div>
+</div>
+<!-- 6. Personal & Leisure -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm" data-category="leisure">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">attractions</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface" id="name-leisure">Personal &amp; Leisure</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Discretionary</span>
+</div>
+</div>
+<div class="flex items-center gap-space-3xs">
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="editCategoryName('leisure')" title="Rename category" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" onclick="removeCategory(this)" title="Remove category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Monthly Target (Optional)</label>
+<div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+<span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">$</span>
+<input aria-label="Leisure monthly budget" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" placeholder="400.00" type="number" value="400"/>
+</div>
+</div>
+</div>
+<!-- 7. Income / Salary -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm lg:col-span-3 xl:col-span-1" data-category="income">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface" id="name-income">Income / Salary</span>
+<span class="font-body-sm text-body-sm text-growth-emerald-deep font-medium">Inbound Revenue</span>
+</div>
+</div>
+<div class="flex items-center gap-space-3xs">
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="editCategoryName('income')" title="Rename category" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" onclick="removeCategory(this)" title="Remove category" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Expected Inflow Target (Optional)</label>
+<div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+<span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">$</span>
+<input aria-label="Income monthly target" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" placeholder="6,500.00" type="number" value="6500"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: IMMERSIVE SUMMARY & SUBMISSION CONTROLS -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-xl">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[32px]">verified</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-title text-title text-on-surface">Ready to generate your personalized ledger</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Your settings are saved directly to your profile. You can modify these anytime under Settings &gt; Profile &amp; Preferences.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto shrink-0">
+<a class="flex-1 md:flex-none text-center px-space-lg py-space-sm rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="#dashboard">
+            Skip for now
+          </a>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-space-xs px-space-xl py-space-sm bg-slate-navy-deep hover:bg-primary-container text-on-primary rounded-xl font-label-md text-label-md font-semibold transition-all shadow-md" type="submit">
+<span>Save &amp; Continue to Dashboard</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</form>
+</div>
+</div>
+<script>
+  function updateCurrencySymbols(codeLabel, symbol) {
+    // Update currency labels inside all input prefix anchors
+    document.querySelectorAll('.currency-symbol-anchor').forEach(function(el) {
+      el.textContent = symbol;
+    });
+    // Dynamically update the header bar badge if present
+    const headerDisplayCurrency = document.querySelector('header [title*="FE-3.1"] span');
+    if (headerDisplayCurrency) {
+      headerDisplayCurrency.textContent = codeLabel;
+    }
+  }
+
+  function removeCategory(buttonEl) {
+    const card = buttonEl.closest('[data-category]');
+    if (card) {
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.95)';
+      setTimeout(function() {
+        card.remove();
+        updateCategoryCount();
+      }, 200);
+    }
+  }
+
+  function updateCategoryCount() {
+    const total = document.querySelectorAll('#category-grid [data-category]').length;
+    const badge = document.getElementById('category-counter');
+    if (badge) {
+      badge.textContent = total + ' ' + (total === 1 ? 'Category' : 'Categories');
+    }
+  }
+
+  function editCategoryName(categoryId) {
+    const labelEl = document.getElementById('name-' + categoryId);
+    if (!labelEl) return;
+    const currentName = labelEl.textContent.trim();
+    const updated = prompt('Enter updated category label:', currentName);
+    if (updated && updated.trim().length > 0) {
+      labelEl.textContent = updated.trim();
+    }
+  }
+
+  function addNewCategoryModal() {
+    const categoryName = prompt('Enter a label for your new category:', 'Software Subscriptions');
+    if (!categoryName || !categoryName.trim()) return;
+
+    const currentSymbol = document.querySelector('.currency-symbol-anchor')?.textContent || '$';
+    const grid = document.getElementById('category-grid');
+    const safeId = 'cat-' + Date.now();
+
+    const newCard = document.createElement('div');
+    newCard.className = 'p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-md transition-all hover:shadow-sm';
+    newCard.setAttribute('data-category', safeId);
+    newCard.innerHTML = `
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-space-sm">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]">folder</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-title text-title text-on-surface" id="name-${safeId}">${categoryName.trim()}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">Custom Category</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-space-3xs">
+          <button type="button" onclick="editCategoryName('${safeId}')" class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Rename category">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+          </button>
+          <button type="button" onclick="removeCategory(this)" class="p-space-2xs rounded-lg text-on-surface-variant hover:bg-expense-crimson-tint hover:text-expense-crimson transition-colors" title="Remove category">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <label class="font-label-sm text-label-sm text-on-surface-variant block mb-space-3xs">Monthly Target (Optional)</label>
+        <div class="flex items-center rounded-lg bg-surface-container-lowest overflow-hidden">
+          <span class="px-space-sm py-space-2xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high currency-symbol-anchor">${currentSymbol}</span>
+          <input type="number" placeholder="100.00" class="w-full px-space-sm py-space-2xs font-currency-table text-currency-table text-on-surface bg-transparent focus:outline-none" aria-label="Monthly target">
+        </div>
+      </div>
+    `;
+    grid.appendChild(newCard);
+    updateCategoryCount();
+  }
+</script></main></div></body></html>

@@ -5,6 +5,7 @@ import { Icon } from './Icon'
 import { Banner } from './Banner'
 import { useAuth } from '../lib/auth'
 import { listNotifications } from '../lib/resources/notifications'
+import { t } from '../lib/strings'
 
 interface NavItem {
   to: string
@@ -14,16 +15,16 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { to: '/', label: 'Dashboard', icon: 'grid_view' },
-  { to: '/transactions', label: 'Transactions', icon: 'receipt_long' },
-  { to: '/accounts', label: 'Accounts', icon: 'account_balance' },
-  { to: '/categories', label: 'Categories', icon: 'pie_chart' },
-  { to: '/bills', label: 'Recurring Bills', icon: 'calendar_clock' },
-  { to: '/goals', label: 'Goals', icon: 'flag' },
-  { to: '/reports', label: 'Reports', icon: 'analytics' },
-  { to: '/banking', label: 'Banking', icon: 'savings', locked: true },
-  { to: '/subscription', label: 'Subscription', icon: 'workspace_premium', locked: true },
-  { to: '/settings/profile', label: 'Settings', icon: 'settings' },
+  { to: '/', label: t('nav.dashboard'), icon: 'grid_view' },
+  { to: '/transactions', label: t('nav.transactions'), icon: 'receipt_long' },
+  { to: '/accounts', label: t('nav.accounts'), icon: 'account_balance' },
+  { to: '/categories', label: t('nav.categories'), icon: 'pie_chart' },
+  { to: '/bills', label: t('nav.bills'), icon: 'calendar_clock' },
+  { to: '/goals', label: t('nav.goals'), icon: 'flag' },
+  { to: '/reports', label: t('nav.reports'), icon: 'analytics' },
+  { to: '/banking', label: t('nav.banking'), icon: 'savings', locked: true },
+  { to: '/subscription', label: t('nav.subscription'), icon: 'workspace_premium', locked: true },
+  { to: '/settings/profile', label: t('nav.settings'), icon: 'settings' },
 ]
 
 function initials(name: string): string {

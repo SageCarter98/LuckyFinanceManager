@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Icon } from './Icon'
+import { t } from '../lib/strings'
 
 interface ConfirmDialogProps {
   open: boolean
@@ -21,8 +22,8 @@ export function ConfirmDialog({
   open,
   title,
   description,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  confirmLabel = t('dialog.confirm'),
+  cancelLabel = t('dialog.cancel'),
   destructive = false,
   requirePhrase,
   busy = false,

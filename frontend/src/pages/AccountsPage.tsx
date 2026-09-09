@@ -9,6 +9,7 @@ import { Money } from '../components/Money'
 import { Icon } from '../components/Icon'
 import { createAccount, deleteAccount, listAccounts, updateAccount } from '../lib/resources/accounts'
 import { getErrorMessage } from '../lib/errors'
+import { formatNumber } from '../lib/locale'
 import type { AccountRead, AccountType } from '../lib/types'
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF']
@@ -34,7 +35,7 @@ function summarizeGroup(accounts: AccountRead[]): string {
   const currencies = new Set(accounts.map((account) => account.native_currency))
   if (currencies.size > 1) return 'Mixed currencies — see each account below'
   const total = accounts.reduce((sum, account) => sum + account.current_balance, 0)
-  return `Subtotal: ${total.toLocaleString('en-US', { minimumFractionDigits: 2 })} ${accounts[0].native_currency}`
+  return `Subtotal: ${formatNumber(total, { minimumFractionDigits: 2 })} ${accounts[0].native_currency}`
 }
 
 export function AccountsPage() {

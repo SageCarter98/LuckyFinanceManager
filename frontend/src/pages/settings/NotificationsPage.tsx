@@ -7,6 +7,7 @@ import { listNotifications, markNotificationRead } from '../../lib/resources/not
 import { updateMe } from '../../lib/resources/auth'
 import { getErrorMessage } from '../../lib/errors'
 import { useAuth } from '../../lib/auth'
+import { formatDate } from '../../lib/locale'
 import type { NotificationRead } from '../../lib/types'
 
 const KNOWN_NOTIFICATION_KINDS: { kind: string; label: string; description: string }[] = [
@@ -67,11 +68,14 @@ function NotificationPreferences() {
   )
 }
 
-function formatDateTime(value: string) {
-  return new Date(value).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+function formatDateTime(value: string, timezone?: string) {
+  // created_at is a real timestamp (unlike a plain calendar date) -- render
+  // it in the user's chosen timezone, not the browser's.
+  return formatDate(value, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }, timezone)
 }
 
 export function NotificationsPage() {
+  const { user } = useAuth()
   const [notifications, setNotifications] = useState<NotificationRead[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -124,7 +128,7 @@ export function NotificationsPage() {
                     <div className="flex flex-col">
                       <span className="font-body-md text-body-md font-medium text-on-surface">{item.title}</span>
                       <span className="font-body-sm text-body-sm text-on-surface-variant">{item.message}</span>
-                      <span className="font-body-sm text-body-sm text-on-surface-variant">{formatDateTime(item.created_at)}</span>
+                      <span className="font-body-sm text-body-sm text-on-surface-variant">{formatDateTime(item.created_at, user?.timezone)}</span>
                     </div>
                   </div>
                   {!item.is_read && (

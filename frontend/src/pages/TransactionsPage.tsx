@@ -18,6 +18,7 @@ import {
   updateTransaction,
 } from '../lib/resources/transactions'
 import { getErrorMessage } from '../lib/errors'
+import { formatDate as formatLocaleDate, formatNumber } from '../lib/locale'
 import type { AccountRead, CategoryRead, TransactionFilters, TransactionRead, TransactionType } from '../lib/types'
 
 interface FormState {
@@ -47,7 +48,10 @@ function emptyForm(defaultAccountId: string, defaultCurrency: string): FormState
 }
 
 function formatDate(value: string) {
-  return new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  // transaction_date is a plain calendar date with no time component --
+  // always render in UTC so it can't shift a day earlier/later for users
+  // west of UTC (new Date('2026-01-05') parses as UTC midnight).
+  return formatLocaleDate(value, { month: 'short', day: 'numeric', year: 'numeric' }, 'UTC')
 }
 
 export function TransactionsPage() {
@@ -561,7 +565,7 @@ export function TransactionsPage() {
         title="Delete transaction"
         description={
           pendingDelete
-            ? `This will delete "${pendingDelete.note || (pendingDelete.transaction_type === 'income' ? 'Income' : 'Expense')}" for ${pendingDelete.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })} ${pendingDelete.currency} and reverse its effect on the account balance.`
+            ? `This will delete "${pendingDelete.note || (pendingDelete.transaction_type === 'income' ? 'Income' : 'Expense')}" for ${formatNumber(pendingDelete.amount, { minimumFractionDigits: 2 })} ${pendingDelete.currency} and reverse its effect on the account balance.`
             : ''
         }
         confirmLabel="Delete transaction"

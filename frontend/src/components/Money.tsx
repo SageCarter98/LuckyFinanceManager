@@ -1,3 +1,5 @@
+import { getUserLocale } from '../lib/locale'
+
 interface MoneyProps {
   value: number
   currency: string
@@ -18,14 +20,14 @@ function formatAmount(value: number, currency: string, signed: boolean): string 
     // Throws RangeError for anything that isn't a real ISO 4217 code — callers
     // sometimes pass a non-code label like "(mixed)" when currencies were
     // combined without conversion, so fall back to a plain number in that case.
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat(getUserLocale(), {
       style: 'currency',
       currency,
       currencyDisplay: 'narrowSymbol',
       signDisplay,
     }).format(value)
   } catch {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat(getUserLocale(), {
       style: 'decimal',
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,

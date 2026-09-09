@@ -8,6 +8,7 @@ import { ConfirmDialog } from '../components/ConfirmDialog'
 import { Icon } from '../components/Icon'
 import { createCategory, deleteCategory, listCategories, updateCategory } from '../lib/resources/categories'
 import { getErrorMessage } from '../lib/errors'
+import { formatNumber } from '../lib/locale'
 import type { CategoryRead } from '../lib/types'
 
 interface FormState {
@@ -114,7 +115,7 @@ export function CategoriesPage() {
                     <span className="font-body-md text-body-md font-medium text-on-surface">{category.name}</span>
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
                       {category.monthly_limit != null
-                        ? `Limit: ${category.monthly_limit.toLocaleString('en-US', { minimumFractionDigits: 2 })} / month`
+                        ? `Limit: ${formatNumber(category.monthly_limit, { minimumFractionDigits: 2 })} / month`
                         : 'No monthly limit'}
                     </span>
                   </div>

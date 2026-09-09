@@ -8,6 +8,7 @@ import { ConfirmDialog } from '../components/ConfirmDialog'
 import { Icon } from '../components/Icon'
 import { createSavingsGoal, deleteSavingsGoal, listSavingsGoals, updateSavingsGoal } from '../lib/resources/savingsGoals'
 import { getErrorMessage } from '../lib/errors'
+import { formatDate, formatNumber } from '../lib/locale'
 import type { SavingsGoalRead } from '../lib/types'
 
 interface FormState {
@@ -137,7 +138,8 @@ export function GoalsPage() {
                     <h3 className="font-title text-title text-on-surface">{goal.name}</h3>
                     {goal.target_date && (
                       <span className="font-body-sm text-body-sm text-on-surface-variant">
-                        Target date: {new Date(goal.target_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        {/* target_date is a plain calendar date -- render in UTC, not the browser's local zone, to avoid an off-by-one-day shift */}
+                        Target date: {formatDate(goal.target_date, { month: 'short', day: 'numeric', year: 'numeric' }, 'UTC')}
                       </span>
                     )}
                   </div>
@@ -151,9 +153,9 @@ export function GoalsPage() {
                   </div>
                 </div>
                 <div className="flex items-baseline justify-between font-currency-stat text-currency-stat text-on-surface">
-                  <span>{goal.current_amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                  <span>{formatNumber(goal.current_amount, { minimumFractionDigits: 2 })}</span>
                   <span className="font-body-sm text-body-sm font-normal text-on-surface-variant">
-                    of {goal.target_amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    of {formatNumber(goal.target_amount, { minimumFractionDigits: 2 })}
                   </span>
                 </div>
                 <div className="h-2 w-full overflow-hidden rounded-full bg-surface-container-high">

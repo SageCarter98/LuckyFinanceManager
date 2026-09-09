@@ -14,6 +14,7 @@ import { listTransactions } from '../lib/resources/transactions'
 import { listRecurringBills } from '../lib/resources/recurringBills'
 import { netWorth as fetchNetWorth, incomeVsExpense as fetchIncomeVsExpense } from '../lib/resources/reports'
 import { getErrorMessage } from '../lib/errors'
+import { formatDate as formatLocaleDate } from '../lib/locale'
 import type {
   AccountRead,
   IncomeExpenseSummary,
@@ -23,7 +24,9 @@ import type {
 } from '../lib/types'
 
 function formatDate(value: string) {
-  return new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  // transaction_date is a plain calendar date -- always UTC, not the
+  // browser's local zone, to avoid an off-by-one-day shift.
+  return formatLocaleDate(value, { month: 'short', day: 'numeric', year: 'numeric' }, 'UTC')
 }
 
 export function DashboardPage() {
@@ -96,7 +99,7 @@ export function DashboardPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+        eyebrow={formatLocaleDate(new Date(), { weekday: 'long', month: 'long', day: 'numeric' }, user?.timezone)}
         title={`Good to see you, ${user?.full_name ?? 'there'}`}
         actions={
           <Link

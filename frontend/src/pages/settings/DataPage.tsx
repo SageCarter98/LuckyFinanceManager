@@ -7,6 +7,7 @@ import { ConfirmDialog } from '../../components/ConfirmDialog'
 import { exportTenantData } from '../../lib/resources/portability'
 import { deleteMe } from '../../lib/resources/auth'
 import { getErrorMessage } from '../../lib/errors'
+import { formatDate } from '../../lib/locale'
 import { useAuth } from '../../lib/auth'
 
 export function DataPage() {
@@ -45,7 +46,7 @@ export function DataPage() {
       link.click()
       link.remove()
       URL.revokeObjectURL(url)
-      setExportedAt(new Date().toLocaleString())
+      setExportedAt(formatDate(new Date(), { dateStyle: 'medium', timeStyle: 'short' }, user?.timezone))
     } catch (err) {
       setError(getErrorMessage(err, 'We could not generate your export.'))
     } finally {

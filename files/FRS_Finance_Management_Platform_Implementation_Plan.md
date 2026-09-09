@@ -296,7 +296,7 @@ traceable artifact.
 | Accessibility | FE-N.8–FE-N.12 | All screens and shared components | Not validated | Automated WCAG scan plus keyboard/screen-reader evidence |
 | Performance and responsiveness | FE-N.13–FE-N.15 | App shell, reports and lists | Build-only evidence | Browser performance and responsive evidence |
 | Internationalisation readiness | FRS Section 8.4 | Locale/timezone formatting and externalized strings | Not implemented | Localization lint/review and locale test matrix |
-| Support console | FE-11.1–FE-11.7 | `/admin`, isolated session | Implemented with an isolated in-memory session (never shares a token with the consumer app) and real `GET /admin/tenant/search` + `.../summary`; **not** on a separate origin — FR-11.3 gap remains open and is disclosed in the console itself | Independent auth, masking, audit and mutation-negative tests |
+| Support console | FE-11.1–FE-11.7 | `/admin`, isolated session, `admin.html` build entry | Implemented with an isolated in-memory session (never shares a token with the consumer app) and real `GET /admin/tenant/search` + `.../summary`; build-level separation added 2026-09-09 (`admin.html`/`admin-main.tsx`/`AdminApp.tsx`, separate Vite entry — verified the consumer bundle contains zero admin code and vice versa); actually deploying the two outputs to separate origins/subdomains is a hosting decision, still open | Independent auth, masking, audit and mutation-negative tests |
 
 ## 8. Required route and screen inventory
 
@@ -376,8 +376,10 @@ attached to a gate record. Subscription/billing (Increment 4's commercial
 surfaces) and read-only banking (Increment 5) remain entirely unbuilt because
 their backend models don't exist and, for banking, its own legal/security
 approvals haven't been sought. The support console (Increment 6) has its
-functional core implemented but is not on a separate origin (FR-11.3 gap,
-disclosed in-product). No Gate 4 or production-readiness claim may be made
+functional core implemented and, as of 2026-09-09, builds as a separate
+bundle (`admin.html`) with zero shared code with the consumer app --
+deploying that bundle to an actually separate origin/subdomain remains a
+hosting decision, still open. No Gate 4 or production-readiness claim may be made
 until all applicable exit criteria are approved — implementation progress is
 not a substitute for gate evidence or a recorded gate decision, both of which
 remain outstanding per §3 of this plan and the governance baseline in this

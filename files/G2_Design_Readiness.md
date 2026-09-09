@@ -128,5 +128,47 @@ doesn't exist. This item is blocked by the same open Gate 2 condition, not a new
 
 ## 7. G2 decision (item #114)
 
-To be recorded via `tracker_cli.py gate` once this document and the corresponding PM
-Gate 3 delivery-plan document are reviewed — not asserted here in advance.
+Recorded 2026-09-09: Approve with conditions (see the tracker's own SDLC G2 gate
+decision record).
+
+## 8. Accessibility findings and fixes (WCAG 2.1 AA prep, added 2026-09-09)
+
+Phase 4 of the FRS-gap closure plan. Two passes: automated (`eslint-plugin-jsx-a11y`,
+newly added to the frontend as a real dev dependency, not just referenced) and manual
+review of the custom interactive widgets an automated linter structurally cannot
+verify (real keyboard/focus behavior, not just JSX shape).
+
+**Automated pass — genuinely clean, not skipped.** `npx eslint src` runs jsx-a11y's
+full "recommended" ruleset (34 rules confirmed active via `--print-config`, verified
+before trusting a zero-finding result) plus the two classic react-hooks rules, across
+all ~30 `.tsx` files. Result: **zero violations.** This is a real, positive finding —
+not because nothing was checked, but because the codebase's existing form/label/ARIA
+conventions (the shared `Field` component's `htmlFor`/label pairing, `Banner`'s
+`role="alert"` on error tone, `ConfirmDialog`'s pre-existing `role="dialog"`) already
+satisfied the automatable subset of WCAG 2.1 AA before this session started.
+
+**Manual pass — found and fixed 3 real gaps automated tooling cannot detect:**
+
+| # | Component | Gap | WCAG reference | Fix |
+|---|---|---|---|---|
+| 1 | `ConfirmDialog.tsx` | `role="dialog" aria-modal="true"` existed, but nothing actually moved focus into the dialog on open, trapped Tab within it, closed on Escape, or restored focus to the trigger on close — a `role` attribute alone doesn't make something operable as a dialog | 2.4.3 Focus Order; 2.1.1/2.1.2 Keyboard/No Keyboard Trap | Added focus-on-open (phrase input if present, else Cancel — never the destructive button), a Tab/Shift+Tab trap, Escape-to-cancel, focus restoration on close, and `aria-labelledby` pointing at the title for a proper accessible name |
+| 2 | `States.tsx` (`LoadingState`, `ErrorState`) | Loading→loaded and loading→error transitions were silent to screen-reader users — no live region announced the state change | 4.1.3 Status Messages | Added `role="status"` to `LoadingState` and `role="alert"` to `ErrorState` (matching the pattern `Banner.tsx` already used for its own error tone) |
+| 3 | `AppShell.tsx` user-menu dropdown | Openable by mouse or keyboard (`aria-expanded`/`aria-haspopup` were already correct), but had no Escape-to-close and didn't return focus to the trigger button when dismissed | 2.1.1 Keyboard | Added an Escape handler that closes the menu and refocuses the trigger button |
+
+**Verified clean, not just assumed:** `Money.tsx`'s income/expense coloring already
+includes an explicit `+`/`-` sign via `Intl.NumberFormat`'s `signDisplay: 'exceptZero'`
+— color is a supplementary cue, not the sole indicator, satisfying 1.4.1 Use of Color
+without any change needed.
+
+**Not done in this pass — genuinely out of scope, not overlooked:**
+- No live screen-reader (NVDA/VoiceOver) session was run; this was a code-level review
+  against WCAG success criteria, not an assistive-technology field test.
+- Color-contrast ratios were not measured against the design system's actual rendered
+  values (would need a contrast-checking tool run against `theme.css`'s token values).
+- No full page-by-page manual keyboard walkthrough of every route — the shared
+  components above were prioritized because fixes there compound across every page
+  that uses them, per the plan's own reasoning.
+
+This is real progress on FRS accessibility requirements (FE-N.8–FE-N.12, previously
+"Not validated" in the coverage matrix), not a completed accessibility sign-off — an
+independent reviewer and an actual AT session remain items for Gate 4.

@@ -3,8 +3,11 @@ import { Icon } from './Icon'
 
 export function LoadingState({ label = 'Loading…' }: { label?: string }) {
   return (
-    <div className="flex items-center justify-center gap-space-xs rounded-lg border border-slate-border bg-surface-container-lowest p-space-xl text-on-surface-variant">
-      <span className="h-4 w-4 animate-spin rounded-full border-2 border-outline-variant border-t-slate-navy-deep" />
+    <div
+      role="status"
+      className="flex items-center justify-center gap-space-xs rounded-lg border border-slate-border bg-surface-container-lowest p-space-xl text-on-surface-variant"
+    >
+      <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-outline-variant border-t-slate-navy-deep" />
       <span className="font-body-md text-body-md">{label}</span>
     </div>
   )
@@ -35,7 +38,10 @@ export function EmptyState({
 
 export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
   return (
-    <div className="flex flex-col items-center gap-space-xs rounded-lg border border-expense-crimson/30 bg-expense-crimson-tint p-space-xl text-center">
+    <div
+      role="alert"
+      className="flex flex-col items-center gap-space-xs rounded-lg border border-expense-crimson/30 bg-expense-crimson-tint p-space-xl text-center"
+    >
       <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-container-lowest text-expense-crimson">
         <Icon name="error" className="text-[24px]" />
       </span>

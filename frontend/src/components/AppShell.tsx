@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Icon } from './Icon'
@@ -39,6 +39,22 @@ export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate()
   const [unreadCount, setUnreadCount] = useState<number | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+
+  // A disclosure widget openable only by mouse (no Escape to dismiss, focus
+  // never returned to the trigger) fails keyboard operability -- a real gap
+  // no automated linter flags for a custom dropdown like this.
+  useEffect(() => {
+    if (!menuOpen) return
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        menuButtonRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [menuOpen])
 
   useEffect(() => {
     let active = true
@@ -125,6 +141,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
             <div className="relative">
               <button
+                ref={menuButtonRef}
                 type="button"
                 aria-expanded={menuOpen}
                 aria-haspopup="true"

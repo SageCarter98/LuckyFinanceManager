@@ -32,6 +32,9 @@ def export_tenant_data(
             "full_name": current_user.full_name,
             "tenant_id": current_user.tenant_id,
             "email_verified": current_user.email_verified,
+            "timezone": current_user.timezone,
+            "preferred_currency": current_user.preferred_currency,
+            "notification_preferences": current_user.notification_preferences,
         },
         "accounts": [
             {

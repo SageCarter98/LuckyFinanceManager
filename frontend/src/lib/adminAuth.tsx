@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { adminSession } from './api'
+import { adminLogoutRequest, adminSession } from './api'
 import { adminLogin, adminMe } from './resources/adminAuth'
 import type { LoginInput } from './resources/auth'
 import type { UserRead } from './types'
@@ -36,7 +36,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const logout = useCallback(() => {
-    adminSession.clear()
+    void adminLogoutRequest()
     setStaff(null)
   }, [])
 

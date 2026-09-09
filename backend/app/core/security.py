@@ -1,3 +1,5 @@
+import hashlib
+import uuid
 from datetime import datetime, timedelta, timezone
 
 from jose import JWTError, jwt
@@ -19,7 +21,10 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def create_token(subject: str, *, expires_delta: timedelta, token_type: str) -> str:
     expire = datetime.now(timezone.utc) + expires_delta
-    payload = {"sub": subject, "exp": expire, "type": token_type}
+    # jti guarantees uniqueness even when two tokens for the same subject and
+    # type are minted within the same second, which would otherwise produce
+    # byte-identical JWTs (found via test: it broke refresh-token rotation).
+    payload = {"sub": subject, "exp": expire, "type": token_type, "jti": str(uuid.uuid4())}
     return jwt.encode(payload, settings.secret_key, algorithm=settings.algorithm)
 
 
@@ -36,3 +41,10 @@ def decode_token(token: str):
         return jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
     except JWTError as exc:
         raise ValueError("Invalid token") from exc
+
+
+def hash_token(token: str) -> str:
+    """Refresh tokens are high-entropy already; a fast, non-reversible hash
+    (not bcrypt, which is deliberately slow for password-guessing resistance
+    that doesn't apply here) is the standard pattern for token-lookup storage."""
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()

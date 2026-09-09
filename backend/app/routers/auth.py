@@ -1,13 +1,39 @@
+from datetime import datetime, timedelta, timezone
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.core.security import create_access_token, create_refresh_token, hash_password, verify_password
+from app.config import get_settings
+from app.core.security import (
+    create_access_token,
+    create_refresh_token,
+    decode_token,
+    hash_password,
+    hash_token,
+    verify_password,
+)
 from app.database import get_db
 from app.dependencies import get_current_user
-from app.models import Tenant, User
-from app.schemas import TokenPair, UserCreate, UserLogin, UserRead
+from app.models import RefreshToken, Tenant, User
+from app.schemas import RefreshRequest, TokenPair, UserCreate, UserLogin, UserRead, UserUpdate
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+settings = get_settings()
+
+
+def _issue_token_pair(db: Session, user: User) -> TokenPair:
+    access_token = create_access_token(user.id)
+    refresh_token = create_refresh_token(user.id)
+    db.add(
+        RefreshToken(
+            tenant_id=user.tenant_id,
+            user_id=user.id,
+            token_hash=hash_token(refresh_token),
+            expires_at=datetime.now(timezone.utc) + timedelta(days=settings.refresh_token_expire_days),
+        )
+    )
+    db.commit()
+    return TokenPair(access_token=access_token, refresh_token=refresh_token)
 
 
 @router.post("/signup", response_model=UserRead, status_code=status.HTTP_201_CREATED)
@@ -39,11 +65,62 @@ def login(payload: UserLogin, db: Session = Depends(get_db)):
     if not user or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
-    access_token = create_access_token(user.id)
-    refresh_token = create_refresh_token(user.id)
-    return TokenPair(access_token=access_token, refresh_token=refresh_token)
+    return _issue_token_pair(db, user)
+
+
+@router.post("/refresh", response_model=TokenPair)
+def refresh(payload: RefreshRequest, db: Session = Depends(get_db)):
+    try:
+        claims = decode_token(payload.refresh_token)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token") from exc
+
+    if claims.get("type") != "refresh" or not claims.get("sub"):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
+
+    token_hash = hash_token(payload.refresh_token)
+    record = db.query(RefreshToken).filter(RefreshToken.token_hash == token_hash).first()
+    now = datetime.now(timezone.utc)
+    expires_at = record.expires_at.replace(tzinfo=timezone.utc) if record and record.expires_at.tzinfo is None else (record.expires_at if record else None)
+    if not record or record.revoked_at is not None or expires_at < now:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
+
+    user = db.query(User).filter(User.id == claims["sub"]).first()
+    if not user or not user.is_active:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
+
+    # Rotate: the presented refresh token is single-use, closing the replay
+    # window a static refresh token would otherwise leave open.
+    record.revoked_at = now
+    return _issue_token_pair(db, user)
+
+
+@router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(payload: RefreshRequest, db: Session = Depends(get_db)):
+    token_hash = hash_token(payload.refresh_token)
+    record = db.query(RefreshToken).filter(RefreshToken.token_hash == token_hash).first()
+    if record and record.revoked_at is None:
+        record.revoked_at = datetime.now(timezone.utc)
+        db.commit()
+    # Always succeeds from the client's perspective -- an already-invalid or
+    # unknown token still means "not logged in", which is the desired end state.
+    return None
 
 
 @router.get("/me", response_model=UserRead)
 def me(current_user: User = Depends(get_current_user)):
+    return current_user
+
+
+@router.put("/me", response_model=UserRead)
+def update_me(
+    payload: UserUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    updates = payload.model_dump(exclude_unset=True)
+    for field, value in updates.items():
+        setattr(current_user, field, value)
+    db.commit()
+    db.refresh(current_user)
     return current_user

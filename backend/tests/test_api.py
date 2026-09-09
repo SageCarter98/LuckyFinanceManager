@@ -44,6 +44,88 @@ def test_signup_login_and_profile():
     payload = me.json()
     assert payload["email"] == email
     assert payload["full_name"] == "Alpha User"
+    assert payload["timezone"] == "UTC"
+    assert payload["preferred_currency"] == "USD"
+    assert payload["notification_preferences"] == {}
+
+
+def test_update_profile_partial_and_email_is_not_editable():
+    email = f"profile-{uuid4().hex[:8]}@example.com"
+    headers = _signup_login(email, "Original Name")
+
+    updated = client.put(
+        "/api/auth/me",
+        headers=headers,
+        json={"full_name": "New Name", "timezone": "America/New_York"},
+    )
+    assert updated.status_code == 200, updated.text
+    payload = updated.json()
+    assert payload["full_name"] == "New Name"
+    assert payload["timezone"] == "America/New_York"
+    assert payload["preferred_currency"] == "USD"  # untouched by a partial update
+    assert payload["email"] == email  # UserUpdate has no email field at all
+
+    prefs = client.put(
+        "/api/auth/me",
+        headers=headers,
+        json={"notification_preferences": {"bill_due": False, "goal_progress": True}},
+    )
+    assert prefs.status_code == 200, prefs.text
+    assert prefs.json()["notification_preferences"] == {"bill_due": False, "goal_progress": True}
+    assert prefs.json()["full_name"] == "New Name"  # earlier update persisted
+
+
+def test_refresh_rotates_token_and_old_one_is_rejected():
+    email = f"refresh-{uuid4().hex[:8]}@example.com"
+    client.post("/api/auth/signup", json={"email": email, "password": "StrongPass123!", "full_name": "Refresh User"})
+    login = client.post("/api/auth/login", json={"email": email, "password": "StrongPass123!"})
+    assert login.status_code == 200, login.text
+    original_refresh = login.json()["refresh_token"]
+
+    refreshed = client.post("/api/auth/refresh", json={"refresh_token": original_refresh})
+    assert refreshed.status_code == 200, refreshed.text
+    new_access = refreshed.json()["access_token"]
+    new_refresh = refreshed.json()["refresh_token"]
+    assert new_refresh != original_refresh
+
+    me = client.get("/api/auth/me", headers={"Authorization": f"Bearer {new_access}"})
+    assert me.status_code == 200
+
+    # The rotated-out token must not be usable again (replay protection).
+    reused = client.post("/api/auth/refresh", json={"refresh_token": original_refresh})
+    assert reused.status_code == 401
+
+
+def test_access_token_cannot_be_used_as_refresh_token_and_vice_versa():
+    email = f"tokentype-{uuid4().hex[:8]}@example.com"
+    client.post("/api/auth/signup", json={"email": email, "password": "StrongPass123!", "full_name": "Token Type"})
+    login = client.post("/api/auth/login", json={"email": email, "password": "StrongPass123!"})
+    access_token = login.json()["access_token"]
+    refresh_token = login.json()["refresh_token"]
+
+    misuse_as_refresh = client.post("/api/auth/refresh", json={"refresh_token": access_token})
+    assert misuse_as_refresh.status_code == 401
+
+    misuse_as_access = client.get("/api/auth/me", headers={"Authorization": f"Bearer {refresh_token}"})
+    assert misuse_as_access.status_code == 401
+
+
+def test_logout_revokes_refresh_token():
+    email = f"logout-{uuid4().hex[:8]}@example.com"
+    client.post("/api/auth/signup", json={"email": email, "password": "StrongPass123!", "full_name": "Logout User"})
+    login = client.post("/api/auth/login", json={"email": email, "password": "StrongPass123!"})
+    refresh_token = login.json()["refresh_token"]
+
+    logout = client.post("/api/auth/logout", json={"refresh_token": refresh_token})
+    assert logout.status_code == 204
+
+    blocked = client.post("/api/auth/refresh", json={"refresh_token": refresh_token})
+    assert blocked.status_code == 401
+
+    # Logging out again (or with a token that was never valid) still succeeds
+    # from the client's perspective -- the end state ("not logged in") holds.
+    repeat = client.post("/api/auth/logout", json={"refresh_token": refresh_token})
+    assert repeat.status_code == 204
 
 
 def test_cross_tenant_account_visibility_and_transaction_creation():

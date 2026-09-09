@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { authSession } from './api'
+import { authSession, logoutRequest } from './api'
 import { login as loginRequest, me as meRequest, signup as signupRequest } from './resources/auth'
 import type { LoginInput, SignupInput } from './resources/auth'
 import type { UserRead } from './types'
@@ -11,6 +11,8 @@ interface AuthContextValue {
   login(input: LoginInput): Promise<void>
   signup(input: SignupInput): Promise<void>
   logout(): void
+  /** Update local state after a profile mutation, without a network round-trip. */
+  setUser(user: UserRead): void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -18,11 +20,10 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserRead | null>(null)
 
-  // If a request 401s and the silent refresh also fails (expired/invalid
-  // refresh token — there's no /auth/refresh support server-side today, so
-  // this fires on the very first 401 in practice), authSession clears itself.
-  // Mirror that into React state so RequireAuth redirects to /login instead
-  // of leaving the user on a page where every fetch silently fails.
+  // If a request 401s and the silent refresh also fails (expired, revoked,
+  // or already-rotated refresh token), authSession clears itself. Mirror
+  // that into React state so RequireAuth redirects to /login instead of
+  // leaving the user on a page where every fetch silently fails.
   useEffect(() => authSession.subscribe(() => setUser(null)), [])
 
   const login = useCallback(async (input: LoginInput) => {
@@ -46,12 +47,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   )
 
   const logout = useCallback(() => {
-    authSession.clear()
+    void logoutRequest()
     setUser(null)
   }, [])
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, status: user ? 'authenticated' : 'unauthenticated', login, signup, logout }),
+    () => ({ user, status: user ? 'authenticated' : 'unauthenticated', login, signup, logout, setUser }),
     [user, login, signup, logout],
   )
 

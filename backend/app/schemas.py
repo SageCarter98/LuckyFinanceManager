@@ -23,6 +23,10 @@ class TokenPair(BaseModel):
     token_type: str = "bearer"
 
 
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
+
 class UserRead(BaseModel):
     id: str
     email: EmailStr
@@ -30,8 +34,23 @@ class UserRead(BaseModel):
     tenant_id: str
     role: str = "user"
     email_verified: bool = False
+    timezone: str = "UTC"
+    preferred_currency: str = "USD"
+    notification_preferences: dict[str, bool] = Field(default_factory=dict)
 
     model_config = {"from_attributes": True}
+
+
+class UserUpdate(BaseModel):
+    """Email is deliberately excluded: changing it without a re-verification
+    flow (which doesn't exist yet -- see the FRS Implementation Plan's own
+    disclosure) would let an account's identity change unconfirmed. Add it
+    once /auth/verify-email exists, not before."""
+
+    full_name: str | None = Field(default=None, min_length=1)
+    timezone: str | None = Field(default=None, min_length=1, max_length=64)
+    preferred_currency: str | None = Field(default=None, min_length=3, max_length=10)
+    notification_preferences: dict[str, bool] | None = None
 
 
 class AccountCreate(BaseModel):

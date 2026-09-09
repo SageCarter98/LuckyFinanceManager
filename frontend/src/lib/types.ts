@@ -5,6 +5,16 @@ export interface UserRead {
   tenant_id: string
   role: string
   email_verified: boolean
+  timezone: string
+  preferred_currency: string
+  notification_preferences: Record<string, boolean>
+}
+
+export interface UserUpdateInput {
+  full_name?: string
+  timezone?: string
+  preferred_currency?: string
+  notification_preferences?: Record<string, boolean>
 }
 
 export interface TokenPair {
@@ -183,6 +193,9 @@ export interface ExportPayload {
     full_name: string
     tenant_id: string
     email_verified: boolean
+    timezone: string
+    preferred_currency: string
+    notification_preferences: Record<string, boolean>
   }
   accounts: Record<string, unknown>[]
   categories: Record<string, unknown>[]

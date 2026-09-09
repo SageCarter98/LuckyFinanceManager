@@ -134,9 +134,28 @@ function createSessionClient() {
       return false
     }
 
-    const next = (await response.json()) as SessionTokens
-    session.set(next)
+    // The backend returns the same snake_case TokenPair shape as /auth/login
+    // ({access_token, refresh_token}), not the camelCase SessionTokens shape
+    // used internally -- map it explicitly rather than assuming a shape match.
+    const next = (await response.json()) as { access_token: string; refresh_token: string }
+    session.set({ accessToken: next.access_token, refreshToken: next.refresh_token })
     return true
+  }
+
+  async function logout(): Promise<void> {
+    const refreshToken = state.tokens?.refreshToken
+    session.clear()
+    if (!refreshToken) return
+    try {
+      await fetch(`${apiBaseUrl}/auth/logout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      })
+    } catch {
+      // Best-effort server-side revocation -- the client session is already
+      // cleared above regardless of whether this call succeeds.
+    }
   }
 
   async function request<T>(path: string, options: RequestInit = {}, signal?: AbortSignal): Promise<T> {
@@ -162,13 +181,15 @@ function createSessionClient() {
     return (await response.json()) as T
   }
 
-  return { session, request }
+  return { session, request, logout }
 }
 
 const consumerClient = createSessionClient()
 export const authSession = consumerClient.session
 export const apiRequest = consumerClient.request
+export const logoutRequest = consumerClient.logout
 
 const adminClient = createSessionClient()
 export const adminSession = adminClient.session
 export const adminApiRequest = adminClient.request
+export const adminLogoutRequest = adminClient.logout

@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 backend/tests/__pycache__/
 backend/tests/test_finance.db
+backend/finance.db
 backend/.env
 
 # Node (frontend has its own .gitignore for node_modules/dist too)

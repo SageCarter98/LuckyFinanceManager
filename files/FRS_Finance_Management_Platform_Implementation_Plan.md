@@ -232,9 +232,10 @@ amount displays its real ISO currency, and any screen that aggregates across
 accounts/transactions (dashboard, reports) discloses when the underlying
 data spans more than one currency instead of silently summing them.
 Component/contract/E2E/cross-tenant test evidence is still outstanding,
-**except** accounts: covered by `frontend/src/pages/AccountsPage.test.tsx`
-added 2026-09-11 (see §7's Accounts row) — categories, transactions, bills,
-goals and reports remain untested.
+**except** accounts, categories and transactions: covered by
+`frontend/src/pages/AccountsPage.test.tsx`, `CategoriesPage.test.tsx` and
+`TransactionsPage.test.tsx` added 2026-09-11 (see §7's Accounts/Categories/
+Transactions rows) — bills, goals and reports remain untested.
 
 ### Increment 4 — Lifecycle and commercial surfaces (real, including subscription/billing; bank-linking still out of scope)
 
@@ -307,8 +308,8 @@ traceable artifact.
 | Phase 2 authentication | FE-2.9–FE-2.10 | Security settings MFA and optional SSO extension points | Deferred | Approved Phase 2 scope and tests |
 | Profile and preferences | FE-3.1–FE-3.4 | `/settings/profile`, `/settings/notifications` | Editable against real `PUT /auth/me` (name, timezone, preferred currency, notification preferences) added 2026-09-09; email intentionally excluded until re-verification exists (disclosed) | Preference and re-verification tests |
 | Accounts | FE-4.1–FE-4.5 | `/accounts` list/create/edit/delete | Implemented against real CRUD; native currency locked at edit time | `frontend/src/pages/AccountsPage.test.tsx` (7 tests, added 2026-09-11): loading/empty/error+retry/populated states, mixed-currency disclosure, create, edit (asserts `native_currency` is never sent on update), delete-with-confirmation. Component/contract tier only — no ownership/cross-tenant test yet (see Cross-tenant, still outstanding project-wide) |
-| Categories | FE-5.1–FE-5.4 | `/categories`, onboarding starter set | Implemented against real CRUD | Limit and starter-category tests |
-| Transactions | FE-6.1–FE-6.7 | `/transactions` list/entry/import | Implemented against real CRUD + filters + CSV import + pagination (`limit`/`offset`, "Load more") added 2026-09-09 | Balance impact, filters, CSV, pagination tests |
+| Categories | FE-5.1–FE-5.4 | `/categories`, onboarding starter set | Implemented against real CRUD | `frontend/src/pages/CategoriesPage.test.tsx` (8 tests, added 2026-09-11): loading/empty/error+retry/populated states, create with and without a monthly limit (asserts `null` not `0`/`''`), edit, cancel-discards-draft, delete-with-confirmation. Component/contract tier only — starter-category onboarding flow itself still untested |
+| Transactions | FE-6.1–FE-6.7 | `/transactions` list/entry/import | Implemented against real CRUD + filters + CSV import + pagination (`limit`/`offset`, "Load more") added 2026-09-09 | `frontend/src/pages/TransactionsPage.test.tsx` (12 tests, added 2026-09-11): populated/empty/no-account/error states, filter query params, "Load more" pagination, create, edit-preserves-currency (does not reset to the new account's default), delete-with-balance-impact-warning, CSV import success and error. Found and fixed a real bug: the page fired two `GET /transactions` requests on every mount (a stale mount-effect duplicated the filter-effect's own mount run) — fixed by removing the redundant call. Component/contract tier only — no cross-tenant test yet |
 | Recurring bills | FE-7.1–FE-7.4 | `/bills` | Implemented against real CRUD + `generate-due` | Schedule and generated-transaction tests |
 | Savings goals | FE-8.1–FE-8.3 | `/goals` | Implemented against real CRUD | Progress derivation tests |
 | Reports | FE-9.1–FE-9.5 | `/reports` suite | Implemented against real report endpoints, with a mixed-currency disclosure banner | Aggregation and responsiveness tests |
@@ -321,7 +322,7 @@ traceable artifact.
 | Accessibility | FE-N.8–FE-N.12 | All screens and shared components | Automated WCAG scan added 2026-09-09 (`eslint-plugin-jsx-a11y`, 34 rules verified active, zero violations across ~30 files) plus a manual review that found and fixed 3 real gaps (dialog focus management, live-region status announcements, menu keyboard dismissal) — see `files/G2_Design_Readiness.md` §8; no live AT (screen reader) session or contrast measurement yet | Automated WCAG scan plus keyboard/screen-reader evidence |
 | Performance and responsiveness | FE-N.13–FE-N.15 | App shell, reports and lists | Build-only evidence | Browser performance and responsive evidence |
 | Internationalisation readiness | FRS Section 8.4 | Locale/timezone formatting and externalized strings | Added 2026-09-09: all 13 hardcoded `'en-US'` calls replaced with a shared `src/lib/locale.ts` driven by the browser's own locale and `User.timezone`/date-vs-timestamp-aware UTC handling; a minimal `src/lib/strings.ts` `t()` helper added and genuinely consumed (ConfirmDialog defaults, main nav labels) — deliberately not a full app-wide string migration (hundreds of literal strings remain, disclosed as a scope decision) | Localization lint/review and locale test matrix |
-| Support console | FE-11.1–FE-11.7 | `/admin`, isolated session, `admin.html` build entry | Implemented with an isolated in-memory session (never shares a token with the consumer app) and real `GET /admin/tenant/search` + `.../summary`; build-level separation added 2026-09-09 (`admin.html`/`admin-main.tsx`/`AdminApp.tsx`, separate Vite entry — verified the consumer bundle contains zero admin code and vice versa); actually deploying the two outputs to separate origins/subdomains is a hosting decision, still open | Independent auth, masking, audit and mutation-negative tests |
+| Support console | FE-11.1–FE-11.7 | `/admin`, isolated session, `admin.html` build entry | Implemented with an isolated in-memory session (never shares a token with the consumer app) and real `GET /admin/tenant/search` + `.../summary`; build-level separation added 2026-09-09 (`admin.html`/`admin-main.tsx`/`AdminApp.tsx`, separate Vite entry — verified the consumer bundle contains zero admin code and vice versa); actually deploying the two outputs to separate origins/subdomains is a hosting decision, still open. **2026-09-11:** the three remaining Workstream G acceptance gaps closed — responses are masked (`app/core/masking.py`; raw values kept only in the audit record), every access request is logged (`AdminAccessLog`, hit and miss) with a staff-entered `reason` now required by both endpoints (422 without one), and a Postgres RLS bypass scoped to `FOR SELECT` only (`20260911_admin_rls_bypass` migration) lets the console see across tenants for reads while leaving INSERT/UPDATE/DELETE governed solely by the original tenant-isolation policy — proven, not just designed: `test_rls_bypass_flag_does_not_relax_write_check` and `...does_not_permit_deleting_another_tenants_row` assert the bypass can't become a write/delete escape hatch. The frontend (`resources/admin.ts`, `AdminConsolePage.tsx`) had not been updated to send the newly-required `reason` — found and fixed the same session the backend requirement landed, before it reached a real user as a broken console (every lookup would have 422'd) | `backend/tests/test_masking.py` (4), `test_api.py`'s expanded admin tests (reason-required, masking, audit-on-hit-and-miss), `test_rls_policies.py`'s 3 new bypass tests, `frontend/src/pages/admin/AdminConsolePage.test.tsx` (4, added 2026-09-11) — still missing: mutation-negative test at the HTTP/router layer (only proven at the DB/RLS layer so far) |
 
 ## 8. Required route and screen inventory
 
@@ -397,16 +398,21 @@ The product implementation is **not yet FRS compliant**: Increments 1-4
 verified working end-to-end against the live API and a mocked Stripe SDK
 (see §7's matrix and §6's per-increment notes). Frontend test infrastructure
 (Vitest, React Testing Library, MSW for contract-level API mocking, wired
-into CI) and a first slice of real component/contract coverage were added
-2026-09-11 — 47 tests across the shared API/error contract layer, three
-shared UI primitives, `/login`, and `/accounts` end-to-end (all required
-data states, create/edit/delete, currency immutability); this is no longer
-zero, but it covers roughly 2 of the ~15 FRS-matrix areas plus shared
-infrastructure. Still outstanding: component/contract tests for every other
-area (signup/verification, transactions, bills, goals, reports,
-subscription/billing, settings, admin console), the entire E2E tier,
-cross-tenant tests, accessibility automation beyond the existing lint scan,
-security/performance test evidence, and no real Stripe test-mode
+into CI) and two slices of real component/contract coverage were added
+2026-09-11 — 67 tests across the shared API/error contract layer, three
+shared UI primitives, `/login`, `/accounts`, `/categories` and
+`/transactions` end-to-end (all required data states, full CRUD, currency
+immutability, filters, pagination, CSV import); this is no longer zero, but
+it covers roughly 4 of the ~15 FRS-matrix areas plus shared infrastructure.
+Two real defects were found and fixed by writing these tests (`Money.tsx`'s
+blank currency label on an empty `currency` prop; `TransactionsPage.tsx`
+firing a duplicate `GET /transactions` on every mount) — direct evidence
+for why this coverage is being built out rather than deferred. Still
+outstanding: component/contract tests for every other area
+(signup/verification, bills, goals, reports, subscription/billing,
+settings, admin console), the entire E2E tier, cross-tenant tests,
+accessibility automation beyond the existing lint scan, security/
+performance test evidence, and no real Stripe test-mode
 verification has been run (no Stripe account/keys exist in this build
 environment). Read-only banking (Increment 5) remains entirely unbuilt
 because its backend model doesn't exist and its own legal/security

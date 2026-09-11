@@ -111,9 +111,10 @@ export function TransactionsPage() {
 
   useEffect(() => {
     loadReference().catch((err) => setError(getErrorMessage(err)))
-    loadTransactions(filters)
-    // Reference lists (accounts/categories) only need loading once; transactions reload on filter change below.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Deliberately not calling loadTransactions here too: the effect below
+    // already runs on mount (React runs every effect after the first render
+    // regardless of its dependency values), so doing it here as well used to
+    // fire two GET /transactions requests back-to-back on every page load.
   }, [])
 
   useEffect(() => {

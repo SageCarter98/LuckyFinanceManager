@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: pip install -r requirements.txt
+
+      - name: Backend tests
+        working-directory: backend
+        run: pytest -q
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Frontend lint
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Frontend build
+        working-directory: frontend
+        run: npm run build
+
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Backend dependency vulnerability scan (pip-audit)
+        working-directory: backend
+        # Non-blocking for now: pip-audit already found real, pre-existing
+        # findings in this dependency set (python-jose, fastapi's pinned
+        # starlette, pytest, ecdsa) that need a dedicated upgrade pass, not
+        # a silent fail-open or a rushed major-version bump under this PR.
+        # Tracked as known technical debt (see files/G3_Code_Complete_Assessment.md
+        # item #126) rather than gated on here. Flip to blocking once clean.
+        run: |
+          pip install pip-audit
+          pip-audit -r requirements.txt || true
+
+      - name: Backend license inventory (SBOM-lite)
+        working-directory: backend
+        run: |
+          pip install pip-licenses
+          pip-licenses --format=json --output-file=backend-licenses.json
+
+      - name: Frontend dependency vulnerability scan (npm audit)
+        working-directory: frontend
+        run: npm audit --omit=dev || true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: backend-license-inventory
+          path: backend/backend-licenses.json
+
+  rls-verification:
+    name: rls-verification
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: pip install -r requirements.txt
+
+      - name: Create a least-privilege application role
+        # Deliberately NOT the postgres superuser for anything after this
+        # step: superusers (and BYPASSRLS roles) bypass row-level security
+        # unconditionally, even with FORCE ROW LEVEL SECURITY. Testing RLS
+        # as a superuser would be a false-positive test. finance_app owns
+        # the database it migrates/tests against, mirroring how a real
+        # deployment's app user should be scoped (least privilege).
+        env:
+          PGPASSWORD: postgres
+        run: |
+          psql -h localhost -U postgres -c "CREATE ROLE finance_app LOGIN PASSWORD 'finance_app_test';"
+          psql -h localhost -U postgres -c "CREATE DATABASE finance_rls_test OWNER finance_app;"
+
+      - name: Apply migrations (creates tables + RLS policies)
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql+psycopg://finance_app:finance_app_test@localhost:5432/finance_rls_test
+        run: alembic upgrade head
+
+      - name: Run RLS policy verification
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql+psycopg://finance_app:finance_app_test@localhost:5432/finance_rls_test
+        run: pytest -q tests/test_rls_policies.py

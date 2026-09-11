@@ -70,6 +70,24 @@ class RefreshToken(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
 
 
+class AdminAccessLog(Base):
+    """Workstream G acceptance criterion: "every access request is
+    audited". Deliberately has no tenant_id / RLS policy of its own --
+    it's a cross-tenant staff record by nature (one admin_user_id can
+    reference many target_tenant_ids across its rows), not tenant data."""
+
+    __tablename__ = "admin_access_logs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    admin_user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), index=True, nullable=False)
+    action: Mapped[str] = mapped_column(String(50), nullable=False)
+    reason: Mapped[str] = mapped_column(String(500), nullable=False)
+    target_email: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    target_user_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    target_tenant_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+
+
 class Account(Base):
     __tablename__ = "accounts"
 

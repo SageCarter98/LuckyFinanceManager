@@ -2,13 +2,19 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../components/Icon'
-import { inputClass } from '../../components/forms'
+import { Field, inputClass } from '../../components/forms'
 import { Banner } from '../../components/Banner'
 import { ErrorState, LoadingState } from '../../components/States'
 import { useAdminAuth } from '../../lib/adminAuth'
 import { getTenantSummary, searchTenantByEmail } from '../../lib/resources/admin'
 import { getErrorMessage } from '../../lib/errors'
 import type { AdminTenantSearchResult, AdminTenantSummary } from '../../lib/types'
+
+// Must match the backend's own bounds (app/routers/admin.py REASON_MIN/MAX_LENGTH)
+// so a staff member finds out their reason is too short before submitting,
+// not after a round-trip 422.
+const REASON_MIN_LENGTH = 3
+const REASON_MAX_LENGTH = 500
 
 function StatBlock({ label, value }: { label: string; value: number }) {
   return (
@@ -23,6 +29,7 @@ export function AdminConsolePage() {
   const { staff, logout } = useAdminAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
+  const [reason, setReason] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<AdminTenantSearchResult | null>(null)
@@ -40,9 +47,12 @@ export function AdminConsolePage() {
     setResult(null)
     setSummary(null)
     try {
-      const found = await searchTenantByEmail(email.trim().toLowerCase())
+      // One staff-entered reason covers both requests this lookup makes --
+      // the search and its follow-on tenant summary are one audited action
+      // from the staff member's point of view, not two separate ones.
+      const found = await searchTenantByEmail(email.trim().toLowerCase(), reason.trim())
       setResult(found)
-      const tenantSummary = await getTenantSummary(found.tenant_id)
+      const tenantSummary = await getTenantSummary(found.tenant_id, reason.trim())
       setSummary(tenantSummary)
     } catch (err) {
       setError(getErrorMessage(err, 'No tenant matched that email address.'))
@@ -76,23 +86,47 @@ export function AdminConsolePage() {
 
         <section className="rounded-lg border border-slate-border bg-surface-container-lowest p-space-lg">
           <h2 className="mb-space-sm font-headline-sm text-headline-sm text-on-surface">Look up a tenant</h2>
-          <form onSubmit={handleSearch} className="flex items-center gap-space-sm">
-            <input
-              type="email"
+          <form onSubmit={handleSearch} className="flex flex-col gap-space-sm">
+            <div className="flex items-end gap-space-sm">
+              <div className="flex-1">
+                <Field label="Email" required htmlFor="admin-search-email">
+                  <input
+                    id="admin-search-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="user@example.com"
+                    className={inputClass}
+                  />
+                </Field>
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex h-10 items-center gap-space-2xs rounded-lg bg-slate-navy-deep px-space-md font-label-md text-label-md text-on-primary hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <Icon name="search" className="text-[18px]" />
+                Search
+              </button>
+            </div>
+            <Field
+              label="Reason for this lookup"
               required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="user@example.com"
-              className={`flex-1 ${inputClass}`}
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex items-center gap-space-2xs rounded-lg bg-slate-navy-deep px-space-md py-space-sm font-label-md text-label-md text-on-primary hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-50"
+              htmlFor="admin-search-reason"
+              hint="Recorded in the audit log with this search, whether or not a tenant is found."
             >
-              <Icon name="search" className="text-[18px]" />
-              Search
-            </button>
+              <input
+                id="admin-search-reason"
+                required
+                minLength={REASON_MIN_LENGTH}
+                maxLength={REASON_MAX_LENGTH}
+                value={reason}
+                onChange={(event) => setReason(event.target.value)}
+                placeholder="e.g. investigating support ticket #4821"
+                className={inputClass}
+              />
+            </Field>
           </form>
         </section>
 

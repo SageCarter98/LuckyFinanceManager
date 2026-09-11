@@ -105,6 +105,73 @@ def test_rls_denies_all_rows_when_no_tenant_context_is_set():
     assert rows == []
 
 
+def test_rls_bypass_flag_widens_reads_across_tenants():
+    tenant_a = str(uuid.uuid4())
+    tenant_b = str(uuid.uuid4())
+    account_a = _seed_tenant_with_account(tenant_a)
+    account_b = _seed_tenant_with_account(tenant_b)
+
+    # No app.tenant_id at all, only the bypass flag -- proves the OR branch
+    # in USING itself grants visibility, not some leftover tenant context.
+    with Session(engine) as session:
+        session.execute(text("SELECT set_config('app.bypass_rls', 'true', true)"))
+        rows = session.execute(text("SELECT id FROM accounts")).fetchall()
+
+    assert {row[0] for row in rows} == {account_a, account_b}
+
+
+def test_rls_bypass_flag_does_not_relax_write_check():
+    tenant_a = str(uuid.uuid4())
+    tenant_b = str(uuid.uuid4())
+    with Session(engine) as session:
+        session.add(Tenant(id=tenant_a))
+        session.add(Tenant(id=tenant_b))
+        session.commit()
+
+    # Bypass only appears in USING, never WITH CHECK -- an insert claiming
+    # tenant B must still be rejected even with the flag set, so a staff
+    # console session can never come to double as a write escape hatch.
+    with pytest.raises(DBAPIError):
+        with Session(engine) as session:
+            _set_tenant(session, tenant_a)
+            session.execute(text("SELECT set_config('app.bypass_rls', 'true', true)"))
+            session.add(
+                Account(
+                    id=str(uuid.uuid4()),
+                    tenant_id=tenant_b,
+                    name="Should still be rejected",
+                    account_type="checking",
+                    native_currency="USD",
+                )
+            )
+            session.commit()
+
+
+def test_rls_bypass_flag_does_not_permit_deleting_another_tenants_row():
+    tenant_a = str(uuid.uuid4())
+    tenant_b = str(uuid.uuid4())
+    account_a = _seed_tenant_with_account(tenant_a)
+    account_b = _seed_tenant_with_account(tenant_b)
+
+    # The bypass policy is FOR SELECT only -- DELETE is still governed
+    # solely by the original tenant-scoped policy. If bypass had instead
+    # been added by OR-ing into that policy's USING clause, this DELETE
+    # would silently succeed cross-tenant (DELETE has no WITH CHECK to
+    # catch what USING lets through).
+    with Session(engine) as session:
+        _set_tenant(session, tenant_a)
+        session.execute(text("SELECT set_config('app.bypass_rls', 'true', true)"))
+        session.execute(text("DELETE FROM accounts WHERE id = :id"), {"id": account_b})
+        session.commit()
+
+    with Session(engine) as session:
+        _set_tenant(session, tenant_a)
+        session.execute(text("SELECT set_config('app.bypass_rls', 'true', true)"))
+        rows = {row[0] for row in session.execute(text("SELECT id FROM accounts")).fetchall()}
+
+    assert rows == {account_a, account_b}, "tenant B's row must survive the cross-tenant DELETE attempt"
+
+
 def test_rls_rejects_writes_for_a_different_tenant():
     tenant_a = str(uuid.uuid4())
     tenant_b = str(uuid.uuid4())

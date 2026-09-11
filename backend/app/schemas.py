@@ -80,6 +80,30 @@ class UserUpdate(BaseModel):
     notification_preferences: dict[str, bool] | None = None
 
 
+class AdminTenantSearchResult(BaseModel):
+    user_id: str
+    email: str
+    full_name: str
+    tenant_id: str
+    role: str
+    email_verified: bool
+    account_count: int
+    category_count: int
+    transaction_count: int
+    recurring_bill_count: int
+    savings_goal_count: int
+    notification_count: int
+
+
+class AdminTenantSummary(BaseModel):
+    tenant_id: str
+    user_count: int
+    account_count: int
+    category_count: int
+    transaction_count: int
+    notification_count: int
+
+
 class AccountCreate(BaseModel):
     name: str = Field(..., min_length=1)
     account_type: str = Field(..., pattern="^(checking|savings|credit)$")

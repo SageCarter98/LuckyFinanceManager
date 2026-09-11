@@ -389,8 +389,6 @@ def test_recurring_bill_generation_respects_disabled_notification_preference():
 
 
 def test_admin_can_lookup_tenant_by_email():
-    from sqlalchemy.orm import Session
-
     from app.database import SessionLocal
     from app.models import User
 
@@ -406,11 +404,101 @@ def test_admin_can_lookup_tenant_by_email():
     finally:
         db.close()
 
-    result = client.get("/api/admin/tenant/search", headers=support_headers, params={"email": support_email})
+    # No reason -> rejected before any lookup happens.
+    missing_reason = client.get("/api/admin/tenant/search", headers=support_headers, params={"email": support_email})
+    assert missing_reason.status_code == 422
+
+    result = client.get(
+        "/api/admin/tenant/search",
+        headers=support_headers,
+        params={"email": support_email, "reason": "verifying own signup for this test"},
+    )
     assert result.status_code == 200, result.text
     payload = result.json()
-    assert payload["email"] == support_email.lower()
+    # Identifiers are masked -- never the raw, searchable value back over the wire.
+    assert payload["email"] == "s***@example.com"
+    assert payload["full_name"] == "S*** U***"
     assert payload["role"] == "admin"
 
-    block = client.get("/api/admin/tenant/search", headers={"Authorization": "Bearer invalid"}, params={"email": support_email})
+    block = client.get(
+        "/api/admin/tenant/search",
+        headers={"Authorization": "Bearer invalid"},
+        params={"email": support_email, "reason": "should never reach the lookup"},
+    )
     assert block.status_code == 401
+
+    # Every access request is audited, hit or miss, with the raw (unmasked)
+    # target and the reason given -- the point of an audit trail is that it
+    # doesn't share the same masking as what staff see on screen.
+    db = SessionLocal()
+    try:
+        from app.models import AdminAccessLog
+
+        logs = db.query(AdminAccessLog).filter(AdminAccessLog.target_email == support_email.lower()).all()
+        assert len(logs) == 1
+        assert logs[0].action == "tenant_search"
+        assert logs[0].reason == "verifying own signup for this test"
+        assert logs[0].target_user_id is not None
+    finally:
+        db.close()
+
+    miss = client.get(
+        "/api/admin/tenant/search",
+        headers=support_headers,
+        params={"email": "no-such-user@example.com", "reason": "confirming 404 path is audited too"},
+    )
+    assert miss.status_code == 404
+
+    db = SessionLocal()
+    try:
+        from app.models import AdminAccessLog
+
+        miss_log = (
+            db.query(AdminAccessLog).filter(AdminAccessLog.target_email == "no-such-user@example.com").first()
+        )
+        assert miss_log is not None
+        assert miss_log.target_user_id is None
+    finally:
+        db.close()
+
+
+def test_admin_tenant_summary_requires_reason_and_is_audited():
+    from app.database import SessionLocal
+    from app.models import AdminAccessLog, User
+
+    support_email = f"support-{uuid4().hex[:8]}@example.com"
+    support_headers = _signup_login(support_email, "Support Two")
+
+    db = SessionLocal()
+    try:
+        user = db.query(User).filter(User.email == support_email.lower()).first()
+        assert user is not None
+        user.role = "admin"
+        db.commit()
+        tenant_id = user.tenant_id
+    finally:
+        db.close()
+
+    missing_reason = client.get(f"/api/admin/tenant/{tenant_id}/summary", headers=support_headers)
+    assert missing_reason.status_code == 422
+
+    result = client.get(
+        f"/api/admin/tenant/{tenant_id}/summary",
+        headers=support_headers,
+        params={"reason": "checking own tenant summary for this test"},
+    )
+    assert result.status_code == 200, result.text
+    assert result.json()["tenant_id"] == tenant_id
+    assert result.json()["user_count"] == 1
+
+    db = SessionLocal()
+    try:
+        log = (
+            db.query(AdminAccessLog)
+            .filter(AdminAccessLog.action == "tenant_summary", AdminAccessLog.target_tenant_id == tenant_id)
+            .first()
+        )
+        assert log is not None
+        assert log.reason == "checking own tenant summary for this test"
+    finally:
+        db.close()

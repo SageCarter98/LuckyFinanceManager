@@ -7,7 +7,7 @@ from app.core.security import decode_token
 from app.database import get_db
 from app.entitlements import is_entitled
 from app.models import Subscription, User
-from app.tenant import apply_tenant_context
+from app.tenant import apply_admin_bypass, apply_tenant_context
 
 bearer_scheme = HTTPBearer(auto_error=False)
 settings = get_settings()
@@ -40,9 +40,14 @@ def get_current_user(
 
 def get_current_admin_user(
     current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ) -> User:
     if current_user.role != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin privileges required")
+    # FastAPI caches Depends(get_db) per request, so this is the same
+    # session get_current_user already pinned to current_user.tenant_id --
+    # widening it here only affects requests that reach an admin-gated route.
+    apply_admin_bypass(db)
     return current_user
 
 

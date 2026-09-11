@@ -189,6 +189,42 @@ export interface AdminTenantSummary {
   notification_count: number
 }
 
+export type SubscriptionStatusValue =
+  | 'none'
+  | 'trialing'
+  | 'active'
+  | 'past_due'
+  | 'canceled'
+  | 'incomplete'
+  | 'incomplete_expired'
+  | 'unpaid'
+
+export interface SubscriptionStatusRead {
+  status: SubscriptionStatusValue
+  is_entitled: boolean
+  trial_end: string | null
+  current_period_end: string | null
+  cancel_at_period_end: boolean
+  grace_period_ends_at: string | null
+  plan_amount_cents: number
+  plan_currency: string
+}
+
+export interface CheckoutSessionRead {
+  checkout_url: string
+}
+
+export interface BillingHistoryItem {
+  id: string
+  amount_due: number
+  amount_paid: number
+  currency: string
+  status: string
+  created_at: string
+  hosted_invoice_url: string | null
+  invoice_pdf_url: string | null
+}
+
 export interface ExportPayload {
   user: {
     id: string

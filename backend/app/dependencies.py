@@ -5,7 +5,8 @@ from sqlalchemy.orm import Session
 from app.config import get_settings
 from app.core.security import decode_token
 from app.database import get_db
-from app.models import User
+from app.entitlements import is_entitled
+from app.models import Subscription, User
 from app.tenant import apply_tenant_context
 
 bearer_scheme = HTTPBearer(auto_error=False)
@@ -42,4 +43,19 @@ def get_current_admin_user(
 ) -> User:
     if current_user.role != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin privileges required")
+    return current_user
+
+
+def require_active_entitlement(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> User:
+    """FR-12.2/FR-12.9: gates subscription-only features (bank-linking,
+    Gross Balance). Intentionally unattached to any router today -- no
+    bank router exists yet in this codebase (Workstream F is blocked
+    pending legal/provider approval). Built now so that router can add
+    `Depends(require_active_entitlement)` with zero new design work."""
+    subscription = db.query(Subscription).filter(Subscription.tenant_id == current_user.tenant_id).first()
+    if not is_entitled(subscription):
+        raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Active subscription or trial required")
     return current_user

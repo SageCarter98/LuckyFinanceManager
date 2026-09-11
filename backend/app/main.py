@@ -17,6 +17,8 @@ from app.routers.portability import router as portability_router
 from app.routers.recurring_bills import router as recurring_bills_router
 from app.routers.reports import router as reports_router
 from app.routers.savings_goals import router as savings_goals_router
+from app.routers.stripe_webhook import router as stripe_webhook_router
+from app.routers.subscriptions import router as subscriptions_router
 from app.routers.transactions import router as transactions_router
 
 settings = get_settings()
@@ -52,6 +54,8 @@ app.include_router(reports_router, prefix="/api")
 app.include_router(notifications_router, prefix="/api")
 app.include_router(admin_router, prefix="/api")
 app.include_router(portability_router, prefix="/api")
+app.include_router(subscriptions_router, prefix="/api")
+app.include_router(stripe_webhook_router, prefix="/api")
 
 
 @app.get("/health")

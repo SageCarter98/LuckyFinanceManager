@@ -23,7 +23,7 @@ const navItems: NavItem[] = [
   { to: '/goals', label: t('nav.goals'), icon: 'flag' },
   { to: '/reports', label: t('nav.reports'), icon: 'analytics' },
   { to: '/banking', label: t('nav.banking'), icon: 'savings', locked: true },
-  { to: '/subscription', label: t('nav.subscription'), icon: 'workspace_premium', locked: true },
+  { to: '/subscription', label: t('nav.subscription'), icon: 'workspace_premium' },
   { to: '/settings/profile', label: t('nav.settings'), icon: 'settings' },
 ]
 

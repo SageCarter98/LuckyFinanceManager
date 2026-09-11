@@ -231,20 +231,40 @@ accounts/transactions (dashboard, reports) discloses when the underlying
 data spans more than one currency instead of silently summing them.
 Component/contract/E2E/cross-tenant test evidence is still outstanding.
 
-### Increment 4 — Lifecycle and commercial surfaces (partially implemented; billing/entitlements out of scope until backend exists)
+### Increment 4 — Lifecycle and commercial surfaces (real, including subscription/billing; bank-linking still out of scope)
 
 Real, implemented: `/settings/notifications` (live `GET /notifications` +
 `PATCH .../read`), `/settings/data` export (`GET /me/export`, downloaded as
-JSON client-side). `/settings/profile` is read-only display of real
-`GET /auth/me` data — there is no `PUT` profile endpoint yet, so editing is
-disclosed as unavailable rather than faked.
+JSON client-side), typed-confirmation account deletion (`DELETE /auth/me`).
+`/settings/profile` is editable against real `PUT /auth/me` data.
 
-Not built, because the backend has no subscription/billing model or
-endpoints at all: live entitlements, hosted checkout, billing history,
-cancellation/grace states. `/subscription` renders an honest "not available
-yet" state per the design system rather than a non-functional checkout.
-Typed account deletion likewise has no backend endpoint to call — disclosed,
-not faked. Manual finance remains fully free and ungated throughout.
+**Subscription/billing (added 2026-09-11):** `/subscription` is a real
+Stripe-backed feature, not a placeholder. Backend: a tenant-scoped
+`Subscription` model (`backend/app/models.py`), a `subscriptions` router
+(`GET /subscriptions/status`, `POST /subscriptions/checkout-session`,
+`POST /subscriptions/cancel`, `GET /subscriptions/billing-history`), and a
+signature-verified Stripe webhook endpoint (`POST /webhooks/stripe`)
+handling `checkout.session.completed`, `customer.subscription.updated`,
+`invoice.payment_failed`, `invoice.payment_succeeded` and
+`customer.subscription.deleted`. Checkout uses Stripe's own hosted Checkout
+page (redirect-based) — no card data or Stripe.js ever touches this
+codebase. A single paid tier with a config-driven 14-day trial
+(`STRIPE_TRIAL_DAYS`) is implemented; cancellation sets
+`cancel_at_period_end` and preserves access through the paid period (FR-12.8);
+a failed-payment grace period plus an in-app `Notification` on
+`invoice.payment_failed` covers FR-12.6; billing history is fetched live
+from Stripe invoices on each request rather than mirrored locally.
+
+An entitlement dependency (`require_active_entitlement` in
+`backend/app/dependencies.py`) is built and unit-tested, but is
+**intentionally unattached to any router** — bank-linking (the only feature
+FR-12.2/FR-12.9 gate) still does not exist in this codebase (Workstream F
+remains blocked pending legal/provider approval). No real Stripe
+account/keys were used to build this — all 9 new backend tests
+(`backend/tests/test_subscriptions.py`) mock the Stripe SDK; verifying
+against a real Stripe test-mode account (via the Stripe CLI) is a manual
+step still open for whoever holds Stripe credentials. Manual finance
+remains fully free and ungated throughout.
 
 ### Increment 5 — Approved read-only banking boundary
 
@@ -288,7 +308,7 @@ traceable artifact.
 | Savings goals | FE-8.1–FE-8.3 | `/goals` | Implemented against real CRUD | Progress derivation tests |
 | Reports | FE-9.1–FE-9.5 | `/reports` suite | Implemented against real report endpoints, with a mixed-currency disclosure banner | Aggregation and responsiveness tests |
 | Notifications | FE-10.1–FE-10.2 | In-app notification surface | Implemented against real `GET /notifications` + mark-read + preference storage/enforcement (`notification_preferences` on `User`, honored in `generate-due`) added 2026-09-09 | Event and preference tests |
-| Subscription and billing | FE-12.1–FE-12.10 | `/subscription` | Honest "not available" state — no backend model exists | Live-entitlement, billing and cancellation tests |
+| Subscription and billing | FE-12.1–FE-12.10 | `/subscription` | Implemented against a real Stripe integration (hosted Checkout, webhook-driven status sync, config-driven 14-day trial, cancel-preserves-access, failed-payment grace + notification, live billing history). `require_active_entitlement` built and unit-tested but unattached — no bank router exists yet to gate. No real Stripe account was used; all Stripe calls are mocked in tests | `backend/tests/test_subscriptions.py` (9 tests, all passing, mocked Stripe SDK); real Stripe-test-mode/Stripe CLI verification still outstanding |
 | Export and deletion | FE-13.1–FE-13.8 | `/settings/data` | Export implemented against real `GET /me/export`; typed-confirmation soft-deletion added 2026-09-09 (`DELETE /auth/me`, 30-day retention per SRS §5); export is still synchronous, not the async job the FRS describes; actual 30-day purge job not built (needs the open Celery/APScheduler decision) | Async export, typed deletion tests |
 | Banking and Gross Balance | FE-14.1–FE-14.15 | `/banking` | Honest locked state — blocked pending approvals, no backend model exists | Consent, provider handoff, read-only tests |
 | Cross-cutting interface | FE-X.1–FE-X.10 | Currency, error, loading/empty/error primitives | Implemented (`Money`, `Banner`, `EmptyState`/`ErrorState`/`LoadingState`, `ConfirmDialog`) | Error mapping and failure-state tests |
@@ -365,22 +385,25 @@ The following evidence is mandatory for the FRS acceptance criteria:
 
 ## 11. Current compliance declaration
 
-As of 9 September 2026, this plan is aligned to the full FRS requirement set
+As of 11 September 2026, this plan is aligned to the full FRS requirement set
 and provides the required implementation, traceability, test and gate structure.
-The product implementation is **not yet FRS compliant**: Increments 1-3 and
-the real-backend portions of Increment 4 are implemented and verified working
-end-to-end against the live API (see §7's matrix and §6's per-increment
-notes), but none of the required test evidence — component, contract, E2E,
-cross-tenant, accessibility, security or performance — has been produced or
-attached to a gate record. Subscription/billing (Increment 4's commercial
-surfaces) and read-only banking (Increment 5) remain entirely unbuilt because
-their backend models don't exist and, for banking, its own legal/security
-approvals haven't been sought. The support console (Increment 6) has its
-functional core implemented and, as of 2026-09-09, builds as a separate
-bundle (`admin.html`) with zero shared code with the consumer app --
-deploying that bundle to an actually separate origin/subdomain remains a
-hosting decision, still open. No Gate 4 or production-readiness claim may be made
-until all applicable exit criteria are approved — implementation progress is
-not a substitute for gate evidence or a recorded gate decision, both of which
-remain outstanding per §3 of this plan and the governance baseline in this
-machine's global `CLAUDE.md`.
+The product implementation is **not yet FRS compliant**: Increments 1-4
+(including subscription/billing, added 2026-09-11) are implemented and
+verified working end-to-end against the live API and a mocked Stripe SDK
+(see §7's matrix and §6's per-increment notes), but none of the required
+test evidence beyond backend unit/integration tests — component, contract,
+E2E, cross-tenant, accessibility, security or performance — has been
+produced or attached to a gate record, and no real Stripe test-mode
+verification has been run (no Stripe account/keys exist in this build
+environment). Read-only banking (Increment 5) remains entirely unbuilt
+because its backend model doesn't exist and its own legal/security
+approvals haven't been sought — the new `require_active_entitlement`
+dependency is ready to gate it the moment it exists, but gates nothing
+today. The support console (Increment 6) has its functional core implemented
+and, as of 2026-09-09, builds as a separate bundle (`admin.html`) with zero
+shared code with the consumer app -- deploying that bundle to an actually
+separate origin/subdomain remains a hosting decision, still open. No Gate 4
+or production-readiness claim may be made until all applicable exit criteria
+are approved — implementation progress is not a substitute for gate evidence
+or a recorded gate decision, both of which remain outstanding per §3 of this
+plan and the governance baseline in this machine's global `CLAUDE.md`.

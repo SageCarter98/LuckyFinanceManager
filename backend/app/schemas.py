@@ -262,3 +262,31 @@ class IncomeExpenseSummary(BaseModel):
 
 class NetWorthSummary(BaseModel):
     total: Decimal
+
+
+class SubscriptionStatusRead(BaseModel):
+    status: str
+    is_entitled: bool
+    trial_end: datetime | None = None
+    current_period_end: datetime | None = None
+    cancel_at_period_end: bool = False
+    grace_period_ends_at: datetime | None = None
+    plan_amount_cents: int
+    plan_currency: str
+
+    model_config = {"from_attributes": True}
+
+
+class CheckoutSessionRead(BaseModel):
+    checkout_url: str
+
+
+class BillingHistoryItem(BaseModel):
+    id: str
+    amount_due: int
+    amount_paid: int
+    currency: str
+    status: str
+    created_at: datetime
+    hosted_invoice_url: str | None = None
+    invoice_pdf_url: str | None = None

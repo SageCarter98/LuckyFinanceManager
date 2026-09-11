@@ -13,6 +13,15 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 60
     refresh_token_expire_days: int = 7
 
+    stripe_secret_key: str = Field(default="", alias="STRIPE_SECRET_KEY")
+    stripe_webhook_secret: str = Field(default="", alias="STRIPE_WEBHOOK_SECRET")
+    stripe_price_id: str = Field(default="", alias="STRIPE_PRICE_ID")
+    stripe_trial_days: int = Field(default=14, alias="STRIPE_TRIAL_DAYS")
+    stripe_plan_amount_cents: int = Field(default=999, alias="STRIPE_PLAN_AMOUNT_CENTS")
+    stripe_plan_currency: str = Field(default="usd", alias="STRIPE_PLAN_CURRENCY")
+    billing_grace_period_days: int = Field(default=7, alias="BILLING_GRACE_PERIOD_DAYS")
+    frontend_base_url: str = Field(default="http://localhost:5173", alias="FRONTEND_BASE_URL")
+
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     @property

@@ -30,6 +30,7 @@ class Tenant(Base):
     recurring_bills: Mapped[list["RecurringBill"]] = relationship(back_populates="tenant")
     savings_goals: Mapped[list["SavingsGoal"]] = relationship(back_populates="tenant")
     notifications: Mapped[list["Notification"]] = relationship(back_populates="tenant")
+    subscription: Mapped["Subscription | None"] = relationship(back_populates="tenant", uselist=False)
 
 
 class User(Base):
@@ -172,3 +173,30 @@ class Notification(Base):
 
     tenant: Mapped[Tenant] = relationship(back_populates="notifications")
     user: Mapped[User | None] = relationship(back_populates="notifications")
+
+
+class Subscription(Base):
+    """One-to-one with Tenant, mirroring Stripe's own subscription status
+    values (`status="none"` is a local sentinel meaning never checked out).
+    No local invoice/ledger table exists -- billing history is always
+    fetched live from Stripe (see app/routers/subscriptions.py), matching
+    the FRS non-negotiable that entitlement/billing state is derived from
+    live API state rather than a second, driftable source of truth."""
+
+    __tablename__ = "subscriptions"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), unique=True, index=True, nullable=False)
+    stripe_customer_id: Mapped[str | None] = mapped_column(String(255), unique=True, index=True, nullable=True)
+    stripe_subscription_id: Mapped[str | None] = mapped_column(String(255), unique=True, index=True, nullable=True)
+    status: Mapped[str] = mapped_column(String(20), default="none", nullable=False)
+    price_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    trial_end: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    current_period_end: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    cancel_at_period_end: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    canceled_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    grace_period_ends_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
+
+    tenant: Mapped[Tenant] = relationship(back_populates="subscription")

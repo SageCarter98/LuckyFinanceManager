@@ -42,12 +42,13 @@ function formatAmount(value: number, currency: string, signed: boolean): string 
  * non-USD account/transaction currencies.
  */
 export function Money({ value, currency, signed = false, className = '', size = 'table' }: MoneyProps) {
-  const formatted = formatAmount(value, currency || 'USD', signed)
+  const resolvedCurrency = currency || 'USD'
+  const formatted = formatAmount(value, resolvedCurrency, signed)
   const tone = signed ? (value > 0 ? 'text-growth-emerald-deep' : value < 0 ? 'text-expense-crimson' : '') : ''
 
   return (
     <span className={`tabular-figures ${sizeClass[size]} ${tone} ${className}`}>
-      {formatted} <span className="text-body-sm font-body-sm text-on-surface-variant">{currency}</span>
+      {formatted} <span className="text-body-sm font-body-sm text-on-surface-variant">{resolvedCurrency}</span>
     </span>
   )
 }

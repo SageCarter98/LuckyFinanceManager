@@ -204,7 +204,9 @@ plainly (e.g. sign-up confirms the account is real and immediately usable
 instead of showing a fabricated "check your inbox" step). This is a
 deliberate honesty decision, not an oversight — revisit once the
 corresponding backend endpoints exist. Component/contract/E2E test evidence
-is still outstanding for everything above.
+is still outstanding for everything above, **except** `/login`: covered by
+`frontend/src/pages/auth/LoginPage.test.tsx` added 2026-09-11 (see §7's
+Authentication row). `/signup`, `/onboarding` and the rest remain untested.
 
 ### Increment 3 — Manual finance product (implemented against the real API; test evidence outstanding)
 
@@ -229,7 +231,10 @@ No currency conversion happens anywhere (the backend performs none) — every
 amount displays its real ISO currency, and any screen that aggregates across
 accounts/transactions (dashboard, reports) discloses when the underlying
 data spans more than one currency instead of silently summing them.
-Component/contract/E2E/cross-tenant test evidence is still outstanding.
+Component/contract/E2E/cross-tenant test evidence is still outstanding,
+**except** accounts: covered by `frontend/src/pages/AccountsPage.test.tsx`
+added 2026-09-11 (see §7's Accounts row) — categories, transactions, bills,
+goals and reports remain untested.
 
 ### Increment 4 — Lifecycle and commercial surfaces (real, including subscription/billing; bank-linking still out of scope)
 
@@ -298,10 +303,10 @@ traceable artifact.
 | FRS area | Requirements covered | Planned implementation surface | Current state | Exit evidence |
 |---|---|---|---|---|
 | Registration and provisioning | FE-1.1–FE-1.4 | `/signup` | Implemented against real `POST /auth/signup`; verification/resend flow added 2026-09-09 (`POST /auth/verify-email`, `POST /auth/resend-verification`), dev-safe (token surfaced via API response, never in production, since no email provider is chosen yet — disclosed, not faked) | API contract, component and E2E tests |
-| Authentication | FE-2.1–FE-2.8 | `/login`, session boundary | Implemented against real `POST /auth/login`; token refresh and logout now real end-to-end (`POST /auth/refresh` with rotation, `POST /auth/logout` with server-side revocation) added 2026-09-09, fixing a previously non-functional refresh flow; `/forgot-password` and `/reset-password` now real and dev-safe (same pattern as verification), added 2026-09-09; still no rate-limit UI (no backend support — disclosed, not faked) | Enumeration, token, return-route tests |
+| Authentication | FE-2.1–FE-2.8 | `/login`, session boundary | Implemented against real `POST /auth/login`; token refresh and logout now real end-to-end (`POST /auth/refresh` with rotation, `POST /auth/logout` with server-side revocation) added 2026-09-09, fixing a previously non-functional refresh flow; `/forgot-password` and `/reset-password` now real and dev-safe (same pattern as verification), added 2026-09-09; still no rate-limit UI (no backend support — disclosed, not faked) | `frontend/src/pages/auth/LoginPage.test.tsx` (4 tests: success+navigate, account-enumeration-safe error display, busy-state, session cleared on a failed post-login profile fetch) and `frontend/src/lib/api.test.ts` (401 refresh-and-retry, consumer/admin session isolation) added 2026-09-11 — component/contract tier only; enumeration and return-route coverage for `/signup`, `/forgot-password`, `/reset-password` still outstanding |
 | Phase 2 authentication | FE-2.9–FE-2.10 | Security settings MFA and optional SSO extension points | Deferred | Approved Phase 2 scope and tests |
 | Profile and preferences | FE-3.1–FE-3.4 | `/settings/profile`, `/settings/notifications` | Editable against real `PUT /auth/me` (name, timezone, preferred currency, notification preferences) added 2026-09-09; email intentionally excluded until re-verification exists (disclosed) | Preference and re-verification tests |
-| Accounts | FE-4.1–FE-4.5 | `/accounts` list/create/edit/delete | Implemented against real CRUD; native currency locked at edit time | CRUD, ownership, currency immutability and confirmation tests |
+| Accounts | FE-4.1–FE-4.5 | `/accounts` list/create/edit/delete | Implemented against real CRUD; native currency locked at edit time | `frontend/src/pages/AccountsPage.test.tsx` (7 tests, added 2026-09-11): loading/empty/error+retry/populated states, mixed-currency disclosure, create, edit (asserts `native_currency` is never sent on update), delete-with-confirmation. Component/contract tier only — no ownership/cross-tenant test yet (see Cross-tenant, still outstanding project-wide) |
 | Categories | FE-5.1–FE-5.4 | `/categories`, onboarding starter set | Implemented against real CRUD | Limit and starter-category tests |
 | Transactions | FE-6.1–FE-6.7 | `/transactions` list/entry/import | Implemented against real CRUD + filters + CSV import + pagination (`limit`/`offset`, "Load more") added 2026-09-09 | Balance impact, filters, CSV, pagination tests |
 | Recurring bills | FE-7.1–FE-7.4 | `/bills` | Implemented against real CRUD + `generate-due` | Schedule and generated-transaction tests |
@@ -311,7 +316,7 @@ traceable artifact.
 | Subscription and billing | FE-12.1–FE-12.10 | `/subscription` | Implemented against a real Stripe integration (hosted Checkout, webhook-driven status sync, config-driven 14-day trial, cancel-preserves-access, failed-payment grace + notification, live billing history). `require_active_entitlement` built and unit-tested but unattached — no bank router exists yet to gate. No real Stripe account was used; all Stripe calls are mocked in tests | `backend/tests/test_subscriptions.py` (9 tests, all passing, mocked Stripe SDK); real Stripe-test-mode/Stripe CLI verification still outstanding |
 | Export and deletion | FE-13.1–FE-13.8 | `/settings/data` | Export implemented against real `GET /me/export`; typed-confirmation soft-deletion added 2026-09-09 (`DELETE /auth/me`, 30-day retention per SRS §5); export is still synchronous, not the async job the FRS describes; actual 30-day purge job not built (needs the open Celery/APScheduler decision) | Async export, typed deletion tests |
 | Banking and Gross Balance | FE-14.1–FE-14.15 | `/banking` | Honest locked state — blocked pending approvals, no backend model exists | Consent, provider handoff, read-only tests |
-| Cross-cutting interface | FE-X.1–FE-X.10 | Currency, error, loading/empty/error primitives | Implemented (`Money`, `Banner`, `EmptyState`/`ErrorState`/`LoadingState`, `ConfirmDialog`) | Error mapping and failure-state tests |
+| Cross-cutting interface | FE-X.1–FE-X.10 | Currency, error, loading/empty/error primitives | Implemented (`Money`, `Banner`, `EmptyState`/`ErrorState`/`LoadingState`, `ConfirmDialog`) | `frontend/src/components/Money.test.tsx` (6, added 2026-09-11 — found and fixed a real bug: an empty `currency` prop formatted the amount as USD but displayed a blank currency label instead of "USD", misrepresenting FR-X's own currency-disclosure requirement), `States.test.tsx` (6), `ConfirmDialog.test.tsx` (8: focus-on-open, Tab trap, Escape-to-close, focus restoration, typed-confirmation lock) — `Banner` still untested |
 | Client security | FE-N.1–FE-N.7 | API/session boundary and financial screens | In-memory-only tokens confirmed (no `localStorage`/`sessionStorage` token use); two isolated sessions (consumer/staff) | Static checks, dependency review and security review |
 | Accessibility | FE-N.8–FE-N.12 | All screens and shared components | Automated WCAG scan added 2026-09-09 (`eslint-plugin-jsx-a11y`, 34 rules verified active, zero violations across ~30 files) plus a manual review that found and fixed 3 real gaps (dialog focus management, live-region status announcements, menu keyboard dismissal) — see `files/G2_Design_Readiness.md` §8; no live AT (screen reader) session or contrast measurement yet | Automated WCAG scan plus keyboard/screen-reader evidence |
 | Performance and responsiveness | FE-N.13–FE-N.15 | App shell, reports and lists | Build-only evidence | Browser performance and responsive evidence |
@@ -390,10 +395,18 @@ and provides the required implementation, traceability, test and gate structure.
 The product implementation is **not yet FRS compliant**: Increments 1-4
 (including subscription/billing, added 2026-09-11) are implemented and
 verified working end-to-end against the live API and a mocked Stripe SDK
-(see §7's matrix and §6's per-increment notes), but none of the required
-test evidence beyond backend unit/integration tests — component, contract,
-E2E, cross-tenant, accessibility, security or performance — has been
-produced or attached to a gate record, and no real Stripe test-mode
+(see §7's matrix and §6's per-increment notes). Frontend test infrastructure
+(Vitest, React Testing Library, MSW for contract-level API mocking, wired
+into CI) and a first slice of real component/contract coverage were added
+2026-09-11 — 47 tests across the shared API/error contract layer, three
+shared UI primitives, `/login`, and `/accounts` end-to-end (all required
+data states, create/edit/delete, currency immutability); this is no longer
+zero, but it covers roughly 2 of the ~15 FRS-matrix areas plus shared
+infrastructure. Still outstanding: component/contract tests for every other
+area (signup/verification, transactions, bills, goals, reports,
+subscription/billing, settings, admin console), the entire E2E tier,
+cross-tenant tests, accessibility automation beyond the existing lint scan,
+security/performance test evidence, and no real Stripe test-mode
 verification has been run (no Stripe account/keys exist in this build
 environment). Read-only banking (Increment 5) remains entirely unbuilt
 because its backend model doesn't exist and its own legal/security

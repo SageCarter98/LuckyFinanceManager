@@ -1,7 +1,7 @@
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import engine_from_config, pool, text
 
 from app.config import get_settings
 from app.database import Base
@@ -35,6 +35,25 @@ def run_migrations_online() -> None:
         poolclass=pool.NullPool,
     )
     with connectable.connect() as connection:
+        if connection.dialect.name == "postgresql":
+            # Alembic hardcodes alembic_version.version_num as VARCHAR(32)
+            # (alembic/ddl/impl.py version_table_impl) -- fine for its own
+            # default short hex revision IDs, but this project's descriptive
+            # revision IDs (e.g. "20260909_add_verification_reset_tokens",
+            # 39 chars) exceed it. SQLite doesn't enforce VARCHAR length at
+            # all, which is exactly why this went unnoticed until the first
+            # real run against Postgres. Widen it before Alembic can create
+            # the table too narrow (or leave a too-narrow one in place).
+            connection.execute(
+                text(
+                    "CREATE TABLE IF NOT EXISTS alembic_version ("
+                    "version_num VARCHAR(255) NOT NULL, "
+                    "CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num))"
+                )
+            )
+            connection.execute(text("ALTER TABLE alembic_version ALTER COLUMN version_num TYPE VARCHAR(255)"))
+            connection.commit()
+
         context.configure(connection=connection, target_metadata=target_metadata, compare_type=True)
         with context.begin_transaction():
             context.run_migrations()

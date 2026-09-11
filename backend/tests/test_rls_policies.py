@@ -47,7 +47,11 @@ engine = create_engine(DATABASE_URL) if DATABASE_URL.startswith("postgresql") el
 def _set_tenant(session: Session, tenant_id: str | None) -> None:
     if tenant_id is None:
         return
-    session.execute(text("SET LOCAL app.tenant_id = :tenant_id"), {"tenant_id": tenant_id})
+    # SET LOCAL does not accept a bind parameter for the value in Postgres
+    # ("SET LOCAL app.tenant_id = $1" is a syntax error) -- set_config() is
+    # a plain SQL function call and does. Same fix as app/tenant.py's
+    # apply_tenant_context, which had the identical bug.
+    session.execute(text("SELECT set_config('app.tenant_id', :tenant_id, true)"), {"tenant_id": tenant_id})
 
 
 def _seed_tenant_with_account(tenant_id: str) -> str:

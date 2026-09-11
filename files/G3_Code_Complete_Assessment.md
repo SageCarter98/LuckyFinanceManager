@@ -42,11 +42,20 @@ SQLite dev/test setup. A CI pipeline now exists at `.github/workflows/ci.yml` wi
 npm audit) and `rls-verification` (a real Postgres service container, a least-privilege
 non-superuser role, `alembic upgrade head`, then the RLS test file) — the first time this
 project's migration chain, RLS policies included, would run against real Postgres in an
-automated way. Every command in the workflow has been verified to work when run locally by
-hand; the workflow itself has **not yet run on GitHub Actions** (this machine has no
-Docker/Postgres to dry-run it, and it has not been pushed yet — pending the user's go-ahead).
-Zero frontend unit tests still exist (out of scope for this pass). All three items remain
-**In progress**, not Complete, until the workflow has actually executed successfully on GitHub.
+automated way. **Update, same day**: pushed, and now runs green on GitHub Actions
+(https://github.com/SageCarter98/LuckyFinanceManager/actions/runs/34584143922) — both jobs
+passing. Getting there required three follow-up fixes the first run's failures directly
+surfaced: `python -m pytest` vs bare `pytest` (sys.path), Alembic's `alembic_version` column
+hardcoded to `VARCHAR(32)` (too narrow for this project's descriptive revision IDs), and —
+most significantly — **`app/tenant.py`'s `apply_tenant_context()` used `SET LOCAL app.tenant_id
+= :tenant_id` as a parameterized statement, which is a hard Postgres syntax error** (`SET`/`SET
+LOCAL` don't accept bind parameters for their value at all). That code path had only ever run
+against SQLite before this CI job existed, meaning the RLS tenant-isolation control this
+project's own ADRs describe **could never have actually functioned against a real Postgres
+deployment**, on top of never having been tested. Fixed with `set_config()`; RLS is now
+verified working against real Postgres for the first time in this project's history. Zero
+frontend unit tests still exist (out of scope for this pass). All three items remain **In
+progress**, not Complete — CI is real and green, but backend has no formatting/style check yet.
 
 ## 5. Dependency and licence inventory (item #122)
 

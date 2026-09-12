@@ -353,7 +353,19 @@ The following evidence is mandatory for the FRS acceptance criteria:
    auth refresh, live entitlements and server-scoped resources.
 3. End-to-end tests for signup/verification, transaction currency mismatch,
    CSV import, recurring bills, subscription purchase/cancellation, bank consent
-   and account deletion.
+   and account deletion. **2026-09-12: first E2E-tier evidence landed**
+   (`frontend/e2e/`, Playwright, 11 tests against the real backend+frontend) —
+   signup/onboarding, multi-currency accounts + CSV import (success and
+   rejection), recurring-bill generation (paused bills excluded, idempotent
+   per period), and account deletion (typed confirmation, login-after-delete
+   rejected, cancel-changes-nothing). Two real bugs found and fixed:
+   `BillsPage.tsx`'s "New bill" trigger wasn't disabled while data was still
+   loading (a race could silently no-op the create form with no error at
+   all), and account deletion never canceled an active Stripe subscription
+   (independent systems — a paying user deleting their account would have
+   kept being billed). Still outstanding: signup email-verification itself,
+   subscription purchase E2E (needs real Stripe test-mode credentials, none
+   available), bank consent (Workstream F unbuilt), and admin console E2E.
 4. Negative security tests proving no token, credential, payment capability or
    unmasked account number reaches the client surface, logs or analytics.
 5. Cross-tenant tests proving requests cannot be constructed against another
@@ -398,21 +410,30 @@ The product implementation is **not yet FRS compliant**: Increments 1-4
 verified working end-to-end against the live API and a mocked Stripe SDK
 (see §7's matrix and §6's per-increment notes). Frontend test infrastructure
 (Vitest, React Testing Library, MSW for contract-level API mocking, wired
-into CI) and two slices of real component/contract coverage were added
-2026-09-11 — 67 tests across the shared API/error contract layer, three
-shared UI primitives, `/login`, `/accounts`, `/categories` and
-`/transactions` end-to-end (all required data states, full CRUD, currency
-immutability, filters, pagination, CSV import); this is no longer zero, but
-it covers roughly 4 of the ~15 FRS-matrix areas plus shared infrastructure.
-Two real defects were found and fixed by writing these tests (`Money.tsx`'s
-blank currency label on an empty `currency` prop; `TransactionsPage.tsx`
-firing a duplicate `GET /transactions` on every mount) — direct evidence
-for why this coverage is being built out rather than deferred. Still
-outstanding: component/contract tests for every other area
-(signup/verification, bills, goals, reports, subscription/billing,
-settings, admin console), the entire E2E tier, cross-tenant tests,
-accessibility automation beyond the existing lint scan, security/
-performance test evidence, and no real Stripe test-mode
+into CI) and component/contract coverage were added 2026-09-11 — 67 tests
+across the shared API/error contract layer, three shared UI primitives,
+`/login`, `/accounts`, `/categories` and `/transactions` end-to-end (all
+required data states, full CRUD, currency immutability, filters,
+pagination, CSV import). **2026-09-12: the first E2E-tier evidence
+followed** — 11 Playwright tests running against the real backend and
+frontend together (no mocking), covering signup/onboarding, multi-currency
+accounts + CSV import, recurring-bill generation, and account deletion.
+This is no longer zero on either tier, but together they cover roughly 4-5
+of the ~15 FRS-matrix areas plus shared infrastructure. Four real defects
+have been found and fixed by writing these tests so far: `Money.tsx`'s blank
+currency label on an empty `currency` prop; `TransactionsPage.tsx` firing a
+duplicate `GET /transactions` on every mount; `BillsPage.tsx`'s "New bill"
+trigger not disabled while data loads (a race could silently no-op bill
+creation with no error shown at all); and account deletion never canceling
+an active Stripe subscription (a paying user deleting their account would
+have kept being billed) — direct evidence for why this coverage is being
+built out rather than deferred. Still outstanding: component/contract tests
+for every other area (signup/verification, bills, goals, reports,
+subscription/billing, settings, admin console), E2E coverage for
+subscription purchase (needs real Stripe test-mode credentials, none
+available), bank consent (Workstream F unbuilt) and the admin console,
+cross-tenant tests, accessibility automation beyond the existing lint scan,
+security/performance test evidence, and no real Stripe test-mode
 verification has been run (no Stripe account/keys exist in this build
 environment). Read-only banking (Increment 5) remains entirely unbuilt
 because its backend model doesn't exist and its own legal/security

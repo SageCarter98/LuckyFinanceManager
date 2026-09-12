@@ -88,8 +88,8 @@ export function DataPage() {
             <Banner tone="warning" title="This deactivates your account immediately">
               Your account and data are deactivated right away and kept for 30 days before permanent
               removal, per our retention policy — during that window, contact support if you want to
-              cancel the deletion. There is no active subscription to worry about (billing doesn't
-              exist yet on this platform). This cannot be undone from this screen.
+              cancel the deletion. Any active subscription is canceled immediately as part of
+              deletion — you won't keep being billed. This cannot be undone from this screen.
             </Banner>
             {deleteError && (
               <p className="font-body-sm text-body-sm text-expense-crimson" role="alert">

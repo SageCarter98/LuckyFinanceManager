@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
+import stripe
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -15,7 +16,7 @@ from app.core.security import (
 )
 from app.database import get_db
 from app.dependencies import get_current_user
-from app.models import RefreshToken, Tenant, User
+from app.models import RefreshToken, Subscription, Tenant, User
 from app.schemas import (
     DevOnlyTokenResponse,
     ForgotPasswordRequest,
@@ -31,6 +32,7 @@ from app.schemas import (
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 settings = get_settings()
+stripe.api_key = settings.stripe_secret_key
 
 VERIFICATION_TOKEN_TTL = timedelta(hours=24)
 RESET_TOKEN_TTL = timedelta(hours=1)
@@ -249,6 +251,20 @@ def delete_me(
     a background job that doesn't exist yet (needs the still-open
     Celery/APScheduler decision) -- deliberately not built here."""
     now = datetime.now(timezone.utc)
+
+    # Deactivating the tenant does not, on its own, stop Stripe from billing
+    # it -- the two are independent systems. Cancel immediately (not
+    # cancel_at_period_end, unlike the user-initiated /subscriptions/cancel
+    # flow: there is no "rest of the paid period" to honor for an account
+    # that no longer exists). Only ever reached for a tenant that actually
+    # has a live subscription, so this never calls Stripe for the common
+    # free-tier deletion path.
+    subscription = db.query(Subscription).filter(Subscription.tenant_id == current_user.tenant_id).first()
+    if subscription and subscription.stripe_subscription_id and subscription.status in ("trialing", "active"):
+        stripe.Subscription.cancel(subscription.stripe_subscription_id)
+        subscription.status = "canceled"
+        subscription.canceled_at = now
+
     tenant = db.query(Tenant).filter(Tenant.id == current_user.tenant_id).first()
     tenant.deleted_at = now
     tenant.is_active = False

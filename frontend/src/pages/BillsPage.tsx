@@ -207,7 +207,8 @@ export function BillsPage() {
             <button
               type="button"
               onClick={openCreate}
-              className="flex items-center gap-space-xs rounded-xl bg-primary px-space-md py-space-sm text-on-primary shadow-md transition-colors hover:bg-slate-navy-deep"
+              disabled={loading}
+              className="flex items-center gap-space-xs rounded-xl bg-primary px-space-md py-space-sm text-on-primary shadow-md transition-colors hover:bg-slate-navy-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Icon name="add_circle" className="text-[20px]" />
               <span className="font-label-md text-label-md">New bill</span>

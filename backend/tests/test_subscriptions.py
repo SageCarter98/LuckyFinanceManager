@@ -289,3 +289,41 @@ def test_entitlement_guard_matrix():
     assert is_entitled(make("canceled")) is False
     assert is_entitled(make("none")) is False
     assert is_entitled(make("incomplete")) is False
+
+
+def test_account_deletion_cancels_an_active_subscription_immediately():
+    # A deactivated tenant and a live Stripe subscription are independent
+    # systems -- deleting the account must not leave Stripe still billing
+    # a tenant that no longer exists.
+    headers = _signup_login(f"sub-delete-{uuid4().hex[:8]}@example.com", "Delete User")
+    tenant_id = _tenant_id(headers)
+    _customer_id, subscription_id, _checkout_kwargs = _start_trial(headers, tenant_id)
+
+    with patch("app.routers.auth.stripe.Subscription.cancel") as mock_cancel:
+        delete_response = client.delete("/api/auth/me", headers=headers)
+    assert delete_response.status_code == 204, delete_response.text
+    mock_cancel.assert_called_once_with(subscription_id)
+
+    from app.database import SessionLocal
+    from app.models import Subscription
+
+    db = SessionLocal()
+    try:
+        row = db.query(Subscription).filter(Subscription.tenant_id == tenant_id).first()
+        assert row.status == "canceled"
+        assert row.canceled_at is not None
+    finally:
+        db.close()
+
+    # Deletion revoked the session -- no lingering access afterward.
+    me_response = client.get("/api/auth/me", headers=headers)
+    assert me_response.status_code == 401
+
+
+def test_account_deletion_never_calls_stripe_for_a_tenant_with_no_subscription():
+    headers = _signup_login(f"sub-delete-free-{uuid4().hex[:8]}@example.com", "Free Delete User")
+
+    with patch("app.routers.auth.stripe.Subscription.cancel") as mock_cancel:
+        delete_response = client.delete("/api/auth/me", headers=headers)
+    assert delete_response.status_code == 204, delete_response.text
+    mock_cancel.assert_not_called()

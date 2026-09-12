@@ -4,7 +4,14 @@ __pycache__/
 backend/tests/__pycache__/
 backend/tests/test_finance.db
 backend/finance.db
+backend/e2e.db
 backend/.env
+backend/.dev-backend*.log
+
+# Playwright E2E
+frontend/playwright-report/
+frontend/test-results/
+frontend/blob-report/
 
 # Node (frontend has its own .gitignore for node_modules/dist too)
 node_modules/

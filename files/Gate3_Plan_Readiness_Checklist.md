@@ -56,22 +56,22 @@ introduce new claims, it compiles ones already checked.
   `files/Benefits_Register.md` (#35).
 
 - [ ] Sponsor and required reviewers have approved the baseline and any
-  conditions. **Pending the signatures below — this is the one line this
-  document cannot self-certify.**
+  conditions. Sponsor/PM sign-off recorded 2026-09-13 (below). **Still
+  unchecked: the Technical/Quality Reviewer signature is not yet in** —
+  this line closes once Milton's PR review lands.
 
 ## Planning Approval
 
 | Role | Name | Decision / Conditions | Date |
 | --- | --- | --- | --- |
-| Sponsor | Freston Kenny Adedeme | *pending* | *pending* |
-| Project Manager | Freston Kenny Adedeme | *pending* | *pending* |
+| Sponsor | Freston Kenny Adedeme | Approve, no conditions | 2026-09-13 |
+| Project Manager | Freston Kenny Adedeme | Approve, no conditions | 2026-09-13 |
 | Technical / Quality Reviewer | Milton (MiltonBello15) | *pending — via PR review* | *pending* |
 | Finance / Security / Operations as required | — | Not applicable — single-operator project, no separate finance/security/operations function exists at this scale (per `Compensating_Assurance_Role_Separation.md` §1) | — |
 
-This table is intentionally left unsigned in this draft. A gate-adjacent
-sign-off is a named human decision, not something this document or its
-author can complete on anyone's behalf. Sponsor/PM sign-off is Freston
-Kenny Adedeme's own decision to record here directly; the Technical/
-Quality Reviewer line is Milton's, recorded via his actual GitHub PR
-review on the pull request carrying this document — the same evidence
-model already used for tracker items #116/#118/#124.
+Sponsor and Project Manager sign-off given directly by Freston Kenny
+Adedeme in conversation, 2026-09-13, recorded here verbatim rather than
+paraphrased. The Technical/Quality Reviewer line remains Milton's alone to
+give, via his actual GitHub PR review on the pull request carrying this
+document — the same evidence model already used for tracker items
+#116/#118/#124 — not something recorded on his behalf.

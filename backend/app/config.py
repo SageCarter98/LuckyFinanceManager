@@ -21,12 +21,25 @@ class Settings(BaseSettings):
     stripe_plan_currency: str = Field(default="usd", alias="STRIPE_PLAN_CURRENCY")
     billing_grace_period_days: int = Field(default=7, alias="BILLING_GRACE_PERIOD_DAYS")
     frontend_base_url: str = Field(default="http://localhost:5173", alias="FRONTEND_BASE_URL")
+    # Comma-separated list, e.g. "https://app.example.com,https://admin.example.com".
+    # Empty in production means CORS fails closed (see main.py) rather than
+    # falling back to a wildcard -- there is no safe default origin to guess.
+    allowed_origins: str = Field(default="", alias="ALLOWED_ORIGINS")
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     @property
     def is_production(self) -> bool:
         return self.environment.lower() == "production"
+
+    @property
+    def cors_allow_origins(self) -> list[str]:
+        origins = [o.strip() for o in self.allowed_origins.split(",") if o.strip()]
+        if self.is_production:
+            return origins
+        # Dev/test convenience only -- never reached in production, where an
+        # empty ALLOWED_ORIGINS correctly yields zero allowed origins above.
+        return origins or ["*"]
 
 
 @lru_cache

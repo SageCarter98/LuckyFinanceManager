@@ -35,7 +35,7 @@ app = FastAPI(title="Finance Management Platform", version="0.1.0", lifespan=lif
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.cors_allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -60,7 +60,9 @@ app.include_router(stripe_webhook_router, prefix="/api")
 
 @app.get("/health")
 def healthcheck():
-    return {"status": "ok", "environment": settings.environment, "database_url": settings.database_url}
+    # Never echo settings.database_url here -- it carries live DB credentials
+    # in production and this endpoint is intentionally unauthenticated.
+    return {"status": "ok", "environment": settings.environment}
 
 
 @app.get("/me", response_model=dict)

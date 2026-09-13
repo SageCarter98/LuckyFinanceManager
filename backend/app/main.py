@@ -1,10 +1,13 @@
+import logging
+import time
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from app.config import get_settings
+from app.core.logging_config import configure_logging
 from app.database import Base, engine
 from app.dependencies import get_current_user
 from app.models import User
@@ -22,6 +25,8 @@ from app.routers.subscriptions import router as subscriptions_router
 from app.routers.transactions import router as transactions_router
 
 settings = get_settings()
+configure_logging(logging.INFO if settings.is_production else logging.DEBUG)
+logger = logging.getLogger("app.request")
 
 
 @asynccontextmanager
@@ -42,6 +47,40 @@ app.add_middleware(
 )
 
 Base.metadata.create_all(bind=engine)
+
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    """Closes the "no request/error logging middleware anywhere" gap
+    (Security_Design.md section 5). Logs every request's outcome; logs and
+    re-raises unhandled exceptions rather than swallowing them, so
+    TestClient's default raise-on-server-error behavior (and Starlette's
+    own 500 handling in production) is unaffected -- this middleware adds
+    a log line, it doesn't change what response an error produces."""
+    start = time.monotonic()
+    try:
+        response = await call_next(request)
+    except Exception:
+        logger.exception(
+            "request_failed",
+            extra={"extra_fields": {"method": request.method, "path": request.url.path}},
+        )
+        raise
+    duration_ms = round((time.monotonic() - start) * 1000, 2)
+    log_level = logging.WARNING if response.status_code >= 500 else logging.INFO
+    logger.log(
+        log_level,
+        "request",
+        extra={
+            "extra_fields": {
+                "method": request.method,
+                "path": request.url.path,
+                "status_code": response.status_code,
+                "duration_ms": duration_ms,
+            }
+        },
+    )
+    return response
 
 
 app.include_router(auth_router, prefix="/api")

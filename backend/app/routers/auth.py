@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime, timedelta, timezone
 
 import stripe
@@ -5,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
+from app.core.rate_limit import rate_limiter
 from app.core.security import (
     create_access_token,
     create_refresh_token,
@@ -33,6 +35,16 @@ from app.schemas import (
 router = APIRouter(prefix="/auth", tags=["auth"])
 settings = get_settings()
 stripe.api_key = settings.stripe_secret_key
+logger = logging.getLogger("app.auth")
+
+# Per-IP, per-route rate limits (Privacy_Impact_Assessment.md P3). Values
+# are a deliberate floor, not a tuned production figure: generous enough
+# not to lock out a real user retrying a typo'd password, tight enough to
+# make scripted credential stuffing slow and noisy rather than free.
+_signup_limit = rate_limiter("signup", max_attempts=10)
+_login_limit = rate_limiter("login", max_attempts=10)
+_refresh_limit = rate_limiter("refresh", max_attempts=30)
+_forgot_password_limit = rate_limiter("forgot-password", max_attempts=5)
 
 VERIFICATION_TOKEN_TTL = timedelta(hours=24)
 RESET_TOKEN_TTL = timedelta(hours=1)
@@ -76,7 +88,7 @@ def _issue_token_pair(db: Session, user: User) -> TokenPair:
     return TokenPair(access_token=access_token, refresh_token=refresh_token)
 
 
-@router.post("/signup", response_model=UserRead, status_code=status.HTTP_201_CREATED)
+@router.post("/signup", response_model=UserRead, status_code=status.HTTP_201_CREATED, dependencies=[Depends(_signup_limit)])
 def signup(payload: UserCreate, db: Session = Depends(get_db)):
     if db.query(User).filter(User.email == payload.email.lower()).first():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
@@ -108,19 +120,20 @@ def signup(payload: UserCreate, db: Session = Depends(get_db)):
     return response
 
 
-@router.post("/login", response_model=TokenPair)
+@router.post("/login", response_model=TokenPair, dependencies=[Depends(_login_limit)])
 def login(payload: UserLogin, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == payload.email.lower()).first()
     # Same "Invalid credentials" message for wrong password, unknown email, and a
     # deactivated/deleted account -- distinguishing them would both leak whether an
     # email is registered and confirm to an attacker that an account was deleted.
     if not user or not user.is_active or not verify_password(payload.password, user.password_hash):
+        logger.warning("login_failed", extra={"extra_fields": {"email": payload.email.lower()}})
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
     return _issue_token_pair(db, user)
 
 
-@router.post("/refresh", response_model=TokenPair)
+@router.post("/refresh", response_model=TokenPair, dependencies=[Depends(_refresh_limit)])
 def refresh(payload: RefreshRequest, db: Session = Depends(get_db)):
     try:
         claims = decode_token(payload.refresh_token)
@@ -188,7 +201,7 @@ def resend_verification(
     return DevOnlyTokenResponse(dev_token=raw if not settings.is_production else None)
 
 
-@router.post("/forgot-password", response_model=DevOnlyTokenResponse)
+@router.post("/forgot-password", response_model=DevOnlyTokenResponse, dependencies=[Depends(_forgot_password_limit)])
 def forgot_password(payload: ForgotPasswordRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == payload.email.lower()).first()
     raw: str | None = None

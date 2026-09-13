@@ -115,8 +115,9 @@ and fixed once (see the PM/SDLC gate backfill work, tracker items #105/#113/#122
   (`Hosting_Decision_Finance_Management_Platform.md`), one web service for the API,
   managed Postgres, two static sites for the consumer/admin split. No account-linked
   deployment exists yet; a draft `render.yaml` blueprint is committed but unvalidated.
-- **Migration approach:** real and working — Alembic-managed schema migrations (5
-  migration files as of 2026-09-13, including the RLS migration and the admin
+- **Migration approach:** real and working — Alembic-managed schema migrations (**11**
+  migration files as of 2026-09-13 — corrected same-session after an earlier version of
+  this very edit undercounted them as 5 — including the RLS migration and the admin
   RLS-bypass migration), verified via CI's `rls-verification` job running
   `alembic upgrade head` against real Postgres on every push.
 - **Observability:** still not implemented in code — confirmed by absence, no

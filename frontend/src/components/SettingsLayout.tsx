@@ -5,6 +5,7 @@ import { PageHeader } from './PageHeader'
 const tabs = [
   { to: '/settings/profile', label: 'Profile' },
   { to: '/settings/notifications', label: 'Notifications' },
+  { to: '/settings/security', label: 'Security' },
   { to: '/settings/data', label: 'Data & privacy' },
 ]
 

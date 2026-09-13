@@ -19,6 +19,7 @@ import { SubscriptionPage } from './pages/SubscriptionPage'
 import { ProfilePage } from './pages/settings/ProfilePage'
 import { NotificationsPage } from './pages/settings/NotificationsPage'
 import { DataPage } from './pages/settings/DataPage'
+import { SecurityPage } from './pages/settings/SecurityPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 
 /**
@@ -139,6 +140,14 @@ export function App() {
             element={
               <RequireAuth>
                 <DataPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/settings/security"
+            element={
+              <RequireAuth>
+                <SecurityPage />
               </RequireAuth>
             }
           />

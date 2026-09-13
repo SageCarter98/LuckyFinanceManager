@@ -46,6 +46,22 @@ occurred outside GitHub (in person, another tool), it is not evidenced here
 and should be added as a correction with its own primary-source reference
 if it exists.
 
+## 2a. Update 2026-09-13: permission raised to write
+
+Milton's access was raised from **read** to **write** (push) the same day,
+at the direction of Freston Kenny Adedeme (Executive Authority), so he can
+merge pull requests he has reviewed rather than only approve them. Verified
+against the GitHub API after the change: `permissions.push: true`,
+`role_name: "write"`.
+
+This does not reopen the least-privilege reasoning in section 2 by itself:
+branch protection on `master` (item #117) still requires a passing PR with
+1 approving review and green status checks for any non-admin, Milton
+included — write access lets him act on a review he's already given
+(merge), it does not let him bypass the review requirement or push directly
+around it. `enforce_admins: false` remains scoped to the repo owner only;
+Milton is not an admin and is not exempt from these checks.
+
 ## 3. Scope
 
 Per §3.3's own language ("critical security, data, payment or
@@ -74,10 +90,12 @@ replacement -- this is not a permanent substitute for genuine team growth.
   a named reviewer, scope, and time limit, approved by the Executive
   Authority. This item is Complete.
 - Does **not** close item **#38** (plan readiness checklist signed by
-  Sponsor, PM and reviewers): Milton has been invited but has not yet
-  accepted, and has signed nothing. That item stays In progress -- its
-  blocker changed from "no independent party exists" to "the named party
-  hasn't acted yet," which is real progress but not completion.
+  Sponsor, PM and reviewers): Milton accepted the collaborator invitation
+  on 2026-09-13 (confirmed against the GitHub API -- `read` permission on
+  record, zero pending invitations remaining), but has signed nothing.
+  That item stays In progress -- its blocker changed from "no independent
+  party exists" to "the named party accepted but hasn't signed anything
+  yet," which is further progress but still not completion.
 - Does **not** close items **#116, #118, #124** (SDLC G3): these require
   actual reviewer evidence on actual pull requests. None exist yet under
   this arrangement. They stay In progress, now unblocked in principle but

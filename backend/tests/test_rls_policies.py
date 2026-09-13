@@ -113,9 +113,20 @@ def test_rls_bypass_flag_widens_reads_across_tenants():
 
     # No app.tenant_id at all, only the bypass flag -- proves the OR branch
     # in USING itself grants visibility, not some leftover tenant context.
+    # Scoped to just this test's two tenants: this file's tests all share one
+    # live database with no inter-test cleanup, so an unscoped `SELECT *` here
+    # would also pick up rows other tests in this same run seeded (verified --
+    # this failed for exactly that reason before the WHERE clause was added,
+    # in both a fresh CI container and local runs, ruling out "stale local
+    # data" as the cause). Filtering by tenant_id keeps the assertion an exact
+    # equality -- still proving bypass returns rows spanning both tenants in
+    # one query -- without depending on the rest of the table being empty.
     with Session(engine) as session:
         session.execute(text("SELECT set_config('app.bypass_rls', 'true', true)"))
-        rows = session.execute(text("SELECT id FROM accounts")).fetchall()
+        rows = session.execute(
+            text("SELECT id FROM accounts WHERE tenant_id IN (:a, :b)"),
+            {"a": tenant_a, "b": tenant_b},
+        ).fetchall()
 
     assert {row[0] for row in rows} == {account_a, account_b}
 
@@ -167,9 +178,15 @@ def test_rls_bypass_flag_does_not_permit_deleting_another_tenants_row():
     with Session(engine) as session:
         _set_tenant(session, tenant_a)
         session.execute(text("SELECT set_config('app.bypass_rls', 'true', true)"))
-        rows = {row[0] for row in session.execute(text("SELECT id FROM accounts")).fetchall()}
+        rows = {
+            row[0]
+            for row in session.execute(
+                text("SELECT id FROM accounts WHERE tenant_id IN (:a, :b)"),
+                {"a": tenant_a, "b": tenant_b},
+            ).fetchall()
+        }
 
-    assert rows == {account_a, account_b}, "tenant B's row must survive the cross-tenant DELETE attempt"
+    assert rows == {account_a, account_b}, "tenant B's row must survive the cross-tenant DELETE attempt (tenant A's own row was never targeted)"
 
 
 def test_rls_rejects_writes_for_a_different_tenant():

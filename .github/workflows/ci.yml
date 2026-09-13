@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # gitleaks-action (below) diffs the push's before..after commit
+          # range itself -- the default shallow (depth-1) checkout doesn't
+          # have the "before" commit at all when a push carries more than
+          # one commit, which fails with "unknown revision or path not in
+          # the working tree" rather than actually scanning anything.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:

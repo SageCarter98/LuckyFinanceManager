@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Local mirror of .github/workflows/ci.yml's `rls-verification` job: runs
+# tests/test_rls_policies.py against a finance_app/finance_rls_test Postgres
+# setup before allowing a push, so a broken RLS policy is caught here instead
+# of waiting for CI.
+#
+# Committed, but not auto-active: git only runs hooks from core.hooksPath
+# (default .git/hooks, never synced by clone/push). To enable this hook in a
+# checkout, run once:
+#   git config core.hooksPath scripts/git-hooks
+#
+# Requires the local finance_app/finance_rls_test role+database described in
+# CLAUDE.md / the pm-sdlc-tracker memory note "postgres_local_setup" -- fails
+# soft (does not block the push) if that setup isn't present on this machine.
+
+set -eu
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT/backend"
+
+RLS_DB_URL="postgresql+psycopg://finance_app:finance_app_test@localhost:5432/finance_rls_test"
+
+if ! DATABASE_URL="$RLS_DB_URL" python -c "
+from sqlalchemy import create_engine
+create_engine('$RLS_DB_URL').connect().close()
+" >/dev/null 2>&1; then
+    echo "pre-push: skipping RLS verification -- finance_rls_test not reachable on this machine (see CLAUDE.md)" >&2
+    exit 0
+fi
+
+echo "pre-push: running RLS policy verification (mirrors CI's rls-verification job)..."
+
+if ! DATABASE_URL="$RLS_DB_URL" python -m alembic upgrade head; then
+    echo "pre-push: alembic upgrade head failed against finance_rls_test -- push blocked." >&2
+    exit 1
+fi
+
+if ! DATABASE_URL="$RLS_DB_URL" python -m pytest -q tests/test_rls_policies.py; then
+    echo "pre-push: RLS policy tests FAILED -- push blocked. Fix the regression, or 'git push --no-verify' to override (not recommended)." >&2
+    exit 1
+fi
+
+echo "pre-push: RLS policy verification passed."

@@ -76,7 +76,7 @@ this system via an email provider yet).
 |---|---|---|---|
 | P1 | Health-check endpoint leaking live database credentials | **Fixed 2026-09-13** | `backend/app/main.py` `/health` no longer echoes `settings.database_url` (found and fixed while writing this assessment, not a pre-existing control) |
 | P2 | Overly permissive CORS with credentials enabled | **Fixed 2026-09-13** | `ALLOWED_ORIGINS` now fails closed in production instead of defaulting to `*` (same fix pass) |
-| P3 | No brute-force/rate-limiting on `/auth/login` or password-reset | **Open** | Confirmed by absence: no rate-limiting library, middleware, or per-IP/per-account throttling exists anywhere in `backend/app` |
+| P3 | No brute-force/rate-limiting on `/auth/login` or password-reset | **Fixed 2026-09-13** | `backend/app/core/rate_limit.py`, in-memory per-IP sliding window, applied to signup/login/refresh/forgot-password (commit 5ffdae2); verified in this session by running `backend/tests/test_rate_limit.py` directly (2 passed), not just reading the commit message |
 | P4 | Erasure is soft-delete only; no actual purge job exists past 30 days | **Open, disclosed** | See §4 above; blocked on the job-scheduler decision |
 | P5 | No Stripe DPA reviewed | **Open** | No such document exists in this project |
 | P6 | Email verification/reset tokens have no real delivery channel (dev-only echo) | **Open, but fail-closed** | `DevOnlyTokenResponse` never populates the token outside `is_production == False` (`config.py`) -- means the feature is genuinely unusable in production today rather than insecure, since no email path exists to leak the token over |
@@ -85,11 +85,14 @@ this system via an email provider yet).
 ## 6. Conclusion
 
 This assessment finds no undisclosed high-severity gap beyond the two
-fixed during its own preparation (P1/P2). The remaining open items (P3-P7)
-are real and should be prioritized before a production launch, in
-particular P3 (brute-force protection) and P5 (Stripe DPA review), which
-are both cheap to close relative to their risk. This PIA does not replace
-the independent security review this project cannot currently obtain
-without the compensating-assurance arrangement now in place
+fixed during its own preparation (P1/P2), plus P3, fixed the same day in a
+follow-up commit (5ffdae2) after this PIA first disclosed it. The
+remaining open items (P4-P7) are real and should be prioritized before a
+production launch, in particular P5 (Stripe DPA review). This PIA does not
+replace the independent security review this project cannot currently
+obtain without the compensating-assurance arrangement now in place
 (`files/Compensating_Assurance_Role_Separation.md`) -- Milton's scoped
-review explicitly includes authentication and data-handling changes.
+review explicitly includes authentication and data-handling changes, and
+this rate-limiting change is exactly the kind of auth-adjacent commit that
+should go through him going forward, not just through the author who wrote
+this PIA.

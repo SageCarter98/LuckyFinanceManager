@@ -2,7 +2,12 @@
 
 Following PM Framework v1.1 Appendix B exactly. Prepared 9 September 2026, building on
 `files/Gate1_G0_Intake_Record.md` (Gate 1, approved with conditions 9 Sep 2026) rather
-than restating it — cross-referenced where content is identical.
+than restating it — cross-referenced where content is identical. **Amended 13 September
+2026** at the Sponsor/Project Authority's direction to close the two rows previously
+marked `[SPONSOR TO CONFIRM]` (schedule/budget; item #17) once
+`Business_Case_Finance_Management_Platform.md` produced the ranges backing them; the
+remaining `[SPONSOR TO CONFIRM]` (benefits measures) is unchanged — no basis exists yet
+for adoption/conversion/reliability targets and none is invented here.
 
 | Charter field | Content |
 |---|---|
@@ -14,7 +19,7 @@ than restating it — cross-referenced where content is identical.
 | **Key deliverables** | Working backend API + frontend for all FRS-in-scope surfaces (FRS Implementation Plan §7 coverage matrix is the controlling list); component/contract/E2E/security/accessibility test evidence; an isolated support console on its own origin; approved read-only banking integration. |
 | **Success and acceptance criteria** | Per SRS §7 "Testing and acceptance": all Must requirements implemented and tested; no known cross-tenant isolation defects; performance targets verified in staging; no payment/transfer code path exists; legal/privacy/provider-risk/DPA/backup/rollback/operational evidence approved before launch. |
 | **Stakeholders and users** | Individual consumer end users (free and subscribed); platform staff (support console); sponsor as sole named stakeholder role-holder (`Gate1_G0_Intake_Record.md` §3, confirmed no others exist) |
-| **High-level schedule and budget** | **[SPONSOR TO CONFIRM]** — no cost baseline or committed schedule exists in any project document. Framework guidance (SDLC framework §166) permits ranges where uncertainty is high; this charter does not invent a figure. |
+| **High-level schedule and budget** | **Baselined 13 September 2026** (Sponsor/Project Authority direction; see `Business_Case_Finance_Management_Platform.md` §4 for full derivation, not restated here): to-date effort ~25-45 person-hours over 5 calendar days (21 commits, solo); remaining Increment 6 hardening estimated at 2-4 further calendar weeks (~15-30 person-hours); Increment 5 (bank linking) explicitly **not estimated** pending legal/provider approvals — a genuine unknown, not a guessed range. Cost to date $0 direct spend; ongoing cost once launched is planning-level only (hosting $20-150/month typical range, pending an unmade hosting decision; Stripe's standard 2.9%+$0.30/transaction once live) — see Business Case §4.3. |
 | **Software framework alignment** | SDLC Class 3 — High (rationale: `Gate1_G0_Intake_Record.md` §8). Aligned G0-G6 checkpoints per Appendix I: G0 (done, approved with conditions), G1 in progress (this record), G2 design readiness, G3 code complete, G4 release readiness, G5 operational acceptance, G6 retirement. |
 | **Risks, assumptions, constraints** | Risk register R1-R9 in `Gate1_G0_Intake_Record.md` §14, carried forward unchanged (version control, CI, test coverage, bus factor, role separation, regulatory exposure, secrets management, bank-consent design, dual-project capacity). Assumption: the project continues as a solo effort unless the capacity condition from the Gate 1 decision changes that. |
 | **Governance and tolerances** | Class A defaults per PM Framework §2: cost/schedule tolerance ±5% of any approved baseline (none exists yet, so this is not yet an operative control); zero tolerance for reduced acceptance criteria, unapproved material scope change, unresolved critical defects, unlawful processing, or unaccepted critical risk. **Role separation**: not met (§3.3) — disclosed as an open condition, not resolved by this charter. **Change authority**: sponsor, pending the role-separation question. **Reporting/escalation**: not yet formally established — carried as part of the Gate 1 capacity condition (due 2026-10-09). |
@@ -35,8 +40,12 @@ evidence, or bypass of security, privacy, quality, financial and contractual con
 does not require a second, independent feasibility pass when nothing material has
 changed since Gate 1 was approved (9 September 2026, same day as this charter).
 
-**Cost, duration, resource demand and expected benefits (item #17)**:
-**[SPONSOR TO CONFIRM]** — no figures, even as ranges, are recorded anywhere in the
-project's documents. This item cannot be marked Complete without them; recording a
-placeholder range without any basis would be exactly the kind of invented evidence this
-governance process exists to prevent.
+**Cost, duration, resource demand and expected benefits (item #17)**: resolved
+13 September 2026 — see `Business_Case_Finance_Management_Platform.md` §4 for the
+full derivation (effort-to-date and remaining-effort ranges, cost ranges, and the
+explicit, deliberate non-estimate for Increment 5/bank-linking). Summary only, not
+restated in full: ~25-45 person-hours invested to date; ~15-30 further person-hours
+(2-4 calendar weeks) estimated for remaining Increment 6 hardening; Increment 5
+duration is genuinely unknown pending external legal/provider approvals, not guessed.
+$0 direct spend to date; ongoing cost is planning-level pending the still-open hosting
+decision (Charter "Software framework alignment" row; tracker item #113).

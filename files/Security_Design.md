@@ -32,13 +32,15 @@ and tests, not the intended design.
   use). A password reset revokes every existing refresh token for that
   user (`auth.py::reset_password`) -- correctly treats a reset as a
   security event, not just a convenience action.
-- **Gap, not fixed here:** **no rate-limiting or brute-force protection**
-  exists on `/auth/login`, `/auth/forgot-password`, or `/auth/refresh`.
-  Confirmed by absence -- no rate-limiting library or middleware anywhere
-  in `backend/app`. This is a real, open finding (Privacy_Impact_Assessment
-  §5, P3), not addressed in this pass because it needs a design decision
-  (per-IP? per-account? which store -- Redis doesn't exist in this stack
-  yet) rather than a one-line fix.
+- **Rate-limiting / brute-force protection:** fixed same day, in a
+  follow-up commit (5ffdae2) after this document first disclosed the gap.
+  `app/core/rate_limit.py` -- in-memory, per-IP, per-route sliding window,
+  applied to signup/login/refresh/forgot-password. Deliberately in-memory
+  rather than a distributed store, correct for the current single-instance
+  deployment and disclosed as a real limitation if ever scaled
+  horizontally. Verified in this session by running
+  `backend/tests/test_rate_limit.py` directly (2 passed), not just reading
+  the commit message. Closes Privacy_Impact_Assessment §5, P3.
 
 ## 2. Authorization
 
@@ -112,13 +114,17 @@ and tests, not the intended design.
   required reason (422 without one), and the target -- on both hit and
   miss. This is the one place this codebase does deliberate,
   compliance-shaped audit logging.
-- **General application logging: does not exist.** Confirmed by absence --
-  no `logging` configuration, no structured-log library, no request/error
-  logging middleware anywhere in `backend/app`. Uvicorn's own default
-  access log is the only thing that would appear in a deployed
-  environment's stdout, unconfigured and unstructured. This is a real gap,
-  carried into `files/G2_Design_Readiness.md`'s observability section
-  (item #111) rather than duplicated here.
+- **General application logging:** fixed same day as the gap above, same
+  commit (5ffdae2). `app/core/logging_config.py` -- stdlib-only structured
+  JSON to stdout, exactly what Render's web services capture with no
+  log-shipping agent needed. A request-logging middleware logs every
+  request's outcome and logs (then re-raises) unhandled exceptions; failed
+  logins and rate-limit trips get their own log lines. Verified end-to-end
+  against a live dev server per the commit message (JSON log lines for a
+  normal request, a failed login, and an actual 429), and `configure_logging`
+  is confirmed wired into `app/main.py` in this session. Carried into
+  `files/G2_Design_Readiness.md`'s observability section (item #111) as
+  well, not duplicated here.
 
 ## 6. Recovery controls
 
@@ -134,9 +140,20 @@ operating control.
 Authentication, authorization, secrets, encryption and logging are all now
 described against real, verified code -- some controls genuinely strong
 (defense-in-depth tenant isolation, in-memory token storage, audited admin
-access), others genuinely absent and disclosed as such (rate-limiting,
-general application logging, a real secrets vault). Recovery controls are
-a plan pending actual deployment. This item is judged **In progress, not
-Complete**: the document itself now exists (closing the item's own stated
-gap), but real open findings (P3 in the PIA, no application logging) remain
-unresolved, and marking Complete would misstate that.
+access, and now rate-limiting and structured logging), one genuinely absent
+and disclosed as such (a real secrets vault, appropriate at current scale
+per §3). Recovery controls are a plan pending actual deployment (§6).
+
+Updated 2026-09-13, same day as the two blocking gaps this document first
+disclosed (rate-limiting, application logging) were fixed in a follow-up
+commit (5ffdae2), independently verified in this session by running the
+relevant tests rather than trusting the commit message. That resolves this
+item's (#110, SDLC G2 security design) own remaining reason for staying
+In progress -- it is a separate tracker item from PM Gate 3.09 (#32) and
+not closed here; #110's status should be reassessed on its own terms.
+Recovery controls remain a plan, not an operating control, since nothing
+is deployed yet -- for #32, whose own framework text (PM Framework
+Appendix C: "controls are **defined** where relevant") only asks for
+controls to be defined at the planning gate, that is not a blocker; for
+#110's "recovery controls" line, whether a defined-not-operating plan is
+sufficient is a separate SDLC-track judgment this document does not make.

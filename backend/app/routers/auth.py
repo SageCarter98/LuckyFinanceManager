@@ -19,6 +19,7 @@ from app.core.security import (
 from app.database import get_db
 from app.dependencies import get_current_user
 from app.models import RefreshToken, Subscription, Tenant, User
+from app.tenant import apply_tenant_context
 from app.schemas import (
     DevOnlyTokenResponse,
     ForgotPasswordRequest,
@@ -130,6 +131,11 @@ def login(payload: UserLogin, db: Session = Depends(get_db)):
         logger.warning("login_failed", extra={"extra_fields": {"email": payload.email.lower()}})
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
+    # refresh_tokens is RLS-protected (tenant_isolation_refresh_tokens, FORCE
+    # ROW LEVEL SECURITY) -- unlike authenticated routes, login has no prior
+    # get_current_user call to set this, so the insert below would otherwise
+    # violate the policy against a real Postgres database.
+    apply_tenant_context(db, user.tenant_id)
     return _issue_token_pair(db, user)
 
 
@@ -143,15 +149,22 @@ def refresh(payload: RefreshRequest, db: Session = Depends(get_db)):
     if claims.get("type") != "refresh" or not claims.get("sub"):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
 
+    # users has no RLS policy, so this lookup is safe before tenant context
+    # exists. It has to come before the refresh_tokens query below: that
+    # table is RLS-protected, and without app.tenant_id set first, its
+    # USING clause compares tenant_id to NULL and silently returns zero
+    # rows -- every refresh would 401 as "Invalid refresh token" against a
+    # real Postgres database, valid token or not.
+    user = db.query(User).filter(User.id == claims["sub"]).first()
+    if not user or not user.is_active:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
+    apply_tenant_context(db, user.tenant_id)
+
     token_hash = hash_token(payload.refresh_token)
     record = db.query(RefreshToken).filter(RefreshToken.token_hash == token_hash).first()
     now = datetime.now(timezone.utc)
     expires_at = _aware(record.expires_at) if record else None
     if not record or record.revoked_at is not None or expires_at < now:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
-
-    user = db.query(User).filter(User.id == claims["sub"]).first()
-    if not user or not user.is_active:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
 
     # Rotate: the presented refresh token is single-use, closing the replay
@@ -162,6 +175,21 @@ def refresh(payload: RefreshRequest, db: Session = Depends(get_db)):
 
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
 def logout(payload: RefreshRequest, db: Session = Depends(get_db)):
+    # refresh_tokens is RLS-protected; without tenant context set first, the
+    # lookup below silently matches zero rows against a real Postgres
+    # database -- logout would never actually revoke anything, and a token
+    # presented as "logged out" would stay valid until natural expiry. Best
+    # effort only: an undecodable or unknown-user token just skips this, the
+    # same as it always has -- logout still always succeeds for the client.
+    try:
+        claims = decode_token(payload.refresh_token)
+    except ValueError:
+        claims = None
+    if claims and claims.get("sub"):
+        user = db.query(User).filter(User.id == claims["sub"]).first()
+        if user:
+            apply_tenant_context(db, user.tenant_id)
+
     token_hash = hash_token(payload.refresh_token)
     record = db.query(RefreshToken).filter(RefreshToken.token_hash == token_hash).first()
     if record and record.revoked_at is None:

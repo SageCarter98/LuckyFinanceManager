@@ -19,7 +19,7 @@ Appendix F to this project's SDLC G4 / PM Gate 4 tracker evidence
 | Dependencies | Components, licences, vulnerabilities and supplier status are acceptable | Technical lead | **Ready, standing check** — CI `pip-audit`/`pip-licenses`/`npm audit` (item #122); no known unresolved CVE this session |
 | Data | Migration, validation, backup and rollback are tested | Data/service owner (Freston) | **Partial** — rollback mechanic verified end-to-end against real Postgres (`Transition_Support_Rollback_Closure.md` §4); backup is a **defined plan, not an operating control** (Render PITR requires a paid plan not yet provisioned) — correct for this planning stage, not sufficient for an actual go-live |
 | Operations | Monitoring, alerting, capacity, support and runbooks are ready | Service owner (Freston) | **Not ready** — support model and runbook are documented (`Transition_Support_Rollback_Closure.md`), but no monitoring/alerting service is chosen or configured; nothing exists to monitor since nothing is deployed |
-| Deployment | Implementation, verification, communication and rollback plans are approved | Release authority | **Not ready** — plans exist in draft (`Hosting_Decision...md`, `Transition_Support...md`) but are **not yet formally approved by anyone**, and no release authority distinct from the sole author has been named (#146) |
+| Deployment | Implementation, verification, communication and rollback plans are approved | Release authority (Milton, delegated 2026-09-13 — `Compensating_Assurance_Role_Separation.md` §6) | **Not ready** — plans exist in draft (`Hosting_Decision...md`, `Transition_Support...md`) but are **not yet formally approved by anyone**. Release authority is now named (#146), closing that specific role-separation gap, but his actual approval of these plans hasn't happened — naming who decides isn't the same as the decision |
 | Approval | G4 release authorisation is recorded | Authorised approvers | **Not started** — #148 is a gate decision; cannot be recorded by this document or its author |
 
 ## 2. What is explicitly blocking an actual deployment right now
@@ -28,12 +28,11 @@ These are not paperwork gaps — each needs a decision or resource only
 Freston can provide, consistent with this project's own rule that a
 gate decision is never something an agent records on anyone's behalf:
 
-1. **Release authority (#146)**: Section 3.3 role separation applies to
-   releases the same way it applies to code review. Someone other than
-   the sole author needs to hold this role. The obvious candidate is
-   Milton, extending his existing compensating-assurance arrangement
-   (`Compensating_Assurance_Role_Separation.md`) — but that's a new
-   scope for him, not something to assume he's agreed to.
+1. ~~Release authority (#146)~~ **Resolved 2026-09-13**: Freston (Executive
+   Sponsor) formally delegated Release Authority to Milton
+   (`Compensating_Assurance_Role_Separation.md` §6). Milton's actual
+   acknowledgment is still pending — evidenced by his review on the PR
+   carrying that document, not assumed from the appointment alone.
 2. **PR #4 must merge** (fixes D4, the critical auth defect) before
    #135 ("no open S1 defect") is genuinely satisfied.
 3. **Real infrastructure decisions**, none of which this document can

@@ -127,6 +127,30 @@ on 13 September 2026, directing this document's production.**
   person-hour ranges above into a dollar figure would require the sponsor to
   supply that rate, which this document does not invent.
 
+### 4.4 Assurance effort as a distinct line item (closes SDLC tracker item #105)
+
+Was blocked solely on the same missing figures as PM item #17, resolved
+§4.1-4.3. Derived from actual git history rather than invented: of the 21
+commits delivered to date, **11 (52%)** were directly assurance-focused --
+CI pipeline and its dependency/secret scans (`6d98ef3`), CI first-run fixes
+(`e6a8c54`), the critical RLS tenant-isolation fix (`8e51e02`), the CI-green
+record (`11fd1d7`), the frontend test suite (`e27445c`), Categories/
+Transactions test coverage (`542b8b0`), the Playwright E2E suite
+(`f18f45d`), its evidence record (`0c86c3b`), the RLS pre-push hook
+(`f5feaa8`), and the RLS/gitleaks CI fixes (`b7cb16d`) -- against 10 purely
+feature-delivery commits. Applied to §4.1's ~25-45 person-hour total, that
+is roughly **13-23 person-hours** already spent on assurance activity to
+date, not previously called out as its own line.
+
+Going forward: the FRS Implementation Plan's remaining Increment 6 is
+explicitly scoped as "Quality, accessibility and release" work (§2,
+Workstream H) -- i.e. most or all of §4.2's remaining 15-30-hour estimate
+*is* assurance effort by definition, not a separate carve-out on top of it.
+
+**Commercial disclosure for Class 3/4 client work:** not applicable -- this
+is the sponsor's own product, not third-party client work, so no client
+commercial disclosure exists to make.
+
 ## 5. Recommendation
 
 Continue the build (Option: Build, §2). Baseline the ranges in §4 as this

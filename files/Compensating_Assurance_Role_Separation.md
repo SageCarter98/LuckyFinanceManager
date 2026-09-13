@@ -1,11 +1,12 @@
 # Compensating Assurance for Role Separation
 
 Prepared 13 September 2026, at the direction of Freston Kenny Adedeme
-(Sponsor / Project Manager / Technical Lead / Service Owner / Release
-Authority, and Executive Authority per PM Framework §3.4). Resolves PM
+(Sponsor / Project Manager / Technical Lead / Service Owner, and Executive
+Authority / Executive Sponsor per PM Framework §3.4). Resolves PM
 Framework §3.3 and SDLC role-separation requirements for this Class A / SDLC
-Class 3 project, closing tracker items #37, #38 (PM Gate 3) and #116, #118,
-#124 (SDLC G3).
+Class 3 project, closing tracker items #37, #38 (PM Gate 3), #116, #118,
+#124 (SDLC G3), and #146 (SDLC G4 — see §6, added 2026-09-13). Freston no
+longer holds Release Authority as of §6 below; it is delegated to Milton.
 
 ## 1. The gap this addresses
 
@@ -107,8 +108,56 @@ replacement -- this is not a permanent substitute for genuine team growth.
 - Does not waive any legal, security, privacy or financial control, per
   §3.3's own limit on compensating arrangements.
 
+## 6. Release Authority delegation (2026-09-13)
+
+Separate from the Technical/Quality Reviewer role in §2 above (compensating
+assurance for code review, PM §3.3), this section addresses a different,
+larger role: **Release Authority**, defined in `KenAddme_SDLC_Framework_
+v1.2.md`'s "Key roles and accountabilities" table as holding *"the final
+institutional decision to authorise a production deployment at G4 and to
+require its rollback,"* and closing tracker item #146 ("release authority
+is not the sole author of the release").
+
+**The gap:** per that same table, *"the role must not be held by the sole
+author of the release."* Until this section, Freston held every named role
+on this project, Release Authority included (see this document's own
+header before today's edit) — the same structural problem §1-§5 already
+disclosed for code review, but for the G4 deployment decision specifically,
+which is materially higher-stakes than a single PR review.
+
+**Delegation:** per the framework's own language — *"the Executive
+Sponsor or a formally recorded delegate is the release authority for
+Class 3 and Class 4"* — Freston Kenny Adedeme, as Executive Sponsor,
+formally delegates Release Authority for this project to **Milton
+(GitHub: `MiltonBello15`)**, effective 2026-09-13.
+
+**What this role actually holds:** the go/no-go decision to authorise a
+production deployment at G4 (tracker #148, and the PM Gate 4 decision,
+#51), and the authority to require a rollback of a live deployment.
+It does **not** include hands-on deployment execution (item #142, "build
+and deployment credentials kept separate" — Freston retains operational/
+DevOps execution access; Milton holds the decision, not the button) and
+does not replace the separate Technical/Quality Reviewer role in §2,
+though one person may hold both.
+
+**What this does not yet resolve, disclosed not hidden:** unlike §2's
+GitHub invitation, there is no equivalent technical mechanism to verify
+Milton's acceptance of this specific responsibility at the moment this
+document is written — unlike an invite accept/reject, "release authority"
+isn't a GitHub permission this repo's API can confirm. This delegation is
+recorded as Freston's directed appointment; Milton's actual acknowledgment
+is intended to be evidenced by his own review/approval on the pull request
+carrying this document (same evidence model as items #37/#116/#118/#124),
+not assumed from the appointment alone. Until that lands, treat this as
+"appointed, acknowledgment pending," not "fully in effect."
+
+**Review point:** reconsidered at the same checkpoint as §4 (SDLC G4 or
+2026-12-13, whichever comes first) — not a permanent structure, same as
+the reviewer role.
+
 ## Approval
 
 Approved by Freston Kenny Adedeme, Executive Authority (PM Framework §3.4),
 13 September 2026, by directing this arrangement and Milton's invitation
-directly.
+directly. §6's Release Authority delegation approved and directed the same
+way, same date.

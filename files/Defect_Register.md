@@ -18,13 +18,15 @@ S1/S2/S3 language for item #135 ("no open S1 defect").
 | D1 | Health-check endpoint leaked live `DATABASE_URL` | Critical (S1) | **Fixed** | Fixed 2026-09-13, same commit that found it (PIA prep) | Freston | Verified — endpoint no longer echoes the setting (`Privacy_Impact_Assessment.md` P1) |
 | D2 | Overly permissive CORS with credentials enabled | Critical (S1) | **Fixed** | Fixed 2026-09-13 alongside D1 | Freston | Verified — `ALLOWED_ORIGINS` fails closed in production (`Privacy_Impact_Assessment.md` P2) |
 | D3 | No brute-force/rate-limiting on login, refresh, forgot-password | High (S2) | **Fixed** | Fixed 2026-09-13, commit `5ffdae2` | Freston | Verified this session — ran `test_rate_limit.py` directly (2 passed), not just read the commit message |
-| D4 | `login`/`refresh`/`logout` insert/query `refresh_tokens` (RLS-protected, `FORCE ROW LEVEL SECURITY`) without ever setting `app.tenant_id` — login 500s, refresh always 401s a valid token, logout silently never revokes anything, all against real Postgres | **Critical (S1)** | **Fixed, not yet merged** | Fix on branch `fix/rls-blocks-auth-refresh-tokens`, PR #4, requested for Milton's review (his named scope covers `app/routers/auth.py`) | Freston (author), Milton (reviewer, pending) | Verified this session end-to-end against real Postgres: login, `/auth/me`, refresh, logout, plus full backend suite (32 passed) and `test_rls_policies.py` (6 passed) |
+| D4 | `login`/`refresh`/`logout` insert/query `refresh_tokens` (RLS-protected, `FORCE ROW LEVEL SECURITY`) without ever setting `app.tenant_id` — login 500s, refresh always 401s a valid token, logout silently never revokes anything, all against real Postgres | **Critical (S1)** | **Fixed and merged** | PR #4, merged to master (`b3e524c`), MiltonBello15 review verified `APPROVED` | Freston (author), Milton (reviewer) | Verified end-to-end against real Postgres; full backend suite and `test_rls_policies.py` both re-run clean after merge |
+| D5 | Every `add() -> commit() -> refresh()` write endpoint (`accounts`, `categories`, `notifications`, `recurring_bills`, `savings_goals`, `transactions`, `subscriptions`, and the new `banking`) 500s against real Postgres — `expire_on_commit=True` (SQLAlchemy's default) plus an explicit post-commit `db.refresh()` both need a fresh SELECT, and `app.tenant_id` (`SET LOCAL`, transaction-scoped) is gone the instant `db.commit()` ends the transaction, so `FORCE ROW LEVEL SECURITY` rejects the read | **Critical (S1)** | **Fixed** | `app/database.py`: `expire_on_commit=False`; removed every now-redundant explicit `db.refresh()` after a commit, across 8 router files | Freston (author), Milton (reviewer, pending) | Found while testing Banking against real Postgres; confirmed as pre-existing (not banking-specific) by reproducing on `POST /api/accounts`; fixed, then full backend suite + `test_rls_policies.py` both re-run clean; also surfaced and fixed a related formatting bug (D5a below) |
+| D5a | With D5's fix, money fields stopped round-tripping through the DB's `NUMERIC(18,2)` column, so responses returned whatever decimal precision the client sent (e.g. `"25.5"` instead of `"25.50"`) — caught by an existing contract test (`test_cross_tenant_account_visibility_and_transaction_creation`) failing on the exact string, not a new bug the fix introduced into user-facing behavior unnoticed | Low (S3), test-only impact | **Fixed** | Added a reusable `Money` Pydantic type (`app/schemas.py`) that quantizes to 2dp on every Create/Update input field; also fixed FX-converted Gross Balance amounts, which had the same unquantized-division issue independent of D5 | Freston (author) | Full backend suite passing, including the originally-failing test, unchanged |
 
-**D4 is the one open item blocking tracker item #135** ("no open S1
-defect"). It is fixed and independently verified in this session, but the
-fix has not merged to `master` yet — GitHub issue #3 stays open and PR #4
-stays unmerged until Milton reviews it. #135 should flip to Complete the
-same way #38 did: on the actual merge, not on the fix existing.
+**D4 closes tracker item #135** ("no open S1 defect") now that it's fixed
+and merged, verified against `master` directly. **D5 is fixed but not yet
+merged** — a GitHub issue #8 filed; PR still needed, same discipline already
+applied to D4: #135 doesn't get to claim D5 as closed until the fix
+actually lands, not just exists.
 
 ## Disclosed gaps (known limitations, not requirement violations)
 
@@ -45,7 +47,8 @@ for a single release-readiness view, not re-litigated.
 ## What this closes and what it doesn't
 
 - Closes #126 and #133 as a consolidated register exists now.
-- Does **not** close #135 — D4 must actually merge first.
+- Does **not** close #135 — D5 (issue #8) must actually merge first; D4
+  already has, verified against `master` directly.
 - G2 (no Stripe DPA) is flagged here as the one disclosed gap that should
   arguably block accepting *real* payments specifically, separate from
   general release readiness — a legal review, not something this document

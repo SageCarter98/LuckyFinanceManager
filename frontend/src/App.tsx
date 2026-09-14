@@ -15,6 +15,7 @@ import { BillsPage } from './pages/BillsPage'
 import { GoalsPage } from './pages/GoalsPage'
 import { ReportsPage } from './pages/ReportsPage'
 import { BankingPage } from './pages/BankingPage'
+import { BankLinkPage } from './pages/BankLinkPage'
 import { SubscriptionPage } from './pages/SubscriptionPage'
 import { ProfilePage } from './pages/settings/ProfilePage'
 import { NotificationsPage } from './pages/settings/NotificationsPage'
@@ -107,6 +108,14 @@ export function App() {
             element={
               <RequireAuth>
                 <BankingPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/banking/link"
+            element={
+              <RequireAuth>
+                <BankLinkPage />
               </RequireAuth>
             }
           />

@@ -31,6 +31,7 @@ class Tenant(Base):
     savings_goals: Mapped[list["SavingsGoal"]] = relationship(back_populates="tenant")
     notifications: Mapped[list["Notification"]] = relationship(back_populates="tenant")
     subscription: Mapped["Subscription | None"] = relationship(back_populates="tenant", uselist=False)
+    linked_accounts: Mapped[list["LinkedAccount"]] = relationship(back_populates="tenant")
 
 
 class User(Base):
@@ -218,3 +219,61 @@ class Subscription(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 
     tenant: Mapped[Tenant] = relationship(back_populates="subscription")
+
+
+class LinkedAccount(Base):
+    """FE-14.x / FR-14.x: a read-only externally-linked bank account.
+
+    `provider` and `external_account_ref` deliberately never hold a real
+    access token or credential (FE-14.10) -- `external_account_ref` is an
+    opaque reference into the provider adapter (`app/core/bank_provider.py`),
+    which today is a disclosed stub, not a real bank-data aggregator (see
+    Compensating_Assurance/Defect_Register -- provider selection is a
+    business decision, not made here). `account_number_last4` is the only
+    account-number fragment ever stored, matching FE-14.9's masking
+    requirement at the data layer, not just the UI layer."""
+
+    __tablename__ = "linked_accounts"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), index=True, nullable=False)
+    provider: Mapped[str] = mapped_column(String(50), nullable=False)
+    external_account_ref: Mapped[str] = mapped_column(String(255), nullable=False)
+    institution_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    account_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    account_number_last4: Mapped[str] = mapped_column(String(4), nullable=False)
+    native_currency: Mapped[str] = mapped_column(String(10), default="USD", nullable=False)
+    current_balance: Mapped[Decimal] = mapped_column(Numeric(18, 2), default=Decimal("0.00"), nullable=False)
+    consent_status: Mapped[str] = mapped_column(String(20), default="active", nullable=False)
+    last_synced_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    last_sync_failed: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
+
+    tenant: Mapped[Tenant] = relationship(back_populates="linked_accounts")
+    linked_transactions: Mapped[list["LinkedAccountTransaction"]] = relationship(
+        back_populates="linked_account", cascade="all, delete-orphan"
+    )
+
+
+class LinkedAccountTransaction(Base):
+    """Read-only, provider-synced transaction detail for a LinkedAccount
+    (FE-14.9's "recent transactions"). Deliberately a separate table from
+    Transaction (manually entered data) -- FE-14.15 requires linked and
+    manual data never be conflated, which starts at the schema level, not
+    just the UI layer."""
+
+    __tablename__ = "linked_account_transactions"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), index=True, nullable=False)
+    linked_account_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("linked_accounts.id"), index=True, nullable=False
+    )
+    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    amount: Mapped[Decimal] = mapped_column(Numeric(18, 2), nullable=False)
+    currency: Mapped[str] = mapped_column(String(10), nullable=False)
+    transaction_date: Mapped[date] = mapped_column(Date, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+
+    linked_account: Mapped[LinkedAccount] = relationship(back_populates="linked_transactions")

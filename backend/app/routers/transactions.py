@@ -107,7 +107,6 @@ def create_transaction(
     _apply_balance_delta(account, payload.transaction_type, payload.amount)
     db.add(txn)
     db.commit()
-    db.refresh(txn)
     return txn
 
 
@@ -171,7 +170,6 @@ def update_transaction(
     _apply_balance_delta(account, txn.transaction_type, txn.amount)
 
     db.commit()
-    db.refresh(txn)
     return txn
 
 

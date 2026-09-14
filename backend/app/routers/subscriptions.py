@@ -23,7 +23,6 @@ def _get_or_create(db: Session, tenant_id: str) -> Subscription:
         row = Subscription(tenant_id=tenant_id)
         db.add(row)
         db.commit()
-        db.refresh(row)
     return row
 
 
@@ -95,7 +94,6 @@ def cancel_subscription(
     row.cancel_at_period_end = True
     row.canceled_at = datetime.now(timezone.utc)
     db.commit()
-    db.refresh(row)
     return _status_response(row)
 
 

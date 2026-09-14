@@ -14,6 +14,7 @@ from app.models import User
 from app.routers.accounts import router as accounts_router
 from app.routers.admin import router as admin_router
 from app.routers.auth import router as auth_router
+from app.routers.banking import router as banking_router
 from app.routers.categories import router as categories_router
 from app.routers.notifications import router as notifications_router
 from app.routers.portability import router as portability_router
@@ -84,6 +85,7 @@ async def log_requests(request: Request, call_next):
 
 
 app.include_router(auth_router, prefix="/api")
+app.include_router(banking_router, prefix="/api")
 app.include_router(accounts_router, prefix="/api")
 app.include_router(categories_router, prefix="/api")
 app.include_router(transactions_router, prefix="/api")

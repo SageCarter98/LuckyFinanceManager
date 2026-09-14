@@ -37,7 +37,6 @@ def create_savings_goal(
     )
     db.add(goal)
     db.commit()
-    db.refresh(goal)
     return goal
 
 
@@ -71,7 +70,8 @@ def update_savings_goal(
         goal.current_amount = payload.current_amount
     if payload.target_date is not None:
         goal.target_date = payload.target_date
-    db.commit(); db.refresh(goal); return goal
+    db.commit()
+    return goal
 
 
 @router.delete("/{goal_id}", status_code=status.HTTP_204_NO_CONTENT)

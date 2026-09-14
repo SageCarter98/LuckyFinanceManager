@@ -37,7 +37,6 @@ def create_notification(
     )
     db.add(notification)
     db.commit()
-    db.refresh(notification)
     return notification
 
 
@@ -57,5 +56,4 @@ def mark_notification_read(
 
     notification.is_read = True
     db.commit()
-    db.refresh(notification)
     return notification

@@ -242,3 +242,49 @@ export interface ExportPayload {
   recurring_bills: Record<string, unknown>[]
   savings_goals: Record<string, unknown>[]
 }
+
+export type ConsentStatus = 'active' | 'lapsed'
+
+export interface LinkedAccountTransactionRead {
+  id: string
+  description: string
+  amount: number
+  currency: string
+  transaction_date: string
+}
+
+export interface LinkedAccountRead {
+  id: string
+  tenant_id: string
+  provider: string
+  institution_name: string
+  account_type: AccountType
+  account_number_last4: string
+  native_currency: string
+  current_balance: number
+  consent_status: ConsentStatus
+  last_synced_at: string | null
+  last_sync_failed: boolean
+  created_at: string
+}
+
+export interface LinkedAccountDetailRead extends LinkedAccountRead {
+  recent_transactions: LinkedAccountTransactionRead[]
+}
+
+export interface GrossBalanceAccountLine {
+  linked_account_id: string
+  institution_name: string
+  native_balance: number
+  native_currency: string
+  converted_balance: number
+  rate: number
+}
+
+export interface GrossBalanceRead {
+  display_currency: string
+  total_converted: number
+  rate_basis: string
+  rates_as_of: string
+  accounts: GrossBalanceAccountLine[]
+}

@@ -31,7 +31,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import Session
 
-from app.models import Account, Tenant
+from app.models import Account, LinkedAccount, LinkedAccountTransaction, Tenant
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "")
 
@@ -208,6 +208,95 @@ def test_rls_rejects_writes_for_a_different_tenant():
                     tenant_id=tenant_b,
                     name="Should be rejected",
                     account_type="checking",
+                    native_currency="USD",
+                )
+            )
+            session.commit()
+
+
+def _seed_tenant_with_linked_account(tenant_id: str) -> str:
+    """Same shape as _seed_tenant_with_account, for the two tables added in
+    20260913_add_linked_accounts -- covers both tables the FE-14.x feature
+    added, not just linked_accounts, since each has its own policy."""
+    linked_account_id = str(uuid.uuid4())
+    with Session(engine) as session:
+        session.add(Tenant(id=tenant_id))
+        session.flush()
+        _set_tenant(session, tenant_id)
+        session.add(
+            LinkedAccount(
+                id=linked_account_id,
+                tenant_id=tenant_id,
+                provider="stub-sandbox-connector",
+                external_account_ref="stub_test",
+                institution_name="RLS Test Bank",
+                account_type="checking",
+                account_number_last4="1234",
+                native_currency="USD",
+            )
+        )
+        session.flush()
+        session.add(
+            LinkedAccountTransaction(
+                id=str(uuid.uuid4()),
+                tenant_id=tenant_id,
+                linked_account_id=linked_account_id,
+                description="RLS test transaction",
+                amount="-10.00",
+                currency="USD",
+                transaction_date="2026-09-01",
+            )
+        )
+        session.commit()
+    return linked_account_id
+
+
+def test_rls_scopes_linked_accounts_to_the_session_tenant():
+    tenant_a = str(uuid.uuid4())
+    tenant_b = str(uuid.uuid4())
+    linked_account_a = _seed_tenant_with_linked_account(tenant_a)
+    _seed_tenant_with_linked_account(tenant_b)
+
+    with Session(engine) as session:
+        _set_tenant(session, tenant_a)
+        rows = session.execute(text("SELECT id FROM linked_accounts")).fetchall()
+
+    assert [row[0] for row in rows] == [linked_account_a]
+
+
+def test_rls_scopes_linked_account_transactions_to_the_session_tenant():
+    tenant_a = str(uuid.uuid4())
+    tenant_b = str(uuid.uuid4())
+    _seed_tenant_with_linked_account(tenant_a)
+    _seed_tenant_with_linked_account(tenant_b)
+
+    with Session(engine) as session:
+        _set_tenant(session, tenant_a)
+        rows = session.execute(text("SELECT tenant_id FROM linked_account_transactions")).fetchall()
+
+    assert rows == [(tenant_a,)]
+
+
+def test_rls_rejects_cross_tenant_write_to_linked_accounts():
+    tenant_a = str(uuid.uuid4())
+    tenant_b = str(uuid.uuid4())
+    with Session(engine) as session:
+        session.add(Tenant(id=tenant_a))
+        session.add(Tenant(id=tenant_b))
+        session.commit()
+
+    with pytest.raises(DBAPIError):
+        with Session(engine) as session:
+            _set_tenant(session, tenant_a)
+            session.add(
+                LinkedAccount(
+                    id=str(uuid.uuid4()),
+                    tenant_id=tenant_b,
+                    provider="stub-sandbox-connector",
+                    external_account_ref="stub_test",
+                    institution_name="Should be rejected",
+                    account_type="checking",
+                    account_number_last4="1234",
                     native_currency="USD",
                 )
             )

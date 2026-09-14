@@ -31,7 +31,6 @@ def create_category(
     category = Category(tenant_id=current_user.tenant_id, name=payload.name, monthly_limit=payload.monthly_limit)
     db.add(category)
     db.commit()
-    db.refresh(category)
     return category
 
 
@@ -72,7 +71,6 @@ def update_category(
         category.monthly_limit = payload.monthly_limit
 
     db.commit()
-    db.refresh(category)
     return category
 
 

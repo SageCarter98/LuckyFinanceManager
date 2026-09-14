@@ -37,7 +37,6 @@ def create_account(
     )
     db.add(account)
     db.commit()
-    db.refresh(account)
     return account
 
 
@@ -82,7 +81,6 @@ def update_account(
         account.current_balance = payload.current_balance
 
     db.commit()
-    db.refresh(account)
     return account
 
 

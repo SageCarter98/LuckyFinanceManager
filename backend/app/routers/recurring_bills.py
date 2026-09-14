@@ -59,7 +59,6 @@ def create_recurring_bill(
     )
     db.add(bill)
     db.commit()
-    db.refresh(bill)
     return bill
 
 
@@ -110,7 +109,6 @@ def update_recurring_bill(
         bill.is_active = payload.is_active
 
     db.commit()
-    db.refresh(bill)
     return bill
 
 

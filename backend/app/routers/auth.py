@@ -110,7 +110,6 @@ def signup(payload: UserCreate, db: Session = Depends(get_db)):
     db.flush()
     raw_verification_token = _issue_verification_token(user)
     db.commit()
-    db.refresh(user)
 
     response = UserRead.model_validate(user)
     # No email provider is chosen yet (open decision) -- this is the only
@@ -212,7 +211,6 @@ def verify_email(payload: VerifyEmailRequest, db: Session = Depends(get_db)):
     user.verification_token_hash = None
     user.verification_expires_at = None
     db.commit()
-    db.refresh(user)
     return user
 
 
@@ -278,7 +276,6 @@ def update_me(
     for field, value in updates.items():
         setattr(current_user, field, value)
     db.commit()
-    db.refresh(current_user)
     return current_user
 
 

@@ -1,9 +1,24 @@
 from __future__ import annotations
 
 from datetime import date, datetime
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
+from typing import Annotated
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import AfterValidator, BaseModel, EmailStr, Field
+
+
+def _quantize_money(value: Decimal) -> Decimal:
+    """Every monetary column is NUMERIC(18, 2) -- Postgres/SQLite would
+    normalize to 2 decimal places on any round-trip read. Removing the
+    post-commit db.refresh() calls (they fought RLS's SET LOCAL tenant
+    context, see app/database.py) means responses now return the exact
+    Decimal a client sent -- e.g. "25.5" -- unless quantized here at
+    input time. Applied only to Create/Update (user input) schemas;
+    Read schemas just reflect whatever was already quantized going in."""
+    return value.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+
+Money = Annotated[Decimal, AfterValidator(_quantize_money)]
 
 
 class UserCreate(BaseModel):
@@ -108,14 +123,14 @@ class AccountCreate(BaseModel):
     name: str = Field(..., min_length=1)
     account_type: str = Field(..., pattern="^(checking|savings|credit)$")
     native_currency: str = Field(default="USD", min_length=3, max_length=10)
-    current_balance: Decimal = Decimal("0.00")
+    current_balance: Money = Decimal("0.00")
 
 
 class AccountUpdate(BaseModel):
     name: str | None = None
     account_type: str | None = Field(default=None, pattern="^(checking|savings|credit)$")
     native_currency: str | None = Field(default=None, min_length=3, max_length=10)
-    current_balance: Decimal | None = None
+    current_balance: Money | None = None
 
 
 class AccountRead(BaseModel):
@@ -133,12 +148,12 @@ class AccountRead(BaseModel):
 
 class CategoryCreate(BaseModel):
     name: str = Field(..., min_length=1)
-    monthly_limit: Decimal | None = None
+    monthly_limit: Money | None = None
 
 
 class CategoryUpdate(BaseModel):
     name: str | None = None
-    monthly_limit: Decimal | None = None
+    monthly_limit: Money | None = None
 
 
 class CategoryRead(BaseModel):
@@ -156,7 +171,7 @@ class TransactionCreate(BaseModel):
     account_id: str
     category_id: str | None = None
     transaction_type: str = Field(..., pattern="^(income|expense)$")
-    amount: Decimal = Field(..., gt=0)
+    amount: Money = Field(..., gt=0)
     currency: str = Field(default="USD", min_length=3, max_length=10)
     transaction_date: date | None = None
     note: str | None = None
@@ -166,7 +181,7 @@ class TransactionUpdate(BaseModel):
     account_id: str | None = None
     category_id: str | None = None
     transaction_type: str | None = Field(default=None, pattern="^(income|expense)$")
-    amount: Decimal | None = Field(default=None, gt=0)
+    amount: Money | None = Field(default=None, gt=0)
     currency: str | None = Field(default=None, min_length=3, max_length=10)
     transaction_date: date | None = None
     note: str | None = None
@@ -192,7 +207,7 @@ class RecurringBillCreate(BaseModel):
     name: str = Field(..., min_length=1)
     account_id: str
     category_id: str | None = None
-    amount: Decimal = Field(..., gt=0)
+    amount: Money = Field(..., gt=0)
     currency: str = Field(default="USD", min_length=3, max_length=10)
     frequency: str = Field(..., pattern="^(weekly|monthly|yearly)$")
     due_day: int = Field(default=1, ge=1, le=31)
@@ -202,7 +217,7 @@ class RecurringBillUpdate(BaseModel):
     name: str | None = None
     account_id: str | None = None
     category_id: str | None = None
-    amount: Decimal | None = Field(default=None, gt=0)
+    amount: Money | None = Field(default=None, gt=0)
     currency: str | None = Field(default=None, min_length=3, max_length=10)
     frequency: str | None = Field(default=None, pattern="^(weekly|monthly|yearly)$")
     due_day: int | None = Field(default=None, ge=1, le=31)
@@ -228,15 +243,15 @@ class RecurringBillRead(BaseModel):
 
 class SavingsGoalCreate(BaseModel):
     name: str = Field(..., min_length=1)
-    target_amount: Decimal = Field(..., gt=0)
-    current_amount: Decimal = Decimal("0.00")
+    target_amount: Money = Field(..., gt=0)
+    current_amount: Money = Decimal("0.00")
     target_date: date | None = None
 
 
 class SavingsGoalUpdate(BaseModel):
     name: str | None = None
-    target_amount: Decimal | None = Field(default=None, gt=0)
-    current_amount: Decimal | None = None
+    target_amount: Money | None = Field(default=None, gt=0)
+    current_amount: Money | None = None
     target_date: date | None = None
 
 
@@ -314,3 +329,55 @@ class BillingHistoryItem(BaseModel):
     created_at: datetime
     hosted_invoice_url: str | None = None
     invoice_pdf_url: str | None = None
+
+
+class BankLinkRequest(BaseModel):
+    institution_name: str = Field(..., min_length=1)
+
+
+class LinkedAccountTransactionRead(BaseModel):
+    id: str
+    description: str
+    amount: Decimal
+    currency: str
+    transaction_date: date
+
+    model_config = {"from_attributes": True}
+
+
+class LinkedAccountRead(BaseModel):
+    id: str
+    tenant_id: str
+    provider: str
+    institution_name: str
+    account_type: str
+    account_number_last4: str
+    native_currency: str
+    current_balance: Decimal
+    consent_status: str
+    last_synced_at: datetime | None
+    last_sync_failed: bool
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class LinkedAccountDetailRead(LinkedAccountRead):
+    recent_transactions: list[LinkedAccountTransactionRead] = []
+
+
+class GrossBalanceAccountLine(BaseModel):
+    linked_account_id: str
+    institution_name: str
+    native_balance: Decimal
+    native_currency: str
+    converted_balance: Decimal
+    rate: Decimal
+
+
+class GrossBalanceRead(BaseModel):
+    display_currency: str
+    total_converted: Decimal
+    rate_basis: str
+    rates_as_of: datetime
+    accounts: list[GrossBalanceAccountLine]

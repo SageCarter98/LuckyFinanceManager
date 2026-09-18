@@ -59,13 +59,27 @@
   --color-slate-surface-subtle: #f1f5f9;
   --color-slate-border: #cbd5e1;
   --color-slate-navy-deep: #1e293b;
-  --color-growth-emerald-deep: #059669;
+  /* growth-emerald-deep, expense-crimson, warning-amber all darkened
+     2026-09-18 (accessibility E2E, axe-core color-contrast, WCAG AA) --
+     each is used as real text (income/expense figures, StatusChip/Banner
+     text) on white or its own -tint background, and each failed there:
+     emerald #059669 read 3.77/3.58, crimson #ef4444 read 3.76/3.44, amber
+     #f59e0b read 2.15/2.07 -- all below the 4.5:1 normal-text minimum.
+     New values clear both backgrounds with real margin while staying the
+     same hue: emerald 5.48/5.21, crimson 6.47/5.91, amber 5.02/4.84. */
+  --color-growth-emerald-deep: #047857;
   --color-growth-emerald-tint: #ecfdf5;
-  --color-expense-crimson: #ef4444;
+  --color-expense-crimson: #b91c1c;
   --color-expense-crimson-tint: #fef2f2;
-  --color-warning-amber: #f59e0b;
+  --color-warning-amber: #b45309;
   --color-warning-amber-tint: #fffbeb;
-  --color-info-sky: #0284c7;
+  /* Darkened from #0284c7 2026-09-18 (accessibility E2E, axe-core
+     color-contrast, WCAG AA): the old value read at 4.10:1 against white
+     and 3.84:1 against --color-info-sky-tint, both below the 4.5:1 normal-
+     text minimum -- this token is used as small link/label text on
+     exactly those two backgrounds on nearly every page. #0369a1 clears
+     5.93:1 / 5.57:1 respectively while staying the same hue family. */
+  --color-info-sky: #0369a1;
   --color-info-sky-tint: #f0f9ff;
   --color-table-header-fill: #e2e8f0;
 

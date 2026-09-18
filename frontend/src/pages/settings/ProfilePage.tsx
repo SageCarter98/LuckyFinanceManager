@@ -75,10 +75,10 @@ export function ProfilePage() {
                   minLength={1}
                 />
               </Field>
-              <div className="flex flex-col gap-space-3xs">
+              <dl className="flex flex-col gap-space-3xs">
                 <dt className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Email</dt>
                 <dd className="font-body-md text-body-md text-on-surface">{user?.email}</dd>
-              </div>
+              </dl>
               <Field label="Timezone" required htmlFor="profile-timezone" hint="IANA timezone name, e.g. America/New_York">
                 <input
                   id="profile-timezone"
@@ -99,7 +99,7 @@ export function ProfilePage() {
                   maxLength={10}
                 />
               </Field>
-              <div className="flex flex-col gap-space-3xs">
+              <dl className="flex flex-col gap-space-3xs">
                 <dt className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Email verification</dt>
                 <dd className="flex items-center gap-space-sm">
                   <StatusChip tone={user?.email_verified ? 'positive' : 'neutral'}>
@@ -116,11 +116,11 @@ export function ProfilePage() {
                     </button>
                   )}
                 </dd>
-              </div>
-              <div className="flex flex-col gap-space-3xs">
+              </dl>
+              <dl className="flex flex-col gap-space-3xs">
                 <dt className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Tenant ID</dt>
                 <dd className="font-body-sm text-body-sm text-on-surface-variant">{user?.tenant_id}</dd>
-              </div>
+              </dl>
             </div>
 
             {error && (

@@ -3,12 +3,20 @@ from functools import lru_cache
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# Checked into this public repo (Security_Design.md section 3 discloses it as
+# a placeholder), so a production deploy that forgets to set SECRET_KEY would
+# otherwise sign every JWT with a secret anyone can read -- full auth bypass
+# (forge an access token for any user id, admin included). get_settings()
+# below fails closed on this the same way app/database.py already fails
+# closed on a sqlite DATABASE_URL in production.
+_DEFAULT_SECRET_KEY = "dev-secret-key-change-me"
+
 
 class Settings(BaseSettings):
     app_name: str = "Finance Management Platform"
     environment: str = "development"
     database_url: str = Field(default="sqlite:///./finance.db", alias="DATABASE_URL")
-    secret_key: str = Field(default="dev-secret-key-change-me", alias="SECRET_KEY")
+    secret_key: str = Field(default=_DEFAULT_SECRET_KEY, alias="SECRET_KEY")
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
     refresh_token_expire_days: int = 7
@@ -44,4 +52,9 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    settings = Settings()
+    if settings.is_production and settings.secret_key == _DEFAULT_SECRET_KEY:
+        raise RuntimeError(
+            "Production environment requires a real SECRET_KEY (the default dev value is public in this repo)."
+        )
+    return settings

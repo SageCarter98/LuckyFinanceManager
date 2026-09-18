@@ -50,6 +50,30 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 
+_SECURITY_HEADERS = {
+    # This backend only ever serves JSON (the SPA is a separate origin/build),
+    # so a maximally strict CSP costs nothing: no inline script/style, no
+    # frame, no unexpected sub-resource ever needs to load out of a response
+    # from here.
+    "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "no-referrer",
+    # Harmless to send over plain HTTP (browsers ignore it there); real
+    # effect starts once Render's TLS termination is actually in front of
+    # this service (Security_Design.md section 4).
+    "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+}
+
+
+@app.middleware("http")
+async def security_headers(request: Request, call_next):
+    response = await call_next(request)
+    for header, value in _SECURITY_HEADERS.items():
+        response.headers.setdefault(header, value)
+    return response
+
+
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     """Closes the "no request/error logging middleware anywhere" gap

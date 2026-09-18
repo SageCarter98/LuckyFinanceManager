@@ -97,6 +97,27 @@ def cancel_subscription(
     return _status_response(row)
 
 
+@router.post("/dev-grant-trial", response_model=SubscriptionStatusRead, include_in_schema=False)
+def dev_grant_trial(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Dev/E2E-only: activates a trial without a real Stripe checkout. No
+    Stripe test-mode account exists yet (see FE-12 implementation notes),
+    so this is what lets banking's E2E consent/link/sync/unlink flow --
+    gated by require_active_entitlement -- be exercised in a real browser
+    at all. Same purpose as banking's own lapse-consent dev endpoint:
+    hidden from the OpenAPI schema, never a real product endpoint, and
+    refuses outright in production so it can never become a
+    free-entitlement bypass."""
+    if settings.is_production:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    row = _get_or_create(db, current_user.tenant_id)
+    row.status = "trialing"
+    db.commit()
+    return _status_response(row)
+
+
 @router.get("/billing-history", response_model=list[BillingHistoryItem])
 def get_billing_history(
     db: Session = Depends(get_db),

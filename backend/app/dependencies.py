@@ -56,10 +56,7 @@ def require_active_entitlement(
     current_user: User = Depends(get_current_user),
 ) -> User:
     """FR-12.2/FR-12.9: gates subscription-only features (bank-linking,
-    Gross Balance). Intentionally unattached to any router today -- no
-    bank router exists yet in this codebase (Workstream F is blocked
-    pending legal/provider approval). Built now so that router can add
-    `Depends(require_active_entitlement)` with zero new design work."""
+    Gross Balance). Attached to every route in app/routers/banking.py."""
     subscription = db.query(Subscription).filter(Subscription.tenant_id == current_user.tenant_id).first()
     if not is_entitled(subscription):
         raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Active subscription or trial required")

@@ -78,3 +78,58 @@ export async function goToDataSettings(page: Page): Promise<void> {
   await page.locator('header button[aria-haspopup="true"]').click()
   await page.getByRole('link', { name: /data & privacy/i }).click()
 }
+
+// Matches playwright.config.ts's BACKEND_PORT / frontend/.env.development's
+// VITE_API_BASE_URL -- not proxied through the frontend dev server, so
+// page.request (which defaults to the frontend baseURL) needs the full
+// backend origin to reach these.
+const BACKEND_API_BASE = 'http://127.0.0.1:8000/api'
+
+async function backendAccessToken(page: Page, user: TestUser): Promise<string> {
+  const login = await page.request.post(`${BACKEND_API_BASE}/auth/login`, {
+    data: { email: user.email, password: user.password },
+  })
+  const body = await login.json()
+  return body.access_token
+}
+
+/** Activates a trial entitlement via a dev-only backend endpoint, bypassing
+ * real Stripe checkout -- no Stripe test-mode account is configured for
+ * this project yet, so there is no UI path to an active subscription in
+ * E2E. Only used to unlock subscription-gated features (Banking) under
+ * test; never itself the thing being tested. A fresh API-level login, not
+ * the page's own in-memory session -- keeps this setup step independent of
+ * whatever UI state the test is in. */
+export async function grantTrialEntitlement(page: Page, user: TestUser): Promise<void> {
+  const token = await backendAccessToken(page, user)
+  const grant = await page.request.post(`${BACKEND_API_BASE}/subscriptions/dev-grant-trial`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!grant.ok()) throw new Error(`dev-grant-trial failed: ${grant.status()} ${await grant.text()}`)
+}
+
+/** Reads back the tenant's linked accounts via the real API (not the UI) --
+ * used only to find an id `lapseConsent` needs after linking through the
+ * UI, never to assert on the feature under test itself. */
+export async function listLinkedAccountIds(page: Page, user: TestUser): Promise<string[]> {
+  const token = await backendAccessToken(page, user)
+  const list = await page.request.get(`${BACKEND_API_BASE}/banking/accounts`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  const accounts: { id: string }[] = await list.json()
+  return accounts.map((account) => account.id)
+}
+
+/** Puts a linked account's consent into the lapsed state via banking's own
+ * dev-only endpoint (`POST /banking/accounts/{id}/lapse-consent`) -- a
+ * real provider would notify this app of a lapse via webhook, and no such
+ * provider exists yet (stub adapter), so this is the only way to reach
+ * that state at all. Mirrors backend/tests/test_banking.py's own use of
+ * the same endpoint. */
+export async function lapseConsent(page: Page, user: TestUser, linkedAccountId: string): Promise<void> {
+  const token = await backendAccessToken(page, user)
+  const lapse = await page.request.post(`${BACKEND_API_BASE}/banking/accounts/${linkedAccountId}/lapse-consent`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!lapse.ok()) throw new Error(`lapse-consent failed: ${lapse.status()} ${await lapse.text()}`)
+}

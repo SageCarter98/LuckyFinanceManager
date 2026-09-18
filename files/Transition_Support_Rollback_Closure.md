@@ -3,7 +3,8 @@
 Prepared 13 September 2026. Closes tracker item #34 (PM Gate 3.11),
 previously Not started. Written against the actual hosting decision
 (`Hosting_Decision_Finance_Management_Platform.md`, Render) and the actual
-migration chain in this repository, not a generic template.
+migration chain in this repository, not a generic template. §4a added
+15 September 2026, advancing #143 (SDLC G4.16).
 
 ## 1. Transition
 
@@ -78,6 +79,56 @@ response would go smoothly under pressure.
 autodeploy for that service -- a real operational detail (confirmed via
 Render's own documentation) that would otherwise surprise whoever
 rolls back, expecting the next push to deploy normally.
+
+## 4a. Backup/restore drill (added 15 September 2026)
+
+Advances tracker item #143 (SDLC G4.16). §4 above verified *schema*
+rollback (`alembic downgrade`/`upgrade`); this rehearses the other half —
+actually backing up and restoring *data* — which had never been run.
+
+**Executed, not assumed:** `pg_dump -Fc` against the real local
+`finance_rls_test` database (14 tables, 466 tenants' worth of accumulated
+test data), restored into a fresh scratch database
+(`finance_restore_drill`, dropped after verification), then confirmed:
+row counts identical across all 14 tables between source and restored
+database (queried with the same role/privileges on both sides, to avoid
+the measurement error described below), and RLS re-verified working
+post-restore on real data — a known tenant's `accounts` row is visible
+under its own `app.tenant_id`, invisible under a different tenant's id,
+and invisible with no tenant context set at all (not an error, an empty
+result — see the second finding below).
+
+**Real gotcha found while running this, not previously disclosed
+anywhere:** `pg_dump` run as `finance_app` — this project's deliberately
+non-superuser, non-BYPASSRLS application role (same reasoning as the CI
+`rls-verification` job and [[postgres_local_setup]]'s local mirror) —
+**fails outright**: `ERROR: query would be affected by row-level security
+policy for table "accounts"`. `FORCE ROW LEVEL SECURITY` blocks `pg_dump`'s
+`COPY ... TO stdout` even for the table's own owner, not just other roles.
+A real backup must run as a superuser/BYPASSRLS connection (which is what
+this drill switched to and used successfully), never as the application's
+own restricted role. This has a direct, concrete consequence for the
+eventual Render deployment: whatever connection Render's own PITR/backup
+mechanism uses must be its admin-level connection, not `finance_app`-
+equivalent credentials, or backups would fail outright rather than
+silently succeed with partial data — worth confirming explicitly once a
+real Render Postgres instance exists, rather than assumed.
+
+**Second, smaller finding:** a plain `SELECT count(*)` as `finance_app`
+with no `app.tenant_id` set returns `0` silently — not an error, unlike
+`pg_dump`'s `COPY`. This asymmetry is why the first row-count comparison
+attempt in this drill produced a false mismatch (comparing a
+tenant-context-less `SELECT` against a superuser `pg_dump`'s true totals)
+before being corrected to compare like-for-like.
+
+**Scope, disclosed honestly:** this rehearses the *mechanism*
+(`pg_dump`/`pg_restore` correctly preserves RLS-protected data and
+policies) against a local database at a modest scale (466 tenant rows).
+It does **not** rehearse Render's actual PITR procedure or UI, which
+remains blocked on a paid Render plan not yet provisioned (unchanged from
+`Gate4_Release_Readiness_Checklist.md`'s Data row), and it is not a
+production-scale or production-shaped drill — same caveat §4 already
+carries for the schema-rollback verification.
 
 ## 5. Closure approach
 

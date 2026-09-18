@@ -66,10 +66,13 @@ and tests, not the intended design.
   `...does_not_permit_deleting_another_tenants_row` assert it cannot become
   a write/delete escape hatch.
 - **Entitlement gating:** `require_active_entitlement` exists and is
-  tested (`test_entitlement_guard_matrix`) but is intentionally unattached
-  to any router today, since the only feature it would gate (bank-linking)
-  doesn't exist yet -- built ahead of need deliberately, not a dead-code
-  oversight (`dependencies.py`'s own docstring).
+  tested (`test_entitlement_guard_matrix`). **Updated 2026-09-18** (G4.09
+  security/privacy review) -- this line was stale: Banking shipped
+  2026-09-14 and every route in `app/routers/banking.py` (institutions,
+  linked-account list/detail/link/sync/reauthorize/unlink, gross-balance)
+  now depends on it, closing the "unattached" gap `dependencies.py`'s own
+  docstring still describes as of this writing (that docstring itself is
+  now stale and should be updated in a follow-up, not restated here).
 
 ## 3. Secrets
 

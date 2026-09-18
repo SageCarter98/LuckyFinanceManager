@@ -61,12 +61,20 @@ jobs:
 
       - name: Backend dependency vulnerability scan (pip-audit)
         working-directory: backend
-        # Non-blocking for now: pip-audit already found real, pre-existing
-        # findings in this dependency set (python-jose, fastapi's pinned
-        # starlette, pytest, ecdsa) that need a dedicated upgrade pass, not
-        # a silent fail-open or a rushed major-version bump under this PR.
-        # Tracked as known technical debt (see files/G3_Code_Complete_Assessment.md
-        # item #126) rather than gated on here. Flip to blocking once clean.
+        # Updated 2026-09-18 (G4.09 security/privacy review): the
+        # python-jose/starlette(via fastapi)/pytest findings this comment
+        # used to describe were remediated 2026-09-13 (commit 7f44af0) and
+        # a fresh pip-audit run this session confirms none of the three
+        # reappeared. The one remaining, still-non-blocking finding is
+        # `ecdsa` 0.19.2 (PYSEC-2026-1325/CVE-2024-23342, no fixed version
+        # exists upstream) -- accepted residual risk, and confirmed a dead
+        # code path for this app specifically: ALGORITHM is HS256 (HMAC)
+        # only, so security.py's jwt.encode/decode never exercise the
+        # RSA/ECDSA path ecdsa exists for (same reasoning recorded in
+        # 7f44af0's own commit message). Non-blocking remains correct while
+        # that's the only open finding; revisit if pip-audit ever reports a
+        # second one alongside it. See files/G3_Code_Complete_Assessment.md
+        # item #126 and files/Security_Privacy_Review_G4.md.
         run: |
           pip install pip-audit
           pip-audit -r requirements.txt || true

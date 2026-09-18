@@ -24,12 +24,25 @@ description of intended scope:
 | Recurring bill and savings goal details | `recurring_bills.*`, `savings_goals.*` | Financial data |
 | Stripe customer/subscription IDs, plan/status | `subscriptions.*` | Billing metadata -- **no card number, CVV, or full payment instrument is ever stored here**; Stripe holds that (see §3) |
 | Admin access log: which staff member looked up which tenant/email, when, why | `admin_access_logs.*` | Staff activity audit trail, not itself tenant data (deliberately outside RLS, `models.py` docstring) |
+| Linked bank account: institution name, account type, last 4 digits, native balance/currency, consent status | `linked_accounts.*` | Financial data, added by Banking (FE-14.x, shipped 2026-09-14) -- **no full account/routing number, no real provider credential, is ever stored** (`models.py`'s own docstring on `LinkedAccount`); `account_number_last4` matches the same masking-at-the-data-layer pattern as the rest of this table |
+| Linked account transaction: description, amount, currency, date | `linked_account_transactions.*` | Financial data from an externally-linked account, same sensitivity class as `transactions.*` above |
 
 **Not collected, confirmed by absence:** no government ID, no biometric
-data, no precise geolocation, no bank account/routing numbers (Workstream
-F/bank-linking is unbuilt and blocked), no children's data (no age-gating
+data, no precise geolocation, no full bank account/routing number (only
+`account_number_last4`, see above), no children's data (no age-gating
 exists, but the product's own scope and marketing target adults; this is a
 disclosed gap, not a control).
+
+**Updated 2026-09-18** (G4.09 security/privacy review,
+`files/Security_Privacy_Review_G4.md`): this table was stale by four days.
+It previously said "no bank account/routing numbers (Workstream F/
+bank-linking is unbuilt and blocked)" -- Banking shipped 2026-09-14, the day
+after this document was first prepared, and this section was never
+revisited against the changed `models.py`. The two new rows above close
+that gap; §3 and §5 below are unaffected (Banking's provider is a disclosed
+local stub, `app/core/bank_provider.py` -- not a real third party yet, so
+no new data-sharing or DPA question exists today, only once a real
+aggregator is chosen).
 
 ## 2. Purpose and legal basis
 

@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 import stripe
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
@@ -18,11 +19,28 @@ stripe.api_key = settings.stripe_secret_key
 
 
 def _get_or_create(db: Session, tenant_id: str) -> Subscription:
+    """Found by an E2E run that hit a real `UNIQUE constraint failed:
+    subscriptions.tenant_id` under this method's original select-then-insert
+    shape -- a plain TOCTOU race (two requests for the same tenant, e.g. a
+    client-side retry, both pass the SELECT before either commits). Whether
+    that run's specific trigger was a genuine double-submit or an artifact
+    of heavy system load wasn't conclusively isolated, but the race is real
+    by inspection regardless, and `subscriptions.tenant_id` is correctly
+    unique (one subscription per tenant is the actual business rule) -- so
+    the fix is to make the loser of the race recover, not to remove the
+    constraint."""
     row = db.query(Subscription).filter(Subscription.tenant_id == tenant_id).first()
-    if row is None:
-        row = Subscription(tenant_id=tenant_id)
-        db.add(row)
+    if row is not None:
+        return row
+    row = Subscription(tenant_id=tenant_id)
+    db.add(row)
+    try:
         db.commit()
+    except IntegrityError:
+        db.rollback()
+        row = db.query(Subscription).filter(Subscription.tenant_id == tenant_id).first()
+        if row is None:
+            raise
     return row
 
 
